@@ -1,0 +1,617 @@
+﻿
+@{
+    ViewBag.Title = "query";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Themes/ckeditor/ckeditor.js"></script>    
+<section class="content">
+    <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" style="width:870px" role="document">
+            <div class="modal-content" style="right:auto">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Query</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- /.box-header -->
+                    <form role="form" id="from_id" method="post">
+                        <input type="hidden" name="ID" value="0" />
+                        <!-- text input -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>File No<span class="error"> * </span></label>
+                                    
+                                    <select name="FILE_ID" id="file_id" class="form-control select2" dir="ltr" style="width: 100%;" required>
+                                        <option >Select File</option>
+                                        @foreach (var item in ViewBag.files)
+                                        {
+                                            <option value="@item.ID">@item.R_NO</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>AgentName</label>
+                                    <select name="SENT_TO" id="agentid" class="form-control select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                        @foreach (var item in ViewBag.agents)
+                                        {
+                                            <option value="@item.ID">@item.NAME</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- text input -->
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group ">
+                                    <label>Query Remarks</label>
+                                    <select name="QUERY_REMARK" class="form-control select2" style="width: 100%">
+                                        <option value="Query Not Generate">Select Query</option>
+                                        <optgroup label="Sale Deed">
+                                            <option>Party's Sale Deed</option>
+                                            <option>Previous Party's Sale Deed</option>
+                                            <option>Original Sale Deed of party when necessary</option>
+                                        </optgroup>
+                                        <optgroup label="LOD.">
+                                            <option>Original LOD with new or latest date</option>
+                                            <option>Xerox LOD with new or latest date</option>
+                                        </optgroup>
+                                        <optgroup label="Master file">
+                                            <option>Master file</option>
+                                        </optgroup>
+                                        <optgroup label="N.A. Order">
+                                            <option>N.A. Order </option>
+                                        </optgroup>
+                                        <optgroup label="Construction Permission">
+                                            <option>Construction Permission</option>
+                                        </optgroup>
+                                        <optgroup label="Agreement to sale">
+                                            <option>Original agreement to sale</option>
+                                            <option>Copy of a agreement to sale</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <br />
+                                        <br />
+                                        <input type="checkbox" name="OV" value="Yes" />
+                                        <label for="exampleInputFile">OV</label>
+                                        <input type="checkbox" name="LOD" id="" value="Yes" />
+                                        <label for="exampleInputFile">LOD</label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group" style="display:inline">
+                                        <br />
+                                        <br />
+                                        <label for="exampleInputFile">Is Resolve</label>
+                                        <div class="radio" style="display:inline">
+                                            <label>
+                                                <input type="radio" name="IS_RESOLVE" value="true">
+                                                Yes
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="IS_RESOLVE" value="false" checked>
+                                                No
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>                            
+                            </div>
+                                <div class="form-group ">
+                                    <label>SMS Content</label>
+                                    <textarea name="SMS_CONTENT" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                    <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                                </div>
+                                <div class="form-group ">
+                                    <label>Email Content</label>
+                                    <textarea name="EMAIL_CONTENT" id="ckediter" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                    <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                                </div>
+                                <!-- text input -->
+                              <div class="row">
+                                  <div class="col-sm-6" id="mo_text_id">
+                                      <div class="form-group" style="display:inline">
+                                          <label for="exampleInputFile">Mobile no</label>
+                                          <input type="text" id="mobile_no" class="form-control" name="MOBILE_NO" />
+                                      </div>
+                                  </div><br />
+                                  <div class="col-md-4">
+                                      <div class="form-group">
+                                          <input type="button" id="add_no_btn" onclick="addElementMOBILE()" value="+" />
+                                          <input type="button" onclick="removeElementMOBILE();" value="-" />
+                                      </div>
+                                  </div>
+                                  </div>
+                                <div class="row" id="txt">
+                                    <div class="col-sm-6">
+                                        <div class="form-group" style="display:inline">
+                                            <label for="exampleInputFile">Bank Email</label>
+                                            <input type="text" id="email" class="form-control" name="TO" />
+                                        </div>
+                                    </div><br />
+                                
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input type="button" onclick="cancel()" id="btn" value="Cancel" />
+                                        </div>
+                                    </div>
+                                </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group" style="display:inline">
+                                    <label for="exampleInputFile">Agent Email</label>
+                                    <input type="text" id="Agentemail" class="form-control" name="TO" />
+                                </div>
+                            </div><br />
+                        </div>
+                                <div id="showtextbox" class="">
+                                    <div class="row">
+                                        <div id="text_id" class="col-sm-6">
+                                            <div class="form-group" style="display:inline">
+                                                <label for="exampleInputFile">CC</label>
+                                                <textarea id="toemail" class="form-control" name="CC" ></textarea>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="button" id="add_btn" onclick="addElement()" value="+" />
+                                                <input type="button" onclick="removeElement();" value="-" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div id="text_id1" class="col-sm-6">
+                                            <div class="form-group" style="display:inline">
+                                                <label for="exampleInputFile">BCC</label>
+                                                <input type="text" id="bccemail" class="form-control" name="BCC" />
+                                            </div>
+                                        </div><br />
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <input type="button" onclick="addElement1()" id="add_bcc_btn" value="+" />
+                                                <input type="button" onclick="removeElement1();" value="-" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- text input -->
+                                <div class="box-footer">
+                                    <button type="submit" class="btn btn-success pull-right">Add Query</button>
+                                </div>
+                    </form>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--model 2-->
+    <div class="modal fade" id="myModal2" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Query</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- /.box-header -->
+                    <form role="form" id="Config_Form" method="post">
+                        <!-- text input -->
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <label>Query Remarks</label>
+                            <input type="text" id="QUERY_REMARK" disabled name="QUERY_REMARK" class="form-control">
+                        </div>
+
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label for="exampleInputFile">Is Resolve</label>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="IS_RESOLVE" id="R3" value="true">Yes
+                                </label>
+                                <label>
+                                    <input type="radio" name="IS_RESOLVE" id="R4" value="false">No
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label>SMS Content</label>
+                            <textarea name="SMS_CONTENT" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                            <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="form-group ">
+                            <label>Email Content</label>
+                            <textarea name="EMAIL_CONTENT" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                            <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6" id="mo1_text_id">
+                                <div class="form-group" style="display:inline">
+                                    <label for="exampleInputFile">Mobile no</label>
+                                    <input type="text" id="number" class="form-control" name="MOBILE_NO" />
+                                </div>
+                            </div><br />
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="button" id="add_no_btn1" onclick="addElementMOBILE1()" value="+" />
+                                    <input type="button" onclick="removeElementMOBILE1();" value="-" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="txt1">
+                            <div class="col-sm-6">
+                                <div class="form-group" style="display:inline">
+                                    <label for="exampleInputFile">Bank mail</label>
+                                    <input type="text" id="Bemail" value="" class="form-control" name="TO" />
+                                </div>
+                            </div><br />
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="button" onclick="cancel1()" id="btn1" value="Cancel" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group" style="display:inline">
+                                    <label for="exampleInputFile">Agent Email</label>
+                                    <input type="text" id="Aemail" class="form-control" name="TO" />
+                                </div>
+                            </div><br />
+                        </div>
+                        <div id="showtextbox" class="">
+                            <div class="row">
+                                <div id="text_id2" class="col-sm-6">
+                                    <div class="form-group" style="display:inline">
+                                        <label for="exampleInputFile">CC</label>
+                                        <textarea id="_cc" class="form-control" name="CC" ></textarea>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="button" id="add_btn1" onclick="addElement5()" value="+" />
+                                        <input type="button" onclick="removeElement5();" value="-" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="text_id3" class="col-sm-6">
+                                    <div class="form-group" style="display:inline">
+                                        <label for="exampleInputFile">BCC</label>
+                                        <input type="text" id="bccemail1" class="form-control" name="BCC" />
+                                    </div>
+                                </div><br />
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <input type="button" onclick="addElement6()" id="add_bcc_btn1" value="+" />
+                                        <input type="button" onclick="removeElement6()" value="-" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <input type="hidden" id="hdnid" name="ID" />
+                            <button type="submit" id="submit_id" class="btn btn-success pull-right">Upadate</button>
+                        </div>
+                    </form>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Querys List</h3>
+            <a href="" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary" style="float: right;">Add Query</a>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="fileTable" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="fileTable_info">
+                <thead>
+                    <tr>
+                        <th>SR_NO</th>
+                        <th>File_No</th>
+                        <th>Agent</th>
+                        <th>Bank</th>
+                        <th>Query</th>
+                        <th>SMS_Content</th>
+                        <th>Email_Content</th>
+                        <th>OV</th>
+                        <th>LOD</th>
+                        <th>Is_resolve</th>
+                        @*<th>Date</th>*@
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int i = 1;}
+                    @foreach (var item in ViewBag.queryes)
+                    {                       
+                        <tr id="row_@item.ID">
+                            @{
+                                int b_id = item.file.B_ID;
+                            }
+                            <td>
+                                <span>@i</span>
+                            </td>
+                            <td>
+                                @item.file.R_NO
+                                <span class="hidden" id="FILE_ID_@item.ID">@item.FILE_ID</span>
+                            </td>
+                            <td>
+                                @item.agent_master.NAME
+                                <span class="hidden" id="SENT_@item.ID">@item.SENT_TO</span>
+                            </td>
+                            <td>                              
+                                @foreach(var data in ViewBag.bank)
+                                {
+                                    if(b_id == data.ID)
+                                    {
+                                        @data.NAME
+                                    }
+                                }
+                            </td>
+                            <td id="QUERY_REMARK_@item.ID">
+                                @item.QUERY_REMARK
+                            </td>
+                            <td>
+                                @item.SMS_CONTENT
+                            </td>
+                            <td>
+                                @Html.Raw(@item.EMAIL_CONTENT)
+                            </td>
+                            <td id="OV_@item.ID">
+                                @item.OV
+                            </td>
+                            <td id="LOD_@item.ID">
+                                @item.LOD
+                            </td>
+                            <td id="IS_RESOLVE_@item.ID">
+                                @if (item.IS_RESOLVE == true)
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </td>
+                            @*<td>
+                                @item.ENT_DATE.ToString("dd/MM/yyyy")
+                            </td>*@
+                            <td>
+                                <a href="" onclick="OpenDialog(@item.ID)" data-toggle="modal" data-target="#myModal2" type="button">&nbsp; <i class="fa fa-edit"></i></a>
+                                <a style="display:inline" class="hide_me" onclick="Delete(@item.ID,'del')"> &nbsp; <i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<script>
+    $("#file_id").change(function () {
+        $.ajax({
+            type: "get",
+            url: "/Loadagent",
+            data: { ID: $('#file_id').val() },
+            datatype: "Json",
+            success: function (data) {
+                $('#toemail').val(data.data.cc);
+                $('#email').val(data.data.bank_email);
+                $('#Agentemail').val(data.data.agentemail);
+                $('#mobile_no').val(data.data.mobile_no);
+                var agent = data.data.Agentid;
+                $('#agentid option[value="' + agent + '"]').prop("selected","selected").change();
+
+            }, error: function (xhr, textStatus, errorThrown) {
+                alert(xhr.responseText);
+            }
+        })
+        });
+</script>
+<script>
+    function OpenDialog(id) {
+        var emp =
+                   {
+                       ID : id,
+                   }
+        $.ajax({
+            url: '/getquery/' + id,
+            type: 'GET',
+
+            success: function (data) {
+                $('#hdnid').val(data.data[0] .ID);
+                $('#QUERY_REMARK').val(data.data[0].QUERY_REMARK);
+                var isresolve = data.data[0].IS_RESOLVE;
+                if (isresolve == true) {
+                    $('input:radio[name=IS_RESOLVE]')[2].checked = true;
+                }
+                else {
+                    $('input:radio[name=IS_RESOLVE]')[3].checked = true;
+                }
+                $('#Aemail').val(data.data[0].SENT_TO);
+                $('#number').val(data.data[0].mobile_no);
+                $('#Bemail').val(data.data[0].B_mail);
+                $('#_cc').val(data.data[0].cc);
+
+            }
+        });
+    }
+</script>
+
+<script>
+    function Delete(id,del)
+    {
+        if (confirm("Are you sure Delete this Record?")) {
+            var deletes =
+               {
+                   ID : id,
+                   qry_del : del,
+               }
+            {
+                $.ajax({
+                    url: '/delete/',
+                    data: JSON.stringify(deletes),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        $('#row_'+id).hide();
+                    }
+                });
+            }
+        }
+        return false;
+    }
+</script>
+<script>
+    function cancel()
+    {
+        $('#txt').addClass("hidden");      
+        $('#email').val("");
+    }
+</script>
+
+<script>
+    function cancel1()
+    {
+        $('#txt1').addClass("hidden");
+        $('#Aemail').val("");
+    }
+</script>
+
+<script>
+    var intTextBox = 0;
+function addElement() {
+    intTextBox++;
+    var objNewDiv = document.createElement('div');
+    objNewDiv.setAttribute('id', 'div_' + intTextBox);
+    objNewDiv.innerHTML = '<div style="padding:3px"> <input type="text" id="tb_' + intTextBox + '" name="CC" class="form-control" /></div>';
+    document.getElementById('text_id').appendChild(objNewDiv);
+}
+</script>
+<script>
+function removeElement() {
+    if(0 < intTextBox) {
+        document.getElementById('text_id').removeChild(document.getElementById('div_' + intTextBox));
+        intTextBox--;
+    } else {
+        alert("No textbox to remove");
+    }
+}
+</script>
+<script>
+    var intTextBox1 = 11;
+function addElement1() {
+    intTextBox1++;
+    var objNewDiv = document.createElement('div');
+    objNewDiv.setAttribute('id', 'div_' + intTextBox1);
+    objNewDiv.innerHTML = '<div style="padding:3px"> <input type="text" id="tbl_' + intTextBox1 + '" name="BCC" class="form-control" /></div>';
+    document.getElementById('text_id1').appendChild(objNewDiv);
+}
+</script>
+<script>
+function removeElement1() {
+    if(0 < intTextBox1) {
+        document.getElementById('text_id1').removeChild(document.getElementById('div_' + intTextBox1));
+        intTextBox--;
+    } else {
+        alert("No textbox to remove");
+    }
+}
+</script>
+
+
+<script>
+    var intTextBox = 0;
+function addElement5() {
+    intTextBox++;
+    var objNewDiv = document.createElement('div');
+    objNewDiv.setAttribute('id', 'div1_' + intTextBox);
+    objNewDiv.innerHTML = '<div style="padding:3px"> <input type="text" id="tb1_' + intTextBox + '" name="CC" class="form-control" /></div>';
+    document.getElementById('text_id2').appendChild(objNewDiv);
+}
+</script>
+<script>
+function removeElement5() {
+    if(0 < intTextBox) {
+        document.getElementById('text_id2').removeChild(document.getElementById('div1_' + intTextBox));
+        intTextBox--;
+    } else {
+        alert("No textbox to remove");
+    }
+}
+</script>
+<script>
+    var intTextBox1 = 11;
+function addElement6() {
+    intTextBox1++;
+    var objNewDiv = document.createElement('div');
+    objNewDiv.setAttribute('id', 'div2_' + intTextBox1);
+    objNewDiv.innerHTML = '<div style="padding:3px"> <input type="text" id="tbl1_' + intTextBox1 + '" name="BCC" class="form-control" /></div>';
+    document.getElementById('text_id3').appendChild(objNewDiv);
+}
+</script>
+<script>
+function removeElement6() {
+    if(0 < intTextBox1) {
+        document.getElementById('text_id3').removeChild(document.getElementById('div2_' + intTextBox1));
+        intTextBox--;
+    } else {
+        alert("No textbox to remove");
+    }
+}
+</script>
+<script>
+    var intTextBox = 0;
+function addElementMOBILE() {
+    intTextBox++;
+    var objNewDiv = document.createElement('div');
+    objNewDiv.setAttribute('id', 'div_' + intTextBox);
+    objNewDiv.innerHTML =  '<div style="padding:3px"> <input type="text" id="tb_' + intTextBox + '" name="MOBILE_NO" class="form-control" /></div>';
+    document.getElementById('mo_text_id').appendChild(objNewDiv);
+}
+</script>
+<script>
+function removeElementMOBILE() {
+    if(0 < intTextBox) {
+        document.getElementById('mo_text_id').removeChild(document.getElementById('div_' + intTextBox));
+        intTextBox--;
+    } else {
+        alert("No textbox to remove");
+    }
+}
+</script>
+<script>
+    var intTextBox = 0;
+function addElementMOBILE1() {
+    intTextBox++;
+    var objNewDiv = document.createElement('div');
+    objNewDiv.setAttribute('id', 'div_' + intTextBox);
+    objNewDiv.innerHTML = ' <div style="padding:3px"> <input type="text" id="tb_' + intTextBox + '" name="MOBILE_NO" class="form-control" /></div>';
+    document.getElementById('mo1_text_id').appendChild(objNewDiv);
+}
+</script>
+<script>
+function removeElementMOBILE1() {
+    if(0 < intTextBox) {
+        document.getElementById('mo1_text_id').removeChild(document.getElementById('div_' + intTextBox));
+        intTextBox--;
+    } else {
+        alert("No textbox to remove");
+    }
+}
+</script>
+<script>
+    CKEDITOR.replace("ckediter");
+</script>

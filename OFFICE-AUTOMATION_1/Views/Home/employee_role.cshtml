@@ -1,0 +1,181 @@
+﻿
+@{
+    ViewBag.Title = "employee_role";
+}
+
+    <!-- Content Header (Page header) -->
+   
+    <!-- Main content -->
+    <section class="content">
+        <div class="alert alert-success alert-dismissible" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> Alert!</h4> User is added successfully
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Add Employee Role</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- /.box-header -->
+                        <form role="form" method="post">
+
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Employee Name <span class="error"> * </span></label>
+                               
+                                <select name="EMP_ID" required  class="form-control select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                    <option value="0">Select Employee</option>
+                                    @foreach (var item in ViewBag.emp)
+                                    {
+                                        <option value="@item.ID">@item.NAME</option>
+                                    }
+                                </select>
+                              </div>
+
+                            <!-- text input -->
+                            
+                            <!-- text input -->
+                            <div class="form-group ">
+                                <label>Emp_role<span class="error"> * </span></label>
+                               
+                                <select name="EMP_ROLE" required  class="form-control select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                   <option value="0">Select Employee Role</option>
+                                    <option>Admin</option>
+                                    <option>Employee</option>
+                                </select>
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-success pull-right">Add Employee Role</button>
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit Employee Role Details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- /.box-header -->
+                        <form role="form" method="post">
+
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Employee Name<span class="error"> * </span></label>
+                                <select name="EMP_ID" required id="EMP_ID" class="form-control select2" dir="ltr" style="width: 100%;">
+                                    
+                                        @foreach (var item in ViewBag.emp)
+                                        {
+                                            <option value="@item.ID">@item.NAME</option>
+                                        }
+                                    </select>
+                              </div>
+
+                            <!-- text input -->
+                           
+                            <!-- text input -->
+                            <div class="form-group ">
+                                <label>Emp_role<span class="error"> * </span></label>                               
+                                <select name="EMP_ROLE" required id="EMP_ROLE" class="form-control select2" dir="ltr" style="width: 100%;">
+                                    
+                                    <option value="Admin">Admin</option>
+                                    <option value="Employee">Employee</option>
+                                </select>
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <div class="box-footer">
+                                <input type="hidden" id="hdnid" name="ID" />
+                                <button type="submit" class="btn btn-success pull-right">Update Employee Role</button>
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Info boxes -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Employee Role</h3>
+                @*<a href="" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary" style="float: right;">Add Employee Role</a>*@
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="overflow-x: scroll;">
+                
+                            <table id="fileTable" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="fileTable_info">
+                                <thead>
+                                    <tr>
+                                        <th>SR_No</th>
+                                        <th>Name</th>
+                                        <th>Role</th>
+                                        <th>Action</th>                                   
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int i = 1;}
+                                    @foreach(var item in ViewBag.employees)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <span>@i</span>
+                                            </td>
+                                            <td id="EMPID_@item.ID">
+                                              
+                                                @foreach (var data in ViewBag.emp)
+                                                {
+                                                    if (item.EMP_ID == data.ID)
+                                                    {
+                                                        @data.NAME
+                                                    }
+                                                }
+                                            </td>
+                                            <td id="EMPROLE_@item.ID">@item.EMP_ROLE</td>
+                                            <td>
+                                               <a href="" onclick="OpenDialog(@item.ID)" data-toggle="modal" data-target="#myModal1" type="button">&nbsp; <i class="fa fa-edit"></i></a>
+                                             
+                                             </td>
+                                        </tr>
+                                        i++;
+                                    }
+                                  </tbody>                               
+                            </table>
+                        </div>
+              </div>
+        <!-- /.row -->
+    </section>
+<script>
+    function OpenDialog(id) {
+        var emp =
+                   {
+                       ID : id,
+                   }
+            $.ajax({
+                url: '/getemployeerole/' + id,
+                type: 'GET',            
+                success: function (data) {
+                    $('#hdnid').val(data.data.ID);
+                    $('#EMP_ID').val(data.data.EMP_ID);
+                    // $('#EMP_ROLE').val(data.data.EMP_ROLE); 
+                    var empname =  data.data.EMP_ID;
+                    $('#EMP_ID option[value="' + empname + '"]').prop("selected","selected").change();
+                    var emp_role= data.data.EMP_ROLE.split('-');
+                    //$('#EMP_ROLE option[value=' + emp_role[0] + ']').attr("selected", "selected");
+                    $('#EMP_ROLE option[value="' + emp_role[0] + '"]').prop("selected","selected").change();
+                }
+            });
+        }
+</script>

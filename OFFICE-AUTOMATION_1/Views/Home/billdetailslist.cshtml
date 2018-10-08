@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Bill_list";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>billdeatilslist</title>
+</head>
+
+<<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Templates</h3>
+        @*<a href="" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary" style="float: right;">Add Template</a>*@
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body" style="overflow-x: scroll;">
+
+        <table id="fileTable" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>SR_No</th>
+                    <th>Bill no</th>
+                    <th>Bank</th>
+                    <th>From date</th>
+                    <th>End date</th>
+                    <th>Create bill date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int i = 1;}
+                @foreach (var item in ViewBag.billlist)
+                {
+                    <tr>
+                        <td><span>@i</span></td>
+                        <td>@item.BILL_NO@DateTime.Now.Year</td>
+                        <td>@item.bank_master.NAME</td>
+                        <td>
+                            @if(item.TO_DATE != null)
+                            {
+                                 @item.TO_DATE.ToString("dd/MM/yyyy")
+                            }
+                        </td>
+                        <td>
+                            @if(item.END_DATE != null)
+                            {
+                               @item.END_DATE.ToString("dd/MM/yyyy")
+                            }
+                      </td>
+                        <td>@item.date.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

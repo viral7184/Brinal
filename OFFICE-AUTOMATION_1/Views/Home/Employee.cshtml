@@ -1,0 +1,346 @@
+﻿
+@{
+    ViewBag.Title = "Employee";
+}
+  
+    <!-- Main content -->
+    <section class="content">
+        <div class="alert alert-success alert-dismissible" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> Alert!</h4> Employee is added successfully
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Add Employee Details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- /.box-header -->
+                        <form role="form" method="post" enctype="multipart/form-data">
+                            <!-- text input -->
+                            <div class="form-group ">
+                                <label>Employee Name<span class="error"> * </span></label>
+                                <input type="text" name="NAME" required class="form-control" placeholder="Enter Employee Name">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <!-- text input -->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group ">
+                                        <label>Employee Address 1</label>
+                                        <input type="text" name="ADDRESS1"  class="form-control" placeholder="Enter Employee Address1">
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div>
+                                </div>
+                                <!-- text input -->
+                                <div class="col-sm-6">
+                                    <div class="form-group ">
+                                        <label>Employee Address 2</label>
+                                        <input type="text" name="ADDRESS2"  class="form-control" placeholder="Enter Employee Address2">
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- text input -->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group ">
+                                        <label>Employee Mobile</label>
+                                        <input type="text" onkeypress="phoneno()" id="phone1" maxlength="10" name="MOBILE1" class="form-control" placeholder="Enter Employee Mobile">
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div>
+                                </div>
+                                <!-- text input -->
+                                <div class="col-sm-6">
+                                    <div class="form-group ">
+                                        <label>Employee Landline</label>
+                                        <input type="text" onkeypress="phoneno()" id="phone2" name="MOBILE2" class="form-control" placeholder="Enter Employee Landline No">
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- text input -->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group ">
+                                        <label>Employee Email<span class="error"> * </span></label>
+                                        <input type="text" name="EMAIL" class="form-control" placeholder="Enter Employee Email" required>
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <!-- text input -->
+                                    <div class="form-group ">
+                                        <label>Password<span class="error"> * </span></label>
+                                        <input type="password" name="PASSWORD"  class="form-control" placeholder="Enter Employee Password" required>
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                                    <div class="form-group">
+                                        <label>Id Proof </label>
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <select name="PROOF"  class="form-control select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                                    <option selected="selected">Pancard</option>
+                                                    <option> Adharcard</option>
+                                                    <option>Driving Licence</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <input type="text" name="ID_PROOF" class="form-control" placeholder="Enter No">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Proof file upload</label>
+                                        <input type="file" name="FILE_NAME" id="">
+                                    </div>
+                                    <div class="box-footer">
+                                        <input type="submit" class="btn btn-success pull-right" value="Add Employee Details" />
+                                    </div>
+                                </form>                     
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit Employee Details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- /.box-header -->
+                        <form role="form" method="post" id="Config_Form" enctype="multipart/form-data">
+
+                            <!-- text input -->
+                            <div class="form-group ">
+                                <label>Employee Name<span class="error"> * </span></label>
+                                <input type="text" class="hidden" name="ID" id="ID" />
+                                <input type="text" name="NAME" required id="NAME" class="form-control" placeholder="Enter Employee Name">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <!-- text input -->
+                            <!-- text input -->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group ">
+                                        <label>Employee Address</label>
+                                        <input type="text" name="ADDRESS1"  id="ADDRESS1" class="form-control" placeholder="Enter Employee Address">
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <!-- text input -->
+                                    <div class="form-group ">
+                                        <label>Employee Address 2</label>
+                                        <input type="text" name="ADDRESS2"  id="ADDRESS2" class="form-control" placeholder="Enter Employee Address2">
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- text input -->
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group ">
+                                        <label>Employee Mobile</label>
+                                        <input type="text" name="MOBILE1" onkeypress="phoneno()" maxlength="10" id="MOBILE1" class="form-control" placeholder="Enter Employee Mobile">
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div>
+                                </div>
+                                <!-- text input -->
+                                <div class="col-sm-6">
+                                    <div class="form-group ">
+                                        <label>Employee Landline</label>
+                                        <input type="text" onkeypress="phoneno()" name="MOBILE2" id="MOBILE2" class="form-control" placeholder="Enter Employee Mobile 2">
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                                    <!-- text input -->
+                                    <div class="form-group ">
+                                        <label>Employee Email<span class="error"> * </span></label>
+                                        <input type="text" name="EMAIL" id="EMAIL1" class="form-control" placeholder="Enter Employee Email" required>
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div>
+                                    <!-- text input -->
+
+                                    <div class="form-group">
+                                        <label>Id Proof</label>
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <select name="PROOF" id="PROOF"  class="form-control select2 select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                                    <option value="Pancard">Pancard</option>
+                                                    <option value="Adharcard"> Adharcard</option>
+                                                    <option value="Driving Licence"> Driving Licence</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <input type="text" name="ID_PROOF" id="ID_PROOF" class="form-control" placeholder="Enter No">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Proof file upload</label>
+                                        <input type="file" name="FILE_NAME" id="files">
+                                    </div>
+                                    <div class="box-footer">
+                                        <input type="hidden" id="hdnid" name="ID" />
+                                        <input type="submit" disabled id="submit_id" class="btn btn-success pull-right" value="Upadate Employee Details" />
+                                    </div>
+                           </form>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Info boxes -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Employees List</h3>
+                <a  data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary" style="float: right;">Add New Employee</a>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">               
+                            <table id="fileTable" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="fileTable_info">
+                                <thead>
+                                    <tr>                                        
+                                        <th>SR_No</th>
+                                        <th>Name</th>
+                                        <th>Files</th>
+                                        <th>Mobile</th>                                       
+                                        <th>Email</th>                                       
+                                        <th>Action</th>                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int i = 1;}
+                                    @foreach(var item in ViewBag.emp)
+                                    {
+                                     
+                                    <tr id="row_@item.ID">
+                                        <td>
+                                            <span>@i</span>                                           
+                                           
+                                        </td>
+                                        
+                                        <td id="name_@item.ID">
+                                            <a href="~/employeedetails/@item.ID">  @item.NAME </a>
+                                         </td>
+
+                                        <td>@item.files.Count</td>
+                                        <td id="mob1_@item.ID">
+                                           @item.MOBILE1
+                                        </td>
+                                       
+                                        <td id="email_@item.ID">
+                                            @item.EMAIL
+                                        </td>
+                                        
+                                        <td>
+                                           <a onclick="OpenDialog(@item.ID)" style="display:inline" data-toggle="modal" data-target="#myModal1" type="button"> <i class="fa fa-edit"></i></a> 
+                                            <a style="display:inline" class="hide_me" onclick="Delete(@item.ID,'del')"> &nbsp; <i class="fa fa-trash"></i> </a>
+                                          </td>
+                                       
+                                    </tr>
+                                        i++;
+                                    }
+                                </tbody>
+                                
+                              
+                            </table>
+                        </div>
+                   </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+
+
+<script>        
+    function OpenDialog(id) {
+        var emp =
+                   {
+                       ID : id,                      
+                   }
+            $.ajax({
+                url: '/getemployee/'+id,              
+                type: 'GET',
+                //contentType: 'application/json; charset=utf-8',
+                success: function (data) {
+
+                    $('#ID').val(data.data.ID);
+                    $('#NAME').val(data.data.NAME);
+                    $('#ADDRESS1').val(data.data.ADDRESS1);
+                    $('#ADDRESS2').val(data.data.ADDRESS2);
+                    $('#MOBILE1').val(data.data.MOBILE1);
+                    $('#MOBILE2').val(data.data.MOBILE2);
+                    $('#EMAIL1').val(data.data.EMAIL);   
+                    var proof= data.data.ID_PROOF.split('-');
+                    $('#PROOF option[value=' + proof[0] + ']').attr("selected", "selected");
+                    $('#ID_PROOF').val(proof[1]);       
+                }
+            }); 
+        }
+    </script>
+<script>
+        function Delete(id,del)
+        {
+            if (confirm("Are you sure Delete this Record?")) {
+                var deletes =
+                   {
+                       ID : id,
+                       em_del : del,
+                   }
+                {        
+                    $.ajax({
+                        url: '/delete/',
+                        data: JSON.stringify(deletes),
+                        type: 'post',
+                        contentType: 'application/json; charset=utf-8',
+                        success: function (data) {     
+                            var dt = data.data.IS_DELETED;
+                            if(dt == true)
+                            {
+                                $('#row_'+id).hide();                                
+                            }
+                            else
+                            {
+                                alert("This employee has assign a file(s)");
+                            }                            
+                        }
+                    }); 
+                    error: {
+                     
+                    }
+                }
+            }
+            return false;
+        }
+
+</script>
+
+
+   <script>
+           function phoneno(){
+               $('#phone1,#phone2,#MOBILE1,#MOBILE2').keypress(function (e) {
+                var a = [];
+                var k = e.which;
+
+                for (i = 48; i < 58; i++)
+                    a.push(i);
+
+                if (!(a.indexOf(k)>=0))
+                    e.preventDefault();
+            });
+        }
+    </script>   

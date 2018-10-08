@@ -1,0 +1,330 @@
+﻿
+@{
+    ViewBag.Title = "ManageCity";
+}
+
+    <!-- Content Header (Page header) -->
+   
+    <!-- Main content -->
+    <section class="content">
+        <div class="alert alert-success alert-dismissible" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> Alert!</h4> City is added successfully
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Add City Details</h4>
+                    </div>
+                    <ul class="nav nav-tabs">                   
+                        <li onclick="tab(1)" class="btn btn-default">District</li> 
+                        <li onclick="tab(2)" class="btn btn-default">Sub-District</li>                        
+                        <li onclick="tab(3)" class="btn btn-default">Village</li>                       
+                    </ul>
+                    <div class="modal-body">
+                        <div id="tab1" class="">
+                            <form role="form" method="post">
+                                <div class="form-group">                               
+                                    <div class="form-group">
+                                        <div class="form-group ">
+                                            <label>Dist</label>
+                                            <input type="text" required name="VILLAGE" class="form-control" placeholder="Enter Dist">
+                                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                        </div>
+                                        <div class="box-footer">
+                                            <button type="submit" class="btn btn-success pull-right">Add District Details</button>
+                                        </div>
+                                    </div>                                  
+                                </div>
+                            </form>                         
+                        </div>
+                        <div id="tab3" class="hidden">
+                            <form role="form" method="post">
+                                <!-- text input -->
+                                <div class="form-group">
+                                    <label><span class="error"> * </span>District</label>
+                                    <select name="DIST_ID" id="dist" onchange="FillCity()" class="form-control select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                        @foreach (var item in ViewBag.District)
+                                        {
+                                            <option value="@item.ID">@item.VILLAGE</option>
+                                        }
+                                    </select>
+                                </div> 
+                                <div class="form-group">
+                                    <label><span class="error"> * </span>sub district</label>
+                                    <select name="SUB_DIST_ID" id="sub_dist" class="form-control select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                        @foreach (var item in ViewBag.citys)
+                                        {
+                                            <option value="@item.ID">@item.VILLAGE</option>
+                                        }
+                                    </select>
+                                </div>                                
+                                <div class="form-group ">
+                                    <label>Village</label>
+                                    <input type="text" name="VILLAGE" required class="form-control" placeholder="Enter Village">
+                                    <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                </div>                           
+                                        <div class="box-footer">
+                                            <button type="submit" class="btn btn-success pull-right">Add Village Details</button>
+                                        </div>                                 
+                            </form>
+                        </div>
+                        <div id="tab2" class="hidden">
+                            <form role="form" method="post">
+                                <div class="form-group">    
+                                                                 
+                                            <div class="form-group">
+                                                <label>District<span class="error"> * </span></label>
+                                                <select name="DIST_ID" class="form-control select2 select2-hidden-accessible" style="width: 100%" tabindex="-1" aria-hidden="true">
+                                                    @foreach (var item in ViewBag.District)
+                                                    {
+                                                        <option value="@item.ID">@item.VILLAGE</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                    <div class="form-group ">
+                                        <label>Sub-District</label>
+                                        <input type="text" name="VILLAGE" required class="form-control" placeholder="Enter Dist">
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div> 
+                                           
+                                            <div class="box-footer">
+                                                <button type="submit" class="btn btn-success pull-right">Add Sub-District Details</button>
+                                            </div>
+                                        </div>                                  
+                            </form>
+                        </div>                      
+                            <!-- /.box-header -->
+                      
+                            <!-- /.box-body -->
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit City Details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- /.box-header -->
+                        <form role="form" method="post">
+                            <div class="form-group">
+                                <label><span class="error"> * </span>District</label>
+                                <select name="DIST_ID" id="dist_id1" class="form-control select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                    @foreach (var item in ViewBag.District)
+                                    {
+                                        <option value="@item.ID">@item.VILLAGE</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label><span class="error"> * </span>subdist</label>
+
+                                <select name="SUB_DIST_ID" id="subdist1" class="form-control select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                    @foreach (var item in ViewBag.citys)
+                                    {
+                                        <option value="@item.ID">@item.VILLAGE</option>
+                                    }
+                                </select>
+                            </div>                            
+                            <div class="form-group ">
+                                <label>Village</label>
+                                <input type="text" name="VILLAGE" required id="village" class="form-control" placeholder="Enter Village">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>                                       
+                            <div class="box-footer">
+                                <input type="hidden" id="hdnid" name="ID" />
+                                <button type="submit" class="btn btn-success pull-right">Update City Details</button>
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Info boxes -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Cities List</h3>
+                <a href="" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary" style="float: right;">Add City</a>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body" style="overflow-x: scroll;">               
+                            <table id="fileTable" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="fileTable_info">
+                                <thead>
+                                    <tr>
+                                        <th>SR_No</th>
+                                        <th>Village</th>
+                                        <th>SubDist</th>
+                                        <th>District</th>
+                                        <th>Edit</th>                                       
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int i = 1;}
+                                    @foreach (var item in ViewBag.cities)
+                                     {
+                                        <tr>
+                                            <th>
+                                                <span>@i</span>
+                                            </th>
+
+                                            <th id="village_@item.Id">                                               
+                                               @item.Village
+                                            </th>                                         
+                                            
+                                            <th>                                             
+                                               @item.SubDist
+                                                <span class="hidden" id="subdist_@item.Id">@item.SUB_DIST_ID</span> 
+                                            </th>
+                                           
+                                            <th>                                               
+                                             @item.Dist
+                                                <span class="hidden" id="dist_@item.Id">@item.DIST_ID</span> 
+                                            </th>
+                                            <th>
+                                                <a style="display:inline"  onclick="OpenDialog(@item.Id)" href="" data-toggle="modal" data-target="#myModal1" type="button">&nbsp; <i class="fa fa-edit"></i> </a>
+                                                @*<span style="display:inline" class="hide_me">| <a>&nbsp; <i class="fa fa-trash"></i> </a> </span>*@
+                                            </th>
+                                           
+                                        </tr>
+                                        i++;
+                                    }
+                                </tbody>
+                              
+                            </table>
+                        </div>
+           </div>
+        <!-- /.row -->
+    </section>
+<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+
+ <script>
+     function tab(id) {
+         if (id == 1) {
+             $('#tab1').removeClass('hidden');
+             $('#tab2').addClass('hidden');
+             $('#tab3').addClass('hidden');
+         }
+         else if (id == 2) {
+             $('#tab1').addClass('hidden');
+             $('#tab2').removeClass('hidden');
+             $('#tab3').addClass('hidden');
+         }
+         else if (id == 3) {
+             $('#tab1').addClass('hidden');
+             $('#tab3').removeClass('hidden');
+             $('#tab2').addClass('hidden');
+         }
+     }
+     function OpenDialog(id) {
+
+         var village = $('#village_' +id).text().trim();
+         var subdist = $('#subdist_' +id).text().trim();
+         var dist = $('#dist_' +id).text().trim();
+
+         $('#village').val(village);
+         $('#select2-subdist-container').text(subdist);
+         $('#subdist').val(subdist);
+         $('#select2-dist_id1-container').text(dist);
+         $('#dist_id1').val(dist);
+
+         $('#hdnid').val(id);
+     }
+
+     $("#subdist").change(function () {
+         //alert($('#agent_id').val());
+         $.ajax({
+             type: "get",
+             url: "/loaddist",
+             data: { ID: $('#subdist').val() },
+             datatype: "Json",
+             success: function (data) {
+
+                 $('#DID').val(data.data.ID);
+                 $('#dist_id').val(data.data.Dist);
+
+                 var dt = data.data.ID;
+
+                 $('#dist_id option[value=' + dt + ']').attr("selected", "selected");
+
+             }, error: function (xhr, textStatus, errorThrown) {
+                 alert(xhr.responseText);
+             }
+         })
+     });
+
+    $("#subdist1").change(function () {  
+        //alert($('#agent_id').val());
+        $.ajax({
+            type: "get",
+            url: "/loaddist",
+            data: { ID: $('#subdist1').val() },
+            datatype: "Json",
+            success: function (data) {
+                $('#DID1').val(data.data.ID);
+                $('#dist_id1').val(data.data.Dist);
+                var dt = data.data.ID;
+                $('#dist_id1 option[value=' + dt + ']').attr("selected", "selected");
+            }, error: function (xhr, textStatus, errorThrown) {
+                alert(xhr.responseText);
+            }
+        })
+    });
+</script>
+<script>
+    function FillCity() {
+        var i = 0;
+        var stateId = $('#dist').val();
+        $.ajax({
+            url: '/loadcitydata/' + stateId,
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+                $("#sub_dist").empty();
+
+                // clear before appending new list
+                $.each(data, function (index, values) {
+                    $.each(values, function (index, value) {
+                        $('#sub_dist').append('<option value="' + value.ID + '">' + value.sub_dist + '</option>');
+                        i++;
+                    });
+                });
+            }
+        });
+    }
+    function Fillvillage() {
+        var i = 0;
+        var distId = $('#sub_dist').val();
+        $.ajax({
+            url: '/loadvillagedata/'+distId,
+            type: "GET",
+            dataType: "JSON",
+
+            success: function (data) {
+                $("#village").empty();
+
+                // clear before appending new list
+                $.each(data, function (index, values) {
+                    $.each(values, function (index, value) {
+                        $('#village').append('<option value="' + value.ID + '">' + value.village + '</option>');
+                        i++;
+                    });
+                });
+            }
+        });
+  }
+</script>
+
+
+
+

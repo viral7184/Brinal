@@ -1,0 +1,417 @@
+﻿@{
+    ViewBag.Title = "Addfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Files </h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <!-- /.box-header -->
+            <form role="form" method="post" onsubmit="return validate()">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>R_NO</label>
+                            <input type="text" name="R_NO" id="Rno" class="form-control" placeholder="Enter R NO">
+                            @if (TempData["r_no"] != null)
+                            {
+                                <span style="color:red"> @TempData["r_no"];</span>
+                            }
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Inward Date:<span class="error"> * </span></label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" required autocomplete="off" name="ENT_DATE" class="form-control pull-right" id="datepicker">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">              
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Customer Name<span class="error"> * </span></label>
+                            <input type="text" name="CUSTOMERNAME" required id="C_ID" class="form-control" placeholder="Enter Customer Name">
+                        </div>
+                    </div>                   
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label> Property Details</label>
+                            <input type="text" name="PROPERTY_DETAILS" id="autocomplete" class="form-control" placeholder="Enter  Property Details">
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">                                          
+                            @*<input type="button" class="btn btn-block" value="check black list">*@
+                            <label>Black list</label>
+                            <select name="" id="" class="form-control select2" placeholder="Enter No Of" style="width: 100%">  
+                                <option value="">Check Black Lists</option>
+                                @foreach (var item in ViewBag.propertity)
+                                {
+                                    <option title="" value="@item.ID">@item.PROPERTITY_DETAIL - @item.REASON</option>
+                                }
+                            </select>   
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label> Agent Name</label>
+                            <select name="A_ID" id="agent_id" class="form-control select2"  placeholder="Enter No Of" style="width: 100%">
+                               @* <option selected value="1">No Agent</option>*@
+                                @foreach (var item in ViewBag.agents)
+                                {
+                                    <option value="@item.ID">@item.NAME</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>Bank Name </label>
+                            @*<input type="hidden" name="B_ID" id="bID"/>*@
+                            <select name="B_ID" id="bank_id" class="form-control select2"  style="width: 100%">
+                                @*<option selected value="1">No Bank</option>*@
+                                @foreach (var item in ViewBag.banks)
+                                {
+                                    <option value="@item.ID">@item.NAME</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>No Of Year</label>
+                            <input type="number" name="NO_OF_YEAR" id="no_of_year" class="form-control" placeholder="Enter No Of Year">
+                            <span class="hidden" id="NO_OF_YEAR" name="NO_OF_YEAR"></span>
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>Search fees</label>
+                            <input type="number" name="SEARCH_FEES" id="fees" class="form-control" placeholder="Enter search fees">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-5" id="text_id">
+                        <div class="form-group">
+                            <label>NEC</label>
+                            <input type="text" name="NEC" id="nec" class="form-control" placeholder="Enter NEC">
+                        </div>
+                    </div>                   
+                    <div style="padding-top:27px" class="col-md-1">
+                        <div class="form-group">
+                            <input type="button" onclick="addNEC()" id="add_bcc_btn1" value="+" />
+                            <input type="button" onclick="removeNEC()" value="-" />
+                        </div>
+                    </div>
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <label>Legal fees</label>
+                                <input type="number" name="LEGAL_FEES" id="LEGAL_FEES" class="form-control" placeholder="Enter legal fees">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                        </div>
+                    </div>
+                <div class="row">                   
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>Certified Copy No</label>
+                            <input type="text" name="CERTIFIED_COPY" id="CERTIFIED_COPY" class="form-control" placeholder="Enter Certified copy">
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>Prospect/Application no</label>
+                            <input type="text" name="APPLICATION_NO" id="APPLICATION_NO" class="form-control" placeholder="Enter Application no">
+                        </div>
+                    </div>
+                </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>District</label>
+                                <select name="DISTRICT" id="dist" onchange="FillCity()" class="form-control select2" style="width: 100%">
+                                    <option selected value="1">Select District</option>
+                                    @foreach (var item in ViewBag.District)
+                                    {
+                                        <option value="@item.ID">@item.VILLAGE</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Sub-District</label>
+                                <select name="SUBDIST" id="sub_dist" onchange="Fillvillage()" class="form-control select2" style="width: 100%">
+                                    <option selected value="2">No Sub-District</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Village</label>
+                                <select name="VILLAGE" id="village" class="form-control select2" style="width: 100%">
+                                    <option selected value="3">No-Village</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <label>Area Search</label>
+                    <div class="row" style="margin-bottom: 20px">
+                        <div class="col-sm-3" id="text_id1">
+                            <label for="">A Block No</label>
+                            <input type="text" name="A_BLOCK_NO" class="form-control" placeholder="Enter Block No">
+                        </div>                      
+                        <div style="padding-top:27px" class="col-md-1">
+                            <div class="form-group">
+                                <input type="button" onclick="addblockno()" id="" value="+" />
+                                <input type="button" onclick="removeblockno()" value="-" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3" id="text_id3">
+                            <label for="">A Revenue Servey No</label>
+                            <input type="text" name="A_REVENUE_SURVEY_NUM" class="form-control" placeholder="Enter Revenue Serway No">
+                        </div>
+                    
+                        <div style="padding-top:27px" class="col-md-1">
+                            <div class="form-group">
+                                <input type="button" onclick="addrevenueno()" id="" value="+" />
+                                <input type="button" onclick="removerevenueno()" value="-" />
+                            </div>
+                        </div>
+                        <div class="col-sm-3" id="text_id2">
+                            <label for="">A Flat No</label>
+                            <input type="text" name="A_PLOT_FLAT_NUM" class="form-control" placeholder="Enter Flat No">
+                        </div>
+                      
+                        <div style="padding-top:27px" class="col-md-1">
+                            <div class="form-group">
+                                <input type="button" onclick="addflatno()" id="" value="+" />
+                                <input type="button" onclick="removeflatno()" value="-" />
+                            </div>
+                        </div>
+                    </div>
+                    <label>7/12</label>
+                    <div class="row" style="margin-bottom: 20px;">
+                        <div class="col-sm-4">
+                            <label for="">Block No</label>
+                            <input type="text" name="S_BLOCK_NO" class="form-control" placeholder="Enter Block No">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="">Revenue Serway No</label>
+                            <input type="text" name="S_REVENUE_SURVEY_NUM" class="form-control" placeholder="Enter Revenue Serway No">
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="">Flat No</label>
+                            <input type="text" name="S_PLOT_FLAT_NUM" class="form-control" placeholder="Enter Flat No">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Assign To</label>
+
+                                <select name="ASSIGN_TO" id="assign_to" class="form-control select2" style="width: 100%">
+                                    <option selected value="1">No Employee</option>
+                                    @foreach (var item in ViewBag.emp)
+                                    {
+                                        <option value="@item.ID">@item.NAME</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                  
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label style="float:left">Is Paid</label>
+                                <div class="radio">
+                                    <label style="margin-left:12px">
+                                        <input type="radio" name="IS_PAID" value="true" id="optionsRadios1"> Yes
+                                    </label>
+                                    <label style="margin-left: 10px">
+                                        <input type="radio" name="IS_PAID" value="false" id="optionsRadios2" checked> No
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
+                    <!-- text input -->
+                    <div class="form-group ">
+                        <label> Remarks</label>
+                        <textarea class="form-control" style="resize:vertical" name="REMARKS" rows="3" placeholder="Enter ..."></textarea>
+                        <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                    </div>
+                    <div class="box-footer">
+                        <input type="submit" id="submit" class="btn btn-success pull-right" value="Add File Details" />
+                    </div>
+              </form>          
+        </div>
+    </div>
+</section>
+<script>
+    //function slag()
+    //{
+    $("#bank_id").change(function () {
+      // alert($('#agent_id').val());
+        $.ajax({
+            type: "get",
+            url: "/loadbank",
+            data: { ID: $('#bank_id').val() },
+            datatype: "Json",
+            success: function (data) {
+
+                //$('#bID').val(data.data.ID);
+                $('#bank_id').val(data.data.ID);
+                $('#no_of_year').val(data.data.NO_OF_YEAR);
+                $('#fees').val(data.data.FEES);
+                $('#nec').val(data.data.NEC);
+                $('#LEGAL_FEES').val(data.data.LEGAL_FEES);
+            }, error: function (xhr, textStatus, errorThrown) {
+                alert(xhr.responseText);
+            }
+        })
+        });
+    //};
+</script>
+
+<script>
+    $("#VILLAGE").change(function () {
+        //alert($('#agent_id').val());
+        $.ajax({
+            type: "get",
+            url: "/loadvillage",
+            data: { ID: $('#VILLAGE').val() },
+            datatype: "Json",
+            success: function (data) {
+
+                $('#DID').val(data.data.ID);
+                $('#dist_id').val(data.data.GEONAME);
+
+            }, error: function (xhr, textStatus, errorThrown) {
+                alert(xhr.responseText);
+            }
+        })
+    });
+</script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#autocomplete").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/getseggectionbox",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.PROPERTY_DETAILS + " File No " + item.R_NO, value: item.PROPERTY_DETAILS + " File No" + item.R_NO };
+                        }))
+                    }
+                }) 
+            },
+            messages: {
+                noResults: "",
+                results: function (count) { 
+                    return count + (count > 1 ? ' results' : ' result ') + ' found';
+                }
+            }
+        });
+    })
+</script>
+
+<script>
+    var intTextBox = 0;
+function addNEC() {
+    intTextBox++;
+    var objNewDiv = document.createElement('div');
+    objNewDiv.setAttribute('id', 'div_' + intTextBox);
+    objNewDiv.innerHTML = '<div style="padding:3px"> <input type="text" id="tb_' + intTextBox + '" name="NEC" class="form-control" /></div>';
+    document.getElementById('text_id').appendChild(objNewDiv);
+}
+function removeNEC() {
+    if(0 < intTextBox) {
+        document.getElementById('text_id').removeChild(document.getElementById('div_' + intTextBox));
+        intTextBox--;
+    } else {
+        alert("No textbox to remove");
+    }
+}
+</script>
+<script>
+    var intTextBox = 15;
+    function addblockno() {
+        intTextBox++;
+        var objNewDiv = document.createElement('div');
+        objNewDiv.setAttribute('id', 'div_' + intTextBox);
+        objNewDiv.innerHTML = '<div style="padding:3px"> <input type="text" id="tb_' + intTextBox + '" name="A_BLOCK_NO" class="form-control" /></div>';
+        document.getElementById('text_id1').appendChild(objNewDiv);
+    }
+    function removeblockno() {
+        if (15 < intTextBox) {
+            document.getElementById('text_id1').removeChild(document.getElementById('div_' + intTextBox));
+            intTextBox--;
+        } else {
+            alert("No textbox to remove");
+        }
+    }
+</script>
+<script>
+    var intTextBox = 30;
+    function addflatno() {
+        intTextBox++;
+        var objNewDiv = document.createElement('div');
+        objNewDiv.setAttribute('id', 'div_' + intTextBox);
+        objNewDiv.innerHTML = '<div style="padding:3px"> <input type="text" id="tb_' + intTextBox + '" name="A_PLOT_FLAT_NUM" class="form-control" /></div>';
+        document.getElementById('text_id2').appendChild(objNewDiv);
+    }
+    function removeflatno() {
+        if (30 < intTextBox) {
+            document.getElementById('text_id2').removeChild(document.getElementById('div_' + intTextBox));
+            intTextBox--;
+        } else {
+            alert("No textbox to remove");
+        }
+    }
+</script>
+
+<script>
+    var intTextBox = 45;
+    function addrevenueno() {
+        intTextBox++;
+        var objNewDiv = document.createElement('div');
+        objNewDiv.setAttribute('id', 'div_' + intTextBox);
+        objNewDiv.innerHTML = '<div style="padding:3px"> <input type="text" id="tb_' + intTextBox + '" name="A_REVENUE_SURVEY_NUM" class="form-control" /></div>';
+        document.getElementById('text_id3').appendChild(objNewDiv);
+    }
+    function removerevenueno() {
+        if (30 < intTextBox) {
+            document.getElementById('text_id3').removeChild(document.getElementById('div_' + intTextBox));
+            intTextBox--;
+        } else {
+            alert("No textbox to remove");
+        }
+    }
+</script>

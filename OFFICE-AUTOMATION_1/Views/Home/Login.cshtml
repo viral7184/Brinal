@@ -1,0 +1,136 @@
+﻿@*@model OFFICE_AUTOMATION_1.Models.employee_master*@
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Log in</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../dist/css/AdminLTE.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="../plugins/iCheck/square/blue.css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">forgot password</h4>
+            </div>
+            <div class="modal-body">
+                <!-- /.box-header -->
+                <form role="form" method="post" action="../forgotpasswrd">
+                    <div class="form-group ">
+                        <label>Employee Email</label>
+                        <input type="text" name="EMAIL" id="EMAIL" class="form-control" placeholder="Enter Employee Email">
+                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                    </div>
+
+                    <div class="box-footer">
+                        <input type="hidden" id="hide" name="ID" />
+                        <button type="submit" class="btn btn-info pull-right">submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="index2.html"><b>Login</b></a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg"></p>
+
+            <form method="post">
+                <div class="form-group has-feedback">
+                    <input type="email" class="form-control" name="EMAIL" id="EMAIL1" placeholder="Email">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" name="PASSWORD" id="PASSWORD" class="form-control" placeholder="Password">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <input type="submit" value="Login" class="btn btn-primary btn-block btn-flat" />
+                    </div>
+
+                    <!-- /.col -->
+                </div>
+                <!-- /.social-auth-links -->
+                <!-- <a href="register.html" class="text-center">Register a new membership</a> -->
+            </form>
+            <a data-toggle="modal" href="" data-target="#myModal">Forgot Password?</a>
+            <div style="color:red">
+                @if (TempData["msg"] != null)
+                {
+                    @TempData["msg"];
+                }
+                else if (TempData["msgs"] != null)
+                {
+                    @TempData["msgs"]
+                }
+                else if (Session["check_email"] != null)
+                {
+                    @Session["check_email"]
+                }
+            </div>
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+</body>
+</html>
+<!-- /.login-box -->
+<!-- jQuery 2.2.3 -->
+<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<!-- iCheck -->
+<script src="../plugins/iCheck/icheck.min.js"></script>
+<script>
+
+    function OpenDialog(id) {
+        var email = $('#EMAIL_' + id).text().trim();
+
+        $('#EMAIL').val(email);
+        $('#hide').val(id);
+    }
+
+
+    $(function () {
+        $('input').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
+    });
+</script>
+
+

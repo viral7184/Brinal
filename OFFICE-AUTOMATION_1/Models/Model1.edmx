@@ -1,0 +1,1437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="brinaladv_dbsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="agent_master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ADDRESS" Type="text" />
+          <Property Name="MOBILE1" Type="nchar" MaxLength="14" />
+          <Property Name="MOBILE2" Type="nchar" MaxLength="14" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="100" />
+          <Property Name="IS_ACTIVE" Type="bit" Nullable="false" />
+          <Property Name="IS_DELETED" Type="bit" />
+          <Property Name="ENT_DATE" Type="datetime" Nullable="false" />
+          <Property Name="UPDATE_DATE" Type="datetime" />
+        </EntityType>
+        <EntityType Name="bank_master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="BANK_EMAIL" Type="nvarchar" MaxLength="200" />
+          <Property Name="CC" Type="nvarchar(max)" />
+          <Property Name="PARTICULAR" Type="text" />
+          <Property Name="ADDRESS" Type="text" />
+          <Property Name="MOBILE" Type="nchar" MaxLength="14" />
+          <Property Name="NO_OF_YEAR" Type="int" />
+          <Property Name="NEC" Type="nvarchar" MaxLength="50" />
+          <Property Name="FEES" Type="int" />
+          <Property Name="IS_ACTIVE" Type="bit" Nullable="false" />
+          <Property Name="IS_DELETED" Type="bit" />
+          <Property Name="ENT_DATE" Type="datetime" Nullable="false" />
+          <Property Name="UPDATE_DATE" Type="datetime" />
+          <Property Name="BILL_FORMATE_ID" Type="int" />
+          <Property Name="LEGAL_FEES" Type="int" />
+        </EntityType>
+        <EntityType Name="BILL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BILL_NO" Type="int" Nullable="false" />
+          <Property Name="B_ID" Type="int" />
+          <Property Name="F_ID" Type="int" />
+          <Property Name="date" Type="date" />
+          <Property Name="TO_DATE" Type="datetime" />
+          <Property Name="END_DATE" Type="datetime" />
+        </EntityType>
+        <EntityType Name="city_master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VILLAGE" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="SUB_DIST_ID" Type="int" />
+          <Property Name="DIST_ID" Type="int" />
+          <Property Name="IS_DELETED" Type="bit" />
+        </EntityType>
+        <EntityType Name="communication">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="F_ID" Type="int" />
+          <Property Name="A_ID" Type="int" />
+          <Property Name="SMS" Type="bit" />
+          <Property Name="SMS_CONTENT" Type="text" />
+          <Property Name="EMAIL_CONTENT" Type="text" />
+          <Property Name="IS_DELETED" Type="bit" />
+          <Property Name="ENT_DATE" Type="datetime" Nullable="false" />
+          <Property Name="UPDATE_DATE" Type="datetime" />
+          <Property Name="TO" Type="nvarchar(max)" />
+          <Property Name="CC" Type="nvarchar(max)" />
+          <Property Name="BCC" Type="nvarchar(max)" />
+          <Property Name="ATTACHMENT" Type="nvarchar(max)" />
+          <Property Name="MOBILE_NO" Type="nvarchar(max)" />
+          <Property Name="SUBJECT" Type="nvarchar(max)" />
+          <Property Name="BODY" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="configuration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FOLDER_PATH" Type="nvarchar" MaxLength="50" />
+          <Property Name="FROM_EMAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="EM_PASS" Type="nvarchar" MaxLength="50" />
+          <Property Name="HOST" Type="nvarchar" MaxLength="50" />
+          <Property Name="PORT" Type="nvarchar" MaxLength="50" />
+          <Property Name="SENDER" Type="nvarchar" MaxLength="50" />
+          <Property Name="SMS_AUTH_KEY" Type="nvarchar" MaxLength="50" />
+          <Property Name="SEND_SMS_URI" Type="nvarchar" MaxLength="50" />
+          <Property Name="DATE" Type="datetime" />
+        </EntityType>
+        <EntityType Name="emp_roll_master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EMP_ID" Type="int" />
+          <Property Name="EMP_ROLE" Type="varchar" MaxLength="15" />
+          <Property Name="IS_DELETED" Type="bit" />
+          <Property Name="ENT_DATE" Type="datetime" Nullable="false" />
+          <Property Name="UPDATE_DATE" Type="datetime" />
+        </EntityType>
+        <EntityType Name="employee_master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NAME" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ADDRESS1" Type="text" />
+          <Property Name="ADDRESS2" Type="text" />
+          <Property Name="MOBILE1" Type="nchar" MaxLength="14" />
+          <Property Name="MOBILE2" Type="nchar" MaxLength="14" />
+          <Property Name="EMAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="PASSWORD" Type="nvarchar" MaxLength="50" />
+          <Property Name="ID_PROOF" Type="nvarchar" MaxLength="100" />
+          <Property Name="IS_ACTIVE" Type="bit" Nullable="false" />
+          <Property Name="FILE_NAME" Type="varchar" MaxLength="50" />
+          <Property Name="IS_DELETED" Type="bit" />
+          <Property Name="ENT_DATE" Type="datetime" Nullable="false" />
+          <Property Name="UPDATE_DATE" Type="datetime" />
+        </EntityType>
+        <EntityType Name="files">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="R_NO" Type="int" />
+          <Property Name="CUSTOMERNAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="PROPERTY_DETAILS" Type="nvarchar(max)" />
+          <Property Name="A_ID" Type="int" />
+          <Property Name="B_ID" Type="int" />
+          <Property Name="INWARD_DATE" Type="datetime" />
+          <Property Name="DELIVERY_DATE" Type="datetime" />
+          <Property Name="REMARKS" Type="text" />
+          <Property Name="A_BLOCK_NO" Type="nvarchar" MaxLength="500" />
+          <Property Name="A_REVENUE_SURVEY_NUM" Type="nvarchar" MaxLength="500" />
+          <Property Name="A_PLOT_FLAT_NUM" Type="nvarchar" MaxLength="500" />
+          <Property Name="S_BLOCK_NO" Type="nvarchar" MaxLength="500" />
+          <Property Name="S_REVENUE_SURVEY_NUM" Type="nvarchar" MaxLength="500" />
+          <Property Name="S_PLOT_FLAT_NUM" Type="nvarchar" MaxLength="500" />
+          <Property Name="NEC" Type="text" />
+          <Property Name="CERTIFIED_COPY" Type="varchar" MaxLength="100" />
+          <Property Name="APPLICATION_NO" Type="varchar" MaxLength="20" />
+          <Property Name="VILLAGE" Type="int" />
+          <Property Name="SUBDIST" Type="int" />
+          <Property Name="DISTRICT" Type="int" />
+          <Property Name="RECEIVER" Type="int" />
+          <Property Name="NO_OF_YEAR" Type="int" />
+          <Property Name="IS_PN_APPLICABLE" Type="bit" />
+          <Property Name="ASSIGN_TO" Type="int" />
+          <Property Name="T" Type="nvarchar" MaxLength="10" />
+          <Property Name="T_DATE" Type="date" />
+          <Property Name="S" Type="nvarchar" MaxLength="10" />
+          <Property Name="S_DATE" Type="date" />
+          <Property Name="Q" Type="nvarchar" MaxLength="10" />
+          <Property Name="Q_DATE" Type="date" />
+          <Property Name="OVLOD" Type="nvarchar" MaxLength="10" />
+          <Property Name="OV_DATE" Type="date" />
+          <Property Name="PN" Type="nvarchar" MaxLength="10" />
+          <Property Name="PN_DATE" Type="date" />
+          <Property Name="D" Type="nvarchar" MaxLength="10" />
+          <Property Name="D_DATE" Type="date" />
+          <Property Name="STATUS_REMARKS" Type="text" />
+          <Property Name="SEARCH_FEES" Type="int" />
+          <Property Name="IS_PAID" Type="bit" />
+          <Property Name="PAID_REMARKS" Type="text" />
+          <Property Name="IS_DELETED" Type="bit" />
+          <Property Name="ENT_DATE" Type="date" />
+          <Property Name="UPDATE_DATE" Type="date" />
+          <Property Name="FILE_NAME" Type="nvarchar(max)" />
+          <Property Name="LEGAL_FEES" Type="int" />
+        </EntityType>
+        <EntityType Name="INFORMATION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OWNER_NAME" Type="nvarchar(max)" />
+          <Property Name="STUDY" Type="nvarchar" MaxLength="50" />
+          <Property Name="PROFESSION" Type="nvarchar" MaxLength="50" />
+          <Property Name="ADDRESS" Type="nvarchar(max)" />
+          <Property Name="TELEPHONE_NO" Type="nvarchar" MaxLength="20" />
+          <Property Name="MOBILE_NO" Type="nvarchar" MaxLength="20" />
+          <Property Name="PANCARD_NO" Type="nvarchar" MaxLength="25" />
+          <Property Name="ENTRY_DATE" Type="datetime" />
+        </EntityType>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FILE_ID" Type="int" />
+          <Property Name="MESSAGE" Type="text" />
+          <Property Name="EMP_ID" Type="int" />
+          <Property Name="IS_DELETED" Type="bit" />
+          <Property Name="IS_READ" Type="bit" />
+          <Property Name="ENT_DATE" Type="datetime" />
+        </EntityType>
+        <EntityType Name="propertity_details">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PROPERTITY_DETAIL" Type="nvarchar(max)" />
+          <Property Name="A_BLOCK_NO" Type="nvarchar" MaxLength="500" />
+          <Property Name="A_REVENUE_SURVEY_NUM" Type="nvarchar" MaxLength="500" />
+          <Property Name="A_PLOT_FLAT_NUM" Type="nvarchar" MaxLength="500" />
+          <Property Name="REASON" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="public_notice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FILE_ID" Type="int" Nullable="false" />
+          <Property Name="REMARK" Type="nvarchar(max)" />
+          <Property Name="ISSUED_DATE" Type="datetime" />
+          <Property Name="IS_DELETED" Type="bit" />
+          <Property Name="IS_READ" Type="bit" />
+          <Property Name="ENT_DATE" Type="datetime" />
+          <Property Name="REMINDER_DATE" Type="date" />
+          <Property Name="IMAGE_PATH" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="query">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FILE_ID" Type="int" Nullable="false" />
+          <Property Name="QUERY_REMARK" Type="nvarchar(max)" />
+          <Property Name="OV" Type="nvarchar(max)" />
+          <Property Name="LOD" Type="nvarchar(max)" />
+          <Property Name="SMS_CONTENT" Type="text" />
+          <Property Name="EMAIL_CONTENT" Type="text" />
+          <Property Name="IS_RESOLVE" Type="bit" />
+          <Property Name="SENT_TO" Type="int" />
+          <Property Name="IS_DELETED" Type="bit" />
+          <Property Name="ENT_DATE" Type="date" />
+          <Property Name="UPDATE_DATE" Type="date" />
+        </EntityType>
+        <EntityType Name="TEMPLATE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MATTER" Type="nvarchar(max)" />
+          <Property Name="DESCRIPTION" Type="nvarchar(max)" />
+          <Property Name="HTML" Type="nvarchar(max)" />
+          <Property Name="IS_ACTIVE" Type="bit" />
+          <Property Name="IS_DELETED" Type="bit" />
+          <Property Name="ENT_DATE" Type="date" />
+          <Property Name="UPDATE_DATE" Type="date" />
+        </EntityType>
+        <Association Name="FK_BILL_ToTable">
+          <End Role="bank_master" Type="Self.bank_master" Multiplicity="0..1" />
+          <End Role="BILL" Type="Self.BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bank_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="B_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BILL_ToTable_1">
+          <End Role="files" Type="Self.files" Multiplicity="0..1" />
+          <End Role="BILL" Type="Self.BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="files">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="F_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_communication_agent_master">
+          <End Role="agent_master" Type="Self.agent_master" Multiplicity="0..1" />
+          <End Role="communication" Type="Self.communication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="agent_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="communication">
+              <PropertyRef Name="A_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_communication_files">
+          <End Role="files" Type="Self.files" Multiplicity="0..1" />
+          <End Role="communication" Type="Self.communication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="files">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="communication">
+              <PropertyRef Name="F_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_emp_roll_master_employee_master">
+          <End Role="employee_master" Type="Self.employee_master" Multiplicity="0..1" />
+          <End Role="emp_roll_master" Type="Self.emp_roll_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="emp_roll_master">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_files_agent_master">
+          <End Role="agent_master" Type="Self.agent_master" Multiplicity="0..1" />
+          <End Role="files" Type="Self.files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="agent_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="A_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_files_bank_master">
+          <End Role="bank_master" Type="Self.bank_master" Multiplicity="0..1" />
+          <End Role="files" Type="Self.files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bank_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="B_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_files_employee_master">
+          <End Role="employee_master" Type="Self.employee_master" Multiplicity="0..1" />
+          <End Role="files" Type="Self.files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="ASSIGN_TO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_files_geo_master">
+          <End Role="city_master" Type="Self.city_master" Multiplicity="0..1" />
+          <End Role="files" Type="Self.files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="VILLAGE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_files_ToTable">
+          <End Role="employee_master" Type="Self.employee_master" Multiplicity="0..1" />
+          <End Role="files" Type="Self.files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="RECEIVER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_files_ToTable_1">
+          <End Role="city_master" Type="Self.city_master" Multiplicity="0..1" />
+          <End Role="files" Type="Self.files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="SUBDIST" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_files_ToTable_2">
+          <End Role="city_master" Type="Self.city_master" Multiplicity="0..1" />
+          <End Role="files" Type="Self.files" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="DISTRICT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_notification_emp_roll_master">
+          <End Role="employee_master" Type="Self.employee_master" Multiplicity="0..1" />
+          <End Role="notification" Type="Self.notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="notification">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_notification_files">
+          <End Role="files" Type="Self.files" Multiplicity="0..1" />
+          <End Role="notification" Type="Self.notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="files">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="notification">
+              <PropertyRef Name="FILE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_public_notice_files">
+          <End Role="files" Type="Self.files" Multiplicity="1" />
+          <End Role="public_notice" Type="Self.public_notice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="files">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="public_notice">
+              <PropertyRef Name="FILE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_query_agent_master">
+          <End Role="agent_master" Type="Self.agent_master" Multiplicity="0..1" />
+          <End Role="query" Type="Self.query" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="agent_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="query">
+              <PropertyRef Name="SENT_TO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_query_files">
+          <End Role="files" Type="Self.files" Multiplicity="1" />
+          <End Role="query" Type="Self.query" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="files">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="query">
+              <PropertyRef Name="FILE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="brinaladv_dbsModelStoreContainer">
+          <EntitySet Name="agent_master" EntityType="Self.agent_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bank_master" EntityType="Self.bank_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BILL" EntityType="Self.BILL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="city_master" EntityType="Self.city_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="communication" EntityType="Self.communication" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="configuration" EntityType="Self.configuration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="emp_roll_master" EntityType="Self.emp_roll_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee_master" EntityType="Self.employee_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="files" EntityType="Self.files" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="INFORMATION" EntityType="Self.INFORMATION" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="notification" EntityType="Self.notification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="propertity_details" EntityType="Self.propertity_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="public_notice" EntityType="Self.public_notice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="query" EntityType="Self.query" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TEMPLATE" EntityType="Self.TEMPLATE" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_BILL_ToTable" Association="Self.FK_BILL_ToTable">
+            <End Role="bank_master" EntitySet="bank_master" />
+            <End Role="BILL" EntitySet="BILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BILL_ToTable_1" Association="Self.FK_BILL_ToTable_1">
+            <End Role="files" EntitySet="files" />
+            <End Role="BILL" EntitySet="BILL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_communication_agent_master" Association="Self.FK_communication_agent_master">
+            <End Role="agent_master" EntitySet="agent_master" />
+            <End Role="communication" EntitySet="communication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_communication_files" Association="Self.FK_communication_files">
+            <End Role="files" EntitySet="files" />
+            <End Role="communication" EntitySet="communication" />
+          </AssociationSet>
+          <AssociationSet Name="FK_emp_roll_master_employee_master" Association="Self.FK_emp_roll_master_employee_master">
+            <End Role="employee_master" EntitySet="employee_master" />
+            <End Role="emp_roll_master" EntitySet="emp_roll_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_files_agent_master" Association="Self.FK_files_agent_master">
+            <End Role="agent_master" EntitySet="agent_master" />
+            <End Role="files" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_files_bank_master" Association="Self.FK_files_bank_master">
+            <End Role="bank_master" EntitySet="bank_master" />
+            <End Role="files" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_files_employee_master" Association="Self.FK_files_employee_master">
+            <End Role="employee_master" EntitySet="employee_master" />
+            <End Role="files" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_files_geo_master" Association="Self.FK_files_geo_master">
+            <End Role="city_master" EntitySet="city_master" />
+            <End Role="files" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_files_ToTable" Association="Self.FK_files_ToTable">
+            <End Role="employee_master" EntitySet="employee_master" />
+            <End Role="files" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_files_ToTable_1" Association="Self.FK_files_ToTable_1">
+            <End Role="city_master" EntitySet="city_master" />
+            <End Role="files" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_files_ToTable_2" Association="Self.FK_files_ToTable_2">
+            <End Role="city_master" EntitySet="city_master" />
+            <End Role="files" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_notification_emp_roll_master" Association="Self.FK_notification_emp_roll_master">
+            <End Role="employee_master" EntitySet="employee_master" />
+            <End Role="notification" EntitySet="notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_notification_files" Association="Self.FK_notification_files">
+            <End Role="files" EntitySet="files" />
+            <End Role="notification" EntitySet="notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_public_notice_files" Association="Self.FK_public_notice_files">
+            <End Role="files" EntitySet="files" />
+            <End Role="public_notice" EntitySet="public_notice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_query_agent_master" Association="Self.FK_query_agent_master">
+            <End Role="agent_master" EntitySet="agent_master" />
+            <End Role="query" EntitySet="query" />
+          </AssociationSet>
+          <AssociationSet Name="FK_query_files" Association="Self.FK_query_files">
+            <End Role="files" EntitySet="files" />
+            <End Role="query" EntitySet="query" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="brinaladv_dbsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="agent_master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MOBILE1" Type="String" MaxLength="14" FixedLength="true" Unicode="true" />
+          <Property Name="MOBILE2" Type="String" MaxLength="14" FixedLength="true" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IS_ACTIVE" Type="Boolean" Nullable="false" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <Property Name="ENT_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UPDATE_DATE" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="communications" Relationship="Self.FK_communication_agent_master" FromRole="agent_master" ToRole="communication" />
+          <NavigationProperty Name="files" Relationship="Self.FK_files_agent_master" FromRole="agent_master" ToRole="files" />
+          <NavigationProperty Name="queries" Relationship="Self.FK_query_agent_master" FromRole="agent_master" ToRole="query" />
+        </EntityType>
+        <EntityType Name="bank_master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BANK_EMAIL" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PARTICULAR" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MOBILE" Type="String" MaxLength="14" FixedLength="true" Unicode="true" />
+          <Property Name="NO_OF_YEAR" Type="Int32" />
+          <Property Name="NEC" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FEES" Type="Int32" />
+          <Property Name="IS_ACTIVE" Type="Boolean" Nullable="false" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <Property Name="ENT_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UPDATE_DATE" Type="DateTime" Precision="3" />
+          <Property Name="BILL_FORMATE_ID" Type="Int32" />
+          <Property Name="LEGAL_FEES" Type="Int32" />
+          <NavigationProperty Name="BILLs" Relationship="Self.FK_BILL_ToTable" FromRole="bank_master" ToRole="BILL" />
+          <NavigationProperty Name="files" Relationship="Self.FK_files_bank_master" FromRole="bank_master" ToRole="files" />
+        </EntityType>
+        <EntityType Name="BILL">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BILL_NO" Type="Int32" Nullable="false" />
+          <Property Name="B_ID" Type="Int32" />
+          <Property Name="F_ID" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="TO_DATE" Type="DateTime" Precision="3" />
+          <Property Name="END_DATE" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="bank_master" Relationship="Self.FK_BILL_ToTable" FromRole="BILL" ToRole="bank_master" />
+          <NavigationProperty Name="file" Relationship="Self.FK_BILL_ToTable_1" FromRole="BILL" ToRole="files" />
+        </EntityType>
+        <EntityType Name="city_master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VILLAGE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SUB_DIST_ID" Type="Int32" />
+          <Property Name="DIST_ID" Type="Int32" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <NavigationProperty Name="files" Relationship="Self.FK_files_geo_master" FromRole="city_master" ToRole="files" />
+          <NavigationProperty Name="files1" Relationship="Self.FK_files_ToTable_1" FromRole="city_master" ToRole="files" />
+          <NavigationProperty Name="files2" Relationship="Self.FK_files_ToTable_2" FromRole="city_master" ToRole="files" />
+        </EntityType>
+        <EntityType Name="communication">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="F_ID" Type="Int32" />
+          <Property Name="A_ID" Type="Int32" />
+          <Property Name="SMS" Type="Boolean" />
+          <Property Name="SMS_CONTENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL_CONTENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <Property Name="ENT_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UPDATE_DATE" Type="DateTime" Precision="3" />
+          <Property Name="TO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BCC" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ATTACHMENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MOBILE_NO" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SUBJECT" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BODY" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="agent_master" Relationship="Self.FK_communication_agent_master" FromRole="communication" ToRole="agent_master" />
+          <NavigationProperty Name="file" Relationship="Self.FK_communication_files" FromRole="communication" ToRole="files" />
+        </EntityType>
+        <EntityType Name="configuration">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FOLDER_PATH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FROM_EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EM_PASS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="HOST" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PORT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SENDER" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SMS_AUTH_KEY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SEND_SMS_URI" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DATE" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="emp_roll_master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EMP_ID" Type="Int32" />
+          <Property Name="EMP_ROLE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <Property Name="ENT_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UPDATE_DATE" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="employee_master" Relationship="Self.FK_emp_roll_master_employee_master" FromRole="emp_roll_master" ToRole="employee_master" />
+        </EntityType>
+        <EntityType Name="employee_master">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ADDRESS1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MOBILE1" Type="String" MaxLength="14" FixedLength="true" Unicode="true" />
+          <Property Name="MOBILE2" Type="String" MaxLength="14" FixedLength="true" Unicode="true" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_PROOF" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IS_ACTIVE" Type="Boolean" Nullable="false" />
+          <Property Name="FILE_NAME" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <Property Name="ENT_DATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UPDATE_DATE" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="emp_roll_master" Relationship="Self.FK_emp_roll_master_employee_master" FromRole="employee_master" ToRole="emp_roll_master" />
+          <NavigationProperty Name="files" Relationship="Self.FK_files_employee_master" FromRole="employee_master" ToRole="files" />
+          <NavigationProperty Name="files1" Relationship="Self.FK_files_ToTable" FromRole="employee_master" ToRole="files" />
+          <NavigationProperty Name="notifications" Relationship="Self.FK_notification_emp_roll_master" FromRole="employee_master" ToRole="notification" />
+        </EntityType>
+        <EntityType Name="file">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="R_NO" Type="Int32" />
+          <Property Name="CUSTOMERNAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PROPERTY_DETAILS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="A_ID" Type="Int32" />
+          <Property Name="B_ID" Type="Int32" />
+          <Property Name="INWARD_DATE" Type="DateTime" Precision="3" />
+          <Property Name="DELIVERY_DATE" Type="DateTime" Precision="3" />
+          <Property Name="REMARKS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="A_BLOCK_NO" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="A_REVENUE_SURVEY_NUM" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="A_PLOT_FLAT_NUM" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="S_BLOCK_NO" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="S_REVENUE_SURVEY_NUM" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="S_PLOT_FLAT_NUM" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="NEC" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CERTIFIED_COPY" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="APPLICATION_NO" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="VILLAGE" Type="Int32" />
+          <Property Name="SUBDIST" Type="Int32" />
+          <Property Name="DISTRICT" Type="Int32" />
+          <Property Name="RECEIVER" Type="Int32" />
+          <Property Name="NO_OF_YEAR" Type="Int32" />
+          <Property Name="IS_PN_APPLICABLE" Type="Boolean" />
+          <Property Name="ASSIGN_TO" Type="Int32" />
+          <Property Name="T" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="T_DATE" Type="DateTime" Precision="0" />
+          <Property Name="S" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="S_DATE" Type="DateTime" Precision="0" />
+          <Property Name="Q" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Q_DATE" Type="DateTime" Precision="0" />
+          <Property Name="OVLOD" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="OV_DATE" Type="DateTime" Precision="0" />
+          <Property Name="PN" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PN_DATE" Type="DateTime" Precision="0" />
+          <Property Name="D" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="D_DATE" Type="DateTime" Precision="0" />
+          <Property Name="STATUS_REMARKS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SEARCH_FEES" Type="Int32" />
+          <Property Name="IS_PAID" Type="Boolean" />
+          <Property Name="PAID_REMARKS" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <Property Name="ENT_DATE" Type="DateTime" Precision="0" />
+          <Property Name="UPDATE_DATE" Type="DateTime" Precision="0" />
+          <Property Name="FILE_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LEGAL_FEES" Type="Int32" />
+          <NavigationProperty Name="agent_master" Relationship="Self.FK_files_agent_master" FromRole="files" ToRole="agent_master" />
+          <NavigationProperty Name="bank_master" Relationship="Self.FK_files_bank_master" FromRole="files" ToRole="bank_master" />
+          <NavigationProperty Name="BILLs" Relationship="Self.FK_BILL_ToTable_1" FromRole="files" ToRole="BILL" />
+          <NavigationProperty Name="city_master" Relationship="Self.FK_files_geo_master" FromRole="files" ToRole="city_master" />
+          <NavigationProperty Name="city_master1" Relationship="Self.FK_files_ToTable_1" FromRole="files" ToRole="city_master" />
+          <NavigationProperty Name="city_master2" Relationship="Self.FK_files_ToTable_2" FromRole="files" ToRole="city_master" />
+          <NavigationProperty Name="communications" Relationship="Self.FK_communication_files" FromRole="files" ToRole="communication" />
+          <NavigationProperty Name="employee_master" Relationship="Self.FK_files_employee_master" FromRole="files" ToRole="employee_master" />
+          <NavigationProperty Name="employee_master1" Relationship="Self.FK_files_ToTable" FromRole="files" ToRole="employee_master" />
+          <NavigationProperty Name="notifications" Relationship="Self.FK_notification_files" FromRole="files" ToRole="notification" />
+          <NavigationProperty Name="public_notice" Relationship="Self.FK_public_notice_files" FromRole="files" ToRole="public_notice" />
+          <NavigationProperty Name="queries" Relationship="Self.FK_query_files" FromRole="files" ToRole="query" />
+        </EntityType>
+        <EntityType Name="INFORMATION">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OWNER_NAME" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="STUDY" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PROFESSION" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADDRESS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TELEPHONE_NO" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="MOBILE_NO" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="PANCARD_NO" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="ENTRY_DATE" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FILE_ID" Type="Int32" />
+          <Property Name="MESSAGE" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EMP_ID" Type="Int32" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <Property Name="IS_READ" Type="Boolean" />
+          <Property Name="ENT_DATE" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="employee_master" Relationship="Self.FK_notification_emp_roll_master" FromRole="notification" ToRole="employee_master" />
+          <NavigationProperty Name="file" Relationship="Self.FK_notification_files" FromRole="notification" ToRole="files" />
+        </EntityType>
+        <EntityType Name="propertity_details">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PROPERTITY_DETAIL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="A_BLOCK_NO" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="A_REVENUE_SURVEY_NUM" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="A_PLOT_FLAT_NUM" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="REASON" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="public_notice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FILE_ID" Type="Int32" Nullable="false" />
+          <Property Name="REMARK" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ISSUED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <Property Name="IS_READ" Type="Boolean" />
+          <Property Name="ENT_DATE" Type="DateTime" Precision="3" />
+          <Property Name="REMINDER_DATE" Type="DateTime" Precision="0" />
+          <Property Name="IMAGE_PATH" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="file" Relationship="Self.FK_public_notice_files" FromRole="public_notice" ToRole="files" />
+        </EntityType>
+        <EntityType Name="query">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FILE_ID" Type="Int32" Nullable="false" />
+          <Property Name="QUERY_REMARK" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OV" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LOD" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SMS_CONTENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL_CONTENT" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="IS_RESOLVE" Type="Boolean" />
+          <Property Name="SENT_TO" Type="Int32" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <Property Name="ENT_DATE" Type="DateTime" Precision="0" />
+          <Property Name="UPDATE_DATE" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="agent_master" Relationship="Self.FK_query_agent_master" FromRole="query" ToRole="agent_master" />
+          <NavigationProperty Name="file" Relationship="Self.FK_query_files" FromRole="query" ToRole="files" />
+        </EntityType>
+        <EntityType Name="TEMPLATE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MATTER" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="HTML" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IS_ACTIVE" Type="Boolean" />
+          <Property Name="IS_DELETED" Type="Boolean" />
+          <Property Name="ENT_DATE" Type="DateTime" Precision="0" />
+          <Property Name="UPDATE_DATE" Type="DateTime" Precision="0" />
+        </EntityType>
+        <Association Name="FK_communication_agent_master">
+          <End Role="agent_master" Type="Self.agent_master" Multiplicity="0..1" />
+          <End Role="communication" Type="Self.communication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="agent_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="communication">
+              <PropertyRef Name="A_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_files_agent_master">
+          <End Role="agent_master" Type="Self.agent_master" Multiplicity="0..1" />
+          <End Role="files" Type="Self.file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="agent_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="A_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_query_agent_master">
+          <End Role="agent_master" Type="Self.agent_master" Multiplicity="0..1" />
+          <End Role="query" Type="Self.query" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="agent_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="query">
+              <PropertyRef Name="SENT_TO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BILL_ToTable">
+          <End Role="bank_master" Type="Self.bank_master" Multiplicity="0..1" />
+          <End Role="BILL" Type="Self.BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bank_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="B_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_files_bank_master">
+          <End Role="bank_master" Type="Self.bank_master" Multiplicity="0..1" />
+          <End Role="files" Type="Self.file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bank_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="B_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BILL_ToTable_1">
+          <End Role="files" Type="Self.file" Multiplicity="0..1" />
+          <End Role="BILL" Type="Self.BILL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="files">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BILL">
+              <PropertyRef Name="F_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_files_geo_master">
+          <End Role="city_master" Type="Self.city_master" Multiplicity="0..1" />
+          <End Role="files" Type="Self.file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="VILLAGE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_files_ToTable_1">
+          <End Role="city_master" Type="Self.city_master" Multiplicity="0..1" />
+          <End Role="files" Type="Self.file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="SUBDIST" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_files_ToTable_2">
+          <End Role="city_master" Type="Self.city_master" Multiplicity="0..1" />
+          <End Role="files" Type="Self.file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="DISTRICT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_communication_files">
+          <End Role="files" Type="Self.file" Multiplicity="0..1" />
+          <End Role="communication" Type="Self.communication" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="files">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="communication">
+              <PropertyRef Name="F_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_emp_roll_master_employee_master">
+          <End Role="employee_master" Type="Self.employee_master" Multiplicity="0..1" />
+          <End Role="emp_roll_master" Type="Self.emp_roll_master" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="emp_roll_master">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_files_employee_master">
+          <End Role="employee_master" Type="Self.employee_master" Multiplicity="0..1" />
+          <End Role="files" Type="Self.file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="ASSIGN_TO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_files_ToTable">
+          <End Role="employee_master" Type="Self.employee_master" Multiplicity="0..1" />
+          <End Role="files" Type="Self.file" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="files">
+              <PropertyRef Name="RECEIVER" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_notification_emp_roll_master">
+          <End Role="employee_master" Type="Self.employee_master" Multiplicity="0..1" />
+          <End Role="notification" Type="Self.notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employee_master">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="notification">
+              <PropertyRef Name="EMP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_notification_files">
+          <End Role="files" Type="Self.file" Multiplicity="0..1" />
+          <End Role="notification" Type="Self.notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="files">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="notification">
+              <PropertyRef Name="FILE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_public_notice_files">
+          <End Role="files" Type="Self.file" Multiplicity="1" />
+          <End Role="public_notice" Type="Self.public_notice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="files">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="public_notice">
+              <PropertyRef Name="FILE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_query_files">
+          <End Role="files" Type="Self.file" Multiplicity="1" />
+          <End Role="query" Type="Self.query" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="files">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="query">
+              <PropertyRef Name="FILE_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BrinalEntitiesdatabase1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="agent_master" EntityType="Self.agent_master" />
+          <EntitySet Name="bank_master" EntityType="Self.bank_master" />
+          <EntitySet Name="BILLs" EntityType="Self.BILL" />
+          <EntitySet Name="city_master" EntityType="Self.city_master" />
+          <EntitySet Name="communications" EntityType="Self.communication" />
+          <EntitySet Name="configurations" EntityType="Self.configuration" />
+          <EntitySet Name="emp_roll_master" EntityType="Self.emp_roll_master" />
+          <EntitySet Name="employee_master" EntityType="Self.employee_master" />
+          <EntitySet Name="files" EntityType="Self.file" />
+          <EntitySet Name="INFORMATION" EntityType="Self.INFORMATION" />
+          <EntitySet Name="notifications" EntityType="Self.notification" />
+          <EntitySet Name="propertity_details" EntityType="Self.propertity_details" />
+          <EntitySet Name="public_notice" EntityType="Self.public_notice" />
+          <EntitySet Name="queries" EntityType="Self.query" />
+          <EntitySet Name="TEMPLATEs" EntityType="Self.TEMPLATE" />
+          <AssociationSet Name="FK_communication_agent_master" Association="Self.FK_communication_agent_master">
+            <End Role="agent_master" EntitySet="agent_master" />
+            <End Role="communication" EntitySet="communications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_files_agent_master" Association="Self.FK_files_agent_master">
+            <End Role="agent_master" EntitySet="agent_master" />
+            <End Role="files" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_query_agent_master" Association="Self.FK_query_agent_master">
+            <End Role="agent_master" EntitySet="agent_master" />
+            <End Role="query" EntitySet="queries" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BILL_ToTable" Association="Self.FK_BILL_ToTable">
+            <End Role="bank_master" EntitySet="bank_master" />
+            <End Role="BILL" EntitySet="BILLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_files_bank_master" Association="Self.FK_files_bank_master">
+            <End Role="bank_master" EntitySet="bank_master" />
+            <End Role="files" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BILL_ToTable_1" Association="Self.FK_BILL_ToTable_1">
+            <End Role="files" EntitySet="files" />
+            <End Role="BILL" EntitySet="BILLs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_files_geo_master" Association="Self.FK_files_geo_master">
+            <End Role="city_master" EntitySet="city_master" />
+            <End Role="files" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_files_ToTable_1" Association="Self.FK_files_ToTable_1">
+            <End Role="city_master" EntitySet="city_master" />
+            <End Role="files" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_files_ToTable_2" Association="Self.FK_files_ToTable_2">
+            <End Role="city_master" EntitySet="city_master" />
+            <End Role="files" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_communication_files" Association="Self.FK_communication_files">
+            <End Role="files" EntitySet="files" />
+            <End Role="communication" EntitySet="communications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_emp_roll_master_employee_master" Association="Self.FK_emp_roll_master_employee_master">
+            <End Role="employee_master" EntitySet="employee_master" />
+            <End Role="emp_roll_master" EntitySet="emp_roll_master" />
+          </AssociationSet>
+          <AssociationSet Name="FK_files_employee_master" Association="Self.FK_files_employee_master">
+            <End Role="employee_master" EntitySet="employee_master" />
+            <End Role="files" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_files_ToTable" Association="Self.FK_files_ToTable">
+            <End Role="employee_master" EntitySet="employee_master" />
+            <End Role="files" EntitySet="files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_notification_emp_roll_master" Association="Self.FK_notification_emp_roll_master">
+            <End Role="employee_master" EntitySet="employee_master" />
+            <End Role="notification" EntitySet="notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_notification_files" Association="Self.FK_notification_files">
+            <End Role="files" EntitySet="files" />
+            <End Role="notification" EntitySet="notifications" />
+          </AssociationSet>
+          <AssociationSet Name="FK_public_notice_files" Association="Self.FK_public_notice_files">
+            <End Role="files" EntitySet="files" />
+            <End Role="public_notice" EntitySet="public_notice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_query_files" Association="Self.FK_query_files">
+            <End Role="files" EntitySet="files" />
+            <End Role="query" EntitySet="queries" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="brinaladv_dbsModelStoreContainer" CdmEntityContainer="BrinalEntitiesdatabase1">
+          <EntitySetMapping Name="agent_master">
+            <EntityTypeMapping TypeName="brinaladv_dbsModel.agent_master">
+              <MappingFragment StoreEntitySet="agent_master">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="MOBILE1" ColumnName="MOBILE1" />
+                <ScalarProperty Name="MOBILE2" ColumnName="MOBILE2" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="ENT_DATE" ColumnName="ENT_DATE" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bank_master">
+            <EntityTypeMapping TypeName="brinaladv_dbsModel.bank_master">
+              <MappingFragment StoreEntitySet="bank_master">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="BANK_EMAIL" ColumnName="BANK_EMAIL" />
+                <ScalarProperty Name="CC" ColumnName="CC" />
+                <ScalarProperty Name="PARTICULAR" ColumnName="PARTICULAR" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="MOBILE" ColumnName="MOBILE" />
+                <ScalarProperty Name="NO_OF_YEAR" ColumnName="NO_OF_YEAR" />
+                <ScalarProperty Name="NEC" ColumnName="NEC" />
+                <ScalarProperty Name="FEES" ColumnName="FEES" />
+                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="ENT_DATE" ColumnName="ENT_DATE" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+                <ScalarProperty Name="BILL_FORMATE_ID" ColumnName="BILL_FORMATE_ID" />
+                <ScalarProperty Name="LEGAL_FEES" ColumnName="LEGAL_FEES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BILLs">
+            <EntityTypeMapping TypeName="brinaladv_dbsModel.BILL">
+              <MappingFragment StoreEntitySet="BILL">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BILL_NO" ColumnName="BILL_NO" />
+                <ScalarProperty Name="B_ID" ColumnName="B_ID" />
+                <ScalarProperty Name="F_ID" ColumnName="F_ID" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="TO_DATE" ColumnName="TO_DATE" />
+                <ScalarProperty Name="END_DATE" ColumnName="END_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="city_master">
+            <EntityTypeMapping TypeName="brinaladv_dbsModel.city_master">
+              <MappingFragment StoreEntitySet="city_master">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="VILLAGE" ColumnName="VILLAGE" />
+                <ScalarProperty Name="SUB_DIST_ID" ColumnName="SUB_DIST_ID" />
+                <ScalarProperty Name="DIST_ID" ColumnName="DIST_ID" />
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="communications">
+            <EntityTypeMapping TypeName="brinaladv_dbsModel.communication">
+              <MappingFragment StoreEntitySet="communication">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="F_ID" ColumnName="F_ID" />
+                <ScalarProperty Name="A_ID" ColumnName="A_ID" />
+                <ScalarProperty Name="SMS" ColumnName="SMS" />
+                <ScalarProperty Name="SMS_CONTENT" ColumnName="SMS_CONTENT" />
+                <ScalarProperty Name="EMAIL_CONTENT" ColumnName="EMAIL_CONTENT" />
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="ENT_DATE" ColumnName="ENT_DATE" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+                <ScalarProperty Name="TO" ColumnName="TO" />
+                <ScalarProperty Name="CC" ColumnName="CC" />
+                <ScalarProperty Name="BCC" ColumnName="BCC" />
+                <ScalarProperty Name="ATTACHMENT" ColumnName="ATTACHMENT" />
+                <ScalarProperty Name="MOBILE_NO" ColumnName="MOBILE_NO" />
+                <ScalarProperty Name="SUBJECT" ColumnName="SUBJECT" />
+                <ScalarProperty Name="BODY" ColumnName="BODY" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="configurations">
+            <EntityTypeMapping TypeName="brinaladv_dbsModel.configuration">
+              <MappingFragment StoreEntitySet="configuration">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FOLDER_PATH" ColumnName="FOLDER_PATH" />
+                <ScalarProperty Name="FROM_EMAIL" ColumnName="FROM_EMAIL" />
+                <ScalarProperty Name="EM_PASS" ColumnName="EM_PASS" />
+                <ScalarProperty Name="HOST" ColumnName="HOST" />
+                <ScalarProperty Name="PORT" ColumnName="PORT" />
+                <ScalarProperty Name="SENDER" ColumnName="SENDER" />
+                <ScalarProperty Name="SMS_AUTH_KEY" ColumnName="SMS_AUTH_KEY" />
+                <ScalarProperty Name="SEND_SMS_URI" ColumnName="SEND_SMS_URI" />
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="emp_roll_master">
+            <EntityTypeMapping TypeName="brinaladv_dbsModel.emp_roll_master">
+              <MappingFragment StoreEntitySet="emp_roll_master">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="EMP_ROLE" ColumnName="EMP_ROLE" />
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="ENT_DATE" ColumnName="ENT_DATE" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employee_master">
+            <EntityTypeMapping TypeName="brinaladv_dbsModel.employee_master">
+              <MappingFragment StoreEntitySet="employee_master">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="ADDRESS1" ColumnName="ADDRESS1" />
+                <ScalarProperty Name="ADDRESS2" ColumnName="ADDRESS2" />
+                <ScalarProperty Name="MOBILE1" ColumnName="MOBILE1" />
+                <ScalarProperty Name="MOBILE2" ColumnName="MOBILE2" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="PASSWORD" ColumnName="PASSWORD" />
+                <ScalarProperty Name="ID_PROOF" ColumnName="ID_PROOF" />
+                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
+                <ScalarProperty Name="FILE_NAME" ColumnName="FILE_NAME" />
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="ENT_DATE" ColumnName="ENT_DATE" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="files">
+            <EntityTypeMapping TypeName="brinaladv_dbsModel.file">
+              <MappingFragment StoreEntitySet="files">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="R_NO" ColumnName="R_NO" />
+                <ScalarProperty Name="CUSTOMERNAME" ColumnName="CUSTOMERNAME" />
+                <ScalarProperty Name="PROPERTY_DETAILS" ColumnName="PROPERTY_DETAILS" />
+                <ScalarProperty Name="A_ID" ColumnName="A_ID" />
+                <ScalarProperty Name="B_ID" ColumnName="B_ID" />
+                <ScalarProperty Name="INWARD_DATE" ColumnName="INWARD_DATE" />
+                <ScalarProperty Name="DELIVERY_DATE" ColumnName="DELIVERY_DATE" />
+                <ScalarProperty Name="REMARKS" ColumnName="REMARKS" />
+                <ScalarProperty Name="A_BLOCK_NO" ColumnName="A_BLOCK_NO" />
+                <ScalarProperty Name="A_REVENUE_SURVEY_NUM" ColumnName="A_REVENUE_SURVEY_NUM" />
+                <ScalarProperty Name="A_PLOT_FLAT_NUM" ColumnName="A_PLOT_FLAT_NUM" />
+                <ScalarProperty Name="S_BLOCK_NO" ColumnName="S_BLOCK_NO" />
+                <ScalarProperty Name="S_REVENUE_SURVEY_NUM" ColumnName="S_REVENUE_SURVEY_NUM" />
+                <ScalarProperty Name="S_PLOT_FLAT_NUM" ColumnName="S_PLOT_FLAT_NUM" />
+                <ScalarProperty Name="NEC" ColumnName="NEC" />
+                <ScalarProperty Name="CERTIFIED_COPY" ColumnName="CERTIFIED_COPY" />
+                <ScalarProperty Name="APPLICATION_NO" ColumnName="APPLICATION_NO" />
+                <ScalarProperty Name="VILLAGE" ColumnName="VILLAGE" />
+                <ScalarProperty Name="SUBDIST" ColumnName="SUBDIST" />
+                <ScalarProperty Name="DISTRICT" ColumnName="DISTRICT" />
+                <ScalarProperty Name="RECEIVER" ColumnName="RECEIVER" />
+                <ScalarProperty Name="NO_OF_YEAR" ColumnName="NO_OF_YEAR" />
+                <ScalarProperty Name="IS_PN_APPLICABLE" ColumnName="IS_PN_APPLICABLE" />
+                <ScalarProperty Name="ASSIGN_TO" ColumnName="ASSIGN_TO" />
+                <ScalarProperty Name="T" ColumnName="T" />
+                <ScalarProperty Name="T_DATE" ColumnName="T_DATE" />
+                <ScalarProperty Name="S" ColumnName="S" />
+                <ScalarProperty Name="S_DATE" ColumnName="S_DATE" />
+                <ScalarProperty Name="Q" ColumnName="Q" />
+                <ScalarProperty Name="Q_DATE" ColumnName="Q_DATE" />
+                <ScalarProperty Name="OVLOD" ColumnName="OVLOD" />
+                <ScalarProperty Name="OV_DATE" ColumnName="OV_DATE" />
+                <ScalarProperty Name="PN" ColumnName="PN" />
+                <ScalarProperty Name="PN_DATE" ColumnName="PN_DATE" />
+                <ScalarProperty Name="D" ColumnName="D" />
+                <ScalarProperty Name="D_DATE" ColumnName="D_DATE" />
+                <ScalarProperty Name="STATUS_REMARKS" ColumnName="STATUS_REMARKS" />
+                <ScalarProperty Name="SEARCH_FEES" ColumnName="SEARCH_FEES" />
+                <ScalarProperty Name="IS_PAID" ColumnName="IS_PAID" />
+                <ScalarProperty Name="PAID_REMARKS" ColumnName="PAID_REMARKS" />
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="ENT_DATE" ColumnName="ENT_DATE" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+                <ScalarProperty Name="FILE_NAME" ColumnName="FILE_NAME" />
+                <ScalarProperty Name="LEGAL_FEES" ColumnName="LEGAL_FEES" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="INFORMATION">
+            <EntityTypeMapping TypeName="brinaladv_dbsModel.INFORMATION">
+              <MappingFragment StoreEntitySet="INFORMATION">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OWNER_NAME" ColumnName="OWNER_NAME" />
+                <ScalarProperty Name="STUDY" ColumnName="STUDY" />
+                <ScalarProperty Name="PROFESSION" ColumnName="PROFESSION" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="TELEPHONE_NO" ColumnName="TELEPHONE_NO" />
+                <ScalarProperty Name="MOBILE_NO" ColumnName="MOBILE_NO" />
+                <ScalarProperty Name="PANCARD_NO" ColumnName="PANCARD_NO" />
+                <ScalarProperty Name="ENTRY_DATE" ColumnName="ENTRY_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notifications">
+            <EntityTypeMapping TypeName="brinaladv_dbsModel.notification">
+              <MappingFragment StoreEntitySet="notification">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
+                <ScalarProperty Name="MESSAGE" ColumnName="MESSAGE" />
+                <ScalarProperty Name="EMP_ID" ColumnName="EMP_ID" />
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="IS_READ" ColumnName="IS_READ" />
+                <ScalarProperty Name="ENT_DATE" ColumnName="ENT_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="propertity_details">
+            <EntityTypeMapping TypeName="brinaladv_dbsModel.propertity_details">
+              <MappingFragment StoreEntitySet="propertity_details">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PROPERTITY_DETAIL" ColumnName="PROPERTITY_DETAIL" />
+                <ScalarProperty Name="A_BLOCK_NO" ColumnName="A_BLOCK_NO" />
+                <ScalarProperty Name="A_REVENUE_SURVEY_NUM" ColumnName="A_REVENUE_SURVEY_NUM" />
+                <ScalarProperty Name="A_PLOT_FLAT_NUM" ColumnName="A_PLOT_FLAT_NUM" />
+                <ScalarProperty Name="REASON" ColumnName="REASON" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="public_notice">
+            <EntityTypeMapping TypeName="brinaladv_dbsModel.public_notice">
+              <MappingFragment StoreEntitySet="public_notice">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="ISSUED_DATE" ColumnName="ISSUED_DATE" />
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="IS_READ" ColumnName="IS_READ" />
+                <ScalarProperty Name="ENT_DATE" ColumnName="ENT_DATE" />
+                <ScalarProperty Name="REMINDER_DATE" ColumnName="REMINDER_DATE" />
+                <ScalarProperty Name="IMAGE_PATH" ColumnName="IMAGE_PATH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="queries">
+            <EntityTypeMapping TypeName="brinaladv_dbsModel.query">
+              <MappingFragment StoreEntitySet="query">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FILE_ID" ColumnName="FILE_ID" />
+                <ScalarProperty Name="QUERY_REMARK" ColumnName="QUERY_REMARK" />
+                <ScalarProperty Name="OV" ColumnName="OV" />
+                <ScalarProperty Name="LOD" ColumnName="LOD" />
+                <ScalarProperty Name="SMS_CONTENT" ColumnName="SMS_CONTENT" />
+                <ScalarProperty Name="EMAIL_CONTENT" ColumnName="EMAIL_CONTENT" />
+                <ScalarProperty Name="IS_RESOLVE" ColumnName="IS_RESOLVE" />
+                <ScalarProperty Name="SENT_TO" ColumnName="SENT_TO" />
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="ENT_DATE" ColumnName="ENT_DATE" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEMPLATEs">
+            <EntityTypeMapping TypeName="brinaladv_dbsModel.TEMPLATE">
+              <MappingFragment StoreEntitySet="TEMPLATE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MATTER" ColumnName="MATTER" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="HTML" ColumnName="HTML" />
+                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
+                <ScalarProperty Name="IS_DELETED" ColumnName="IS_DELETED" />
+                <ScalarProperty Name="ENT_DATE" ColumnName="ENT_DATE" />
+                <ScalarProperty Name="UPDATE_DATE" ColumnName="UPDATE_DATE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

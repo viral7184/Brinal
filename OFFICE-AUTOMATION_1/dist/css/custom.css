@@ -1,0 +1,64 @@
+.content-ct h1{
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.success{
+	color: #00a65a;
+}
+.warning{
+	color: #f39c12;
+}
+.error{
+	color: #dd4b39;
+}
+
+.searchTb{
+	border: 0;
+	outline: none;
+}
+
+.ct-margin{
+	margin-top: 4px;
+}
+
+.ht-status{
+	height: 130px;
+}
+
+.ht-status .inner{
+	height: 100px;
+}
+
+.content-header-ct .bread-custom{
+	position: relative;
+	float: none ;
+	display: block;
+	margin:  0;
+}
+.content-header-ct .bread-custom li a{
+	color: #414141;
+	font-size:  14px;
+}
+
+.content-header-ct > .breadcrumb > li + li:before {
+  content: '>\00a0';
+}
+
+.box-detail p{
+	margin:  20px 10px;
+}
+
+.file-title{
+	font-size: 18px;
+	color: #00c0ef !important;
+}
+
+.dl-horizontal dt{
+	text-align: left;
+	font-size: 14px;
+}
+.dl-horizontal dl{
+	color: gray;
+	font-size: 14px;
+}

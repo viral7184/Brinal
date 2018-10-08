@@ -1,0 +1,165 @@
+﻿
+@{
+    ViewBag.Title = "Configuration";  
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Configuration</title>
+</head>
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Configuration Setting</h4>
+            </div>
+            <div class="modal-body">
+                <!-- /.box-header -->
+                <form role="form" method="post">
+                    <!-- text input -->
+                    <div class="form-group ">
+                        <label>Folder Path<span class="error"> * </span></label>
+                        <input type="text" name="FOLDER_PATH" required id="FOLDER_PATH" class="form-control" placeholder="Enter Folder Path">
+                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                    </div>
+                    <div class="form-group ">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label>From Email<span class="error"> * </span></label>
+                                <input type="text" id="FROM_EMAIL" required name="FROM_EMAIL" class="form-control" placeholder="Enter Profession">
+                            </div>
+                            <div class="col-xs-6">
+                                <label>Email Password<span class="error"> * </span></label>
+                                <input type="password" id="EM_PASS" required name="EM_PASS" class="form-control" placeholder="Enter Study">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- text input -->
+                    <div class="form-group ">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label>Host<span class="error"> * </span></label>
+                                <input type="text" required id="HOST" name="HOST" class="form-control" placeholder="Enter Landline">
+                            </div>
+                            <div class="col-xs-6">
+                                <label>Port<span class="error"> * </span></label>
+                                <input type="text" required id="PORT" name="PORT" class="form-control" placeholder="Enter Mobile">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label>Sender<span class="error"> * </span></label>
+                        <input type="text" name="SENDER" required id="SENDER" class="form-control" placeholder="Enter Address">
+                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                    </div>
+                    <div class="form-group ">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label>Sms Auth Key<span class="error"> * </span></label>
+                                <input type="text" id="SMS_AUTH_KEY" required name="SMS_AUTH_KEY" class="form-control" placeholder="Enter PanCard Number">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <div class="col-xs-6">
+                                <label>Send Sms Uri<span class="error"> * </span></label>
+                                <input type="text" id="SEND_SMS_URI" required name="SEND_SMS_URI" class="form-control" placeholder="Enter PanCard Number">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <input type="hidden" id="hdnid" name="ID" />
+                        <input type="submit" class="btn btn-success pull-right" value="Update Configuration Setting" />
+                    </div>
+                </form>
+                <!-- /.box-body -->
+            </div>
+        </div>
+    </div>
+</div> 
+        <body>
+            <div>
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Configiration Setting</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="box-body collapse in" id="demo1" style="overflow-x: scroll;">
+                            <table id="fileTable" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="fileTable_info">
+                                <thead>
+                                    <tr>
+                                        <th>SR_No</th>
+                                        <th>Folder Path</th>
+                                        <th>From Email</th>
+                                        <th>Host</th>
+                                        <th>Port</th>
+                                        <th>Sender</th>
+                                        <th>Sms Auth Key</th>
+                                        <th>Send Sms Uri</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int i = 1;}
+                                    @foreach (var item in ViewBag.configration)
+                                    {
+                                        <tr id="row_@item.Id">
+                                            <td>
+                                                <span>@i</span>
+                                            </td>
+                                            <td>
+                                                @item.FOLDER_PATH
+                                            </td>
+                                            <td>@item.FROM_EMAIL</td>
+                                            <td>
+                                                @item.HOST
+                                        </td>
+                                        <td>@item.PORT</td>
+                                        <td>@item.SENDER</td>
+                                        <td>@item.SMS_AUTH_KEY</td>
+                                        <td>@item.SEND_SMS_URI</td>
+                                        <td>
+                                            <a onclick="OpenDialog(@item.Id)" data-toggle="modal" data-target="#myModal1" type="button"> <i class="fa fa-edit"></i></a>
+                                        </td>
+                                    </tr>
+                                        i++;
+                                    }
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </body>  
+</html>
+<script>
+    function OpenDialog(id) {
+
+        var emp =
+                   {
+                       ID : id,
+                   }
+
+            $.ajax({
+                url: '/getConfoguration/' + id,
+                type: 'GET',
+
+                success: function (data) {
+
+                    $('#hdnid').val(data.data.Id);
+                    $('#FOLDER_PATH').val(data.data.FOLDER_PATH);
+                    $('#FROM_EMAIL').val(data.data.FROM_EMAIL);
+                    $('#EM_PASS').val(data.data.EM_PASS);
+                    $('#HOST').val(data.data.HOST);
+                    $('#PORT').val(data.data.PORT);
+                    $('#SENDER').val(data.data.SENDER);
+                    $('#SMS_AUTH_KEY').val(data.data.SMS_AUTH_KEY);
+                    $('#SEND_SMS_URI').val(data.data.SEND_SMS_URI);
+                }
+            });
+        }
+</script>

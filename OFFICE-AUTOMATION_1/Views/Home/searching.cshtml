@@ -1,0 +1,409 @@
+﻿
+
+@using PagedList
+@using PagedList.Mvc
+@model PagedList<OFFICE_AUTOMATION_1.Models.file>
+@{
+    ViewBag.Title = "searching";
+    Layout = "~/Views/Shared/_Layout.cshtml";    
+}
+
+
+
+<section class="content">
+    <div class="alert alert-success alert-dismissible" style="display: none">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-check"></i> Alert!</h4> Searching is added successfully
+    </div>
+
+    @*<p>
+        <div><a href="@Url.Action("ExportCustomers")"> Report PDF </a></div>
+    </p>*@
+    <!-- Info boxes -->
+   
+  <div class="box">    
+    <!-- /.box-header -->
+    <div class="box-body" style="overflow-x: scroll;">
+        <form role="form" method="post" style="margin-bottom: 20px">
+            <!-- text input -->
+            <div class="row" padding-top 20px;">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Select Date:</label>
+                        <input type="text" name="DATE"  autocomplete="off" class="form-control pull-right" id="datepicker" required>
+                    </div>
+                </div>
+                @*<div class="col-md-4">
+                    <div class="form-group">
+                        <label></label>
+                        <div class="input-group date" style="margin-top: 5px; margin-left: -20px;">
+                            <button type="submit" class="btn btn-info pull-right">Search</button>
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>District</label>
+                        <select name="DISTRICT" id="dist1" onchange="FillCity1()" class="form-control select2" style="width: 100%" multiple>                         
+                            @foreach (var item in ViewBag.District)
+                            {
+                                <option value="@item.ID">@item.VILLAGE</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Sub-District</label>
+                        <select name="SUBDIST" id="sub_dist1" onchange="Fillvillage1()" class="form-control select2" style="width: 100%" multiple>                         
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Village</label>
+                        <select name="VILLAGE" id="village1" class="form-control select2" style="width: 100%" multiple>                         
+                        </select>
+                    </div>
+                </div>
+                    <div class="form-group">
+                        <br /><div class="col-sm-2">
+
+    <button type="submit" class="btn btn-info">Search</button>
+</div>
+                </div>
+            </div>
+            @*<div class="row">
+                <div class="col-sm-2" style="right:88px">                   
+                        <button type="submit" class="btn btn-info pull-right">Search</button>                   
+                </div>
+            </div>*@
+        </form>
+        <table id="fileTable1" class="table table-bordered table-striped">
+            <thead>
+                <tr>                   
+                    <th rowspan="2">SR_No</th>
+                    <th rowspan="2">Date</th>
+                    <th rowspan="2">File_No</th>                   
+                    <th rowspan="2">Village</th>                   
+                    <th rowspan="2">Sub_Districts</th>
+                    <th colspan="3">Search</th>
+                    <th rowspan="2">7/12</th>
+                    <th rowspan="2">NEC</th>
+                    <th rowspan="2" title="No of Year">NOY</th>
+                    <th rowspan="2">Fees</th>
+                    <th rowspan="2"> Receiver </th>
+                    <th rowspan="2">Action</th>
+                </tr>
+                <tr>
+                    <th>Block No</th> 
+                    <th>Revenue Survey No</th>
+                    <th>Plot No</th>
+                </tr>
+                
+            </thead>
+            <tbody>
+                @{int i = 1;}
+                @foreach (var item in ViewBag.files)
+                {
+
+                    int n = 0;
+                    int a = 0;
+                    int f = 0;
+                    int neclen=0;
+                    int blocklen = 0;
+                    int flatlen = 0;
+                    string[] nec = null;
+                    string[] blockno = null;
+                    string[] flatno = null;
+                    if (item.NEC != null)
+                    {
+                        nec = item.NEC.Split(',');
+                        neclen = nec.Count();
+                    }
+                    else
+                    {
+                        nec = new string[] {""};
+                        neclen = nec.Count();
+                    }
+                    if(item.A_BLOCK_NO != null)
+                    {
+                        blockno = item.A_BLOCK_NO.Split(',');
+                        blocklen = blockno.Count();
+                    }
+                    else
+                    {
+                        blockno = new string[] {""};
+                        blocklen = blockno.Count();
+                    }
+                    if (item.A_PLOT_FLAT_NUM != null)
+                    {
+                        flatno = item.A_PLOT_FLAT_NUM.Split(',');
+                        flatlen = flatno.Count();
+                    }
+                    else
+                    {
+                        flatno = new string[] { "" };
+                        flatlen = flatno.Count();
+                    }
+                    for(n=0,a=0,f=0; n < neclen || a < blocklen || f < flatlen ; n++,a++,f++)
+                    {                      
+                    <tr id="row_@item.ID">
+                        <td>
+                            <span>@i</span>
+                        </td>
+                        <td id="ENT_DATE_@item.ID">
+                            @if (item.ENT_DATE != null)
+                            {
+                              @item.ENT_DATE.ToString("dd/MM/yyyy")
+                            }
+                        </td>
+                        <td>
+                            @item.R_NO
+                        </td>
+                        <td>                         
+                            @foreach (var data in ViewBag.villages)
+                            {
+                                if (item.VILLAGE == data.ID)
+                                {
+                                    @data.VILLAGE
+                                }
+                            }
+                        </td>
+                        <td>
+                            @*@item.city_master1.VILLAGE*@
+                            @foreach (var data in ViewBag.SubDist)
+                            {
+                                if (item.SUBDIST == data.ID)
+                                {
+                                    @data.VILLAGE
+                                }
+                            }                           
+                        </td> 
+                        <td id="BLOCKNO_@item.ID">
+                            @if(a < blocklen)
+                            {
+                                @blockno[a];
+                            }                           
+                        </td>
+                        <td>
+
+                            @if(item.A_REVENUE_SURVEY_NUM != null)
+                            {
+                               @item.A_REVENUE_SURVEY_NUM
+                            }                                                    
+                        </td>
+                        <td>                            
+                            @if(f < flatlen)
+                            {
+                                @flatno[f];
+                            }                            
+                        </td>
+                        <td>
+                            @item.S_BLOCK_NO <br />
+                            @item.S_REVENUE_SURVEY_NUM <br />
+                            @item.S_PLOT_FLAT_NUM <br />
+                        </td>
+                        <td id="NEC_@item.ID">
+                          @if (n < neclen)
+                          {
+                              @nec[n];
+                          }                          
+                        </td>
+                        <td id="NO_OF_YEAR_@item.ID">
+                            @item.NO_OF_YEAR
+                        </td>
+                        <td id="FEES_@item.ID">
+                            @item.SEARCH_FEES
+                        </td>
+                        <td id="RECEIVER_@item.ID">                           
+                               @*@item.employee_master.NAME*@                          
+                           @foreach(var data in ViewBag.employee)
+                           {
+                               if(item.RECEIVER == data.ID)
+                               {
+                                   @data.NAME
+                               }
+                           }
+                        </td>
+                        <td>
+                            <a style="display:inline" href="~/editsearch/@item.ID" onclick="OpenDialog(@item.ID )"> <i class="fa fa-edit"></i></a>
+                            @*<a style="display:inline" class="hide_me" href="" onclick="Delete(@item.ID,'del')"> &nbsp; <i class="fa fa-trash"></i> </a>*@
+                        </td>
+                    </tr>
+                        i++;                       
+                    }
+                }
+            </tbody>
+        </table>
+        <br />       
+     </div>
+   </div>   
+</section>
+@*<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />*@
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.3.1/css/buttons.dataTables.min.css" />
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.flash.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/pdfmake.min.js"></script>
+<script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.27/build/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.print.min.js"></script>
+
+
+<script>
+    function Delete(id, del) {
+        if (confirm("Are you sure Delete this Record?")) {  
+            var deletes =
+               {
+                   ID: id,
+                   src_del: del,
+               }
+            {
+                $.ajax({
+                    url: '/delete/',
+                    data: JSON.stringify(deletes),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        $('#row_'+id).hide();
+                    }
+                });
+            }
+        }
+        return false;
+    }
+</script>
+
+
+<script>
+    function di_city_ids() {
+        var i = 0;
+        var stateId = $('#dist1').val();
+        var distId = $('#sub_dist1').val();
+        var villageid = $('#village1').val();
+        $.ajax({
+            url: '/searchlist/',
+            data: { DId: stateId, SId: distId, VId: villageid },
+            type: "post",
+            dataType: "JSON",
+            success: function (data) {               
+            }
+        });
+    }
+</script>
+
+
+<script>
+    function FillCity1() {
+        var i = 0;
+        var stateId = $('#dist1').val();
+        $.ajax({
+            url: '/loadcitydatas/',
+            data: {Id: stateId},
+            type: "post",
+            dataType: "JSON",
+            success: function (data) {                
+                $("#sub_dist1").empty();
+                $('#sub_dist1').append('<option value="0">Select Sub-Dist</option>');
+                $.each(data, function (index, values) {
+                    $.each(values, function (index, value) {
+                        $('#sub_dist1').append('<option value="' + value.ID + '">' + value.VILLAGE + '</option>');
+                        i++;
+                    });
+                });
+            }
+        });
+    }
+</script>
+<script>
+    function Fillvillage1() {
+        var i = 0;
+        var distId = $('#sub_dist1').val();
+        $.ajax({
+            url: '/loadvillagedatas/',
+            data: { Id: distId },
+            type: "post",
+            dataType: "JSON",
+            success: function (data) {
+                $("#village1").empty();
+                $('#village1').append('<option value="0">Select village</option>');
+                $.each(data, function (index, values) {
+                    $.each(values, function (index, value) {
+                        $('#village1').append('<option value="' + value.ID + '">' + value.VILLAGE + '</option>');
+                        i++;
+                    });
+                });
+            }
+        });
+    }
+</script>
+<script>
+    $("#VILLAGE").change(function () {
+        //alert($('#agent_id').val());
+        $.ajax({
+            type: "get",
+            url: "/loadvillage",
+            data: { ID: $('#VILLAGE').val() },
+            datatype: "Json",
+            success: function (data) {
+
+                $('#DID').val(data.data.ID);
+                $('#dist_id').val(data.data.GEONAME);    
+
+            }, error: function (xhr, textStatus, errorThrown) {
+                alert(xhr.responseText);
+            }
+        })
+    });
+</script>
+<script>
+    $("#VILLAGE2").change(function () {
+        $.ajax({
+            type: "get",
+            url: "/loadvillage",
+            data: { ID: $('#VILLAGE2').val() },
+            datatype: "Json",
+            success: function (data) {
+                $('#DID2').val(data.data.ID);
+                //alert(data.data.GEONAME);
+                var dt = data.data.ID;
+                $('#dist_id2 option[value=' + dt + ']').attr("selected", "selected");
+            }, error: function (xhr, textStatus, errorThrown) {
+                alert(xhr.responseText);
+            }
+        })
+    });
+</script>
+
+
+ 
+<script>
+$(document).ready(function() {
+    $('#fileTable1').DataTable({
+        dom: 'Bfrtip',
+        //searching: false,
+        //paging:   false,
+        //bSort : false,
+      
+        buttons: [
+     {
+         extend: 'excel',
+         footer: true,
+         exportOptions: {
+             columns: [1,2,3,4,5,6,7,8,9,10,11,12]
+         }
+     },    
+     
+        ]
+    } );
+});
+</script>
+
+

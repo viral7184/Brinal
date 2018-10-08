@@ -1,0 +1,507 @@
+﻿
+
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Theme style -->
+    <!-- Select2 -->
+    <link rel="stylesheet" href="../../plugins/datatables/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="../../plugins/select2/select2.min.css">
+    <link rel="stylesheet" href="../../dist/css/AdminLTE.css">
+    <link rel="stylesheet" href="../../dist/css/custom.css">
+    <link href="~/dist/css/lightbox.css" rel="stylesheet" />
+
+    
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/start/jquery-ui.css">    
+     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+
+    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter `
+          page. However, you can choose any other skin. Make sure you
+          apply the skin class to the body tag so the changes take effect.
+    -->
+    <link rel="stylesheet" href="../../dist/css/skins/skin-black.min.css">
+    <link rel="stylesheet" href="../../plugins/colorpicker/bootstrap-colorpicker.min.css">
+    <link href="~/plugins/datepicker/datepicker3.css" rel="stylesheet" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+
+    @if (Session["email"] == null)
+    {
+        Response.Redirect("~/Login");
+    }
+
+
+    @if (Session["roll"] != null)
+    {
+        if (Session["roll"].ToString() == "Admin")
+        {
+            <style>
+                .hide_me {
+                    display: block;
+                }
+            </style>
+        }
+        else if (Session["roll"].ToString() == "Employee")
+        {
+            <style>
+                .hide_me {
+                    display: none;
+                }
+            </style>
+        }
+    }
+    else
+    {
+        <style>
+            .hide_me {
+                display: none;
+            }
+        </style>
+    }
+
+</head>
+
+<div class="modal fade" id="changepassword" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">change password</h4>
+            </div>
+            <div class="modal-body">
+                <!-- /.box-header -->
+
+                <div class="form-group ">
+                    <label>Employee Email</label>
+                    <input type="text" name="EMAIL" id="EMAIL" class="form-control" placeholder="Enter Employee Email">
+                    <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                </div>
+                <div class="form-group ">
+                    <label>new password</label>
+                    <input type="password" name="PASSWORD" id="PASSWORD" class="form-control" placeholder="Enter password">
+                </div>
+                <div class="box-footer">
+                    <input type="hidden" id="hide" name="ID" />
+                    <button type="button" id="changepassword1" onclick="changepassword()" data-dismiss="modal" class="btn btn-info pull-right">change password</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<body class="hold-transition skin-black sidebar-mini">
+    <div class="wrapper">
+        <!-- Main Header -->
+        <header class="main-header">
+            <!-- Logo -->
+            <a  class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels -->
+                <span class="logo-mini"><b></b></span>
+                <!-- logo for regular state and mobile devices -->
+                <span class="logo-lg"><b>BrinalADV</b></span>
+            </a>
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>                
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- Messages: style can be found in dropdown.less-->
+                        <!-- /.messages-menu -->
+                        <!-- Notifications Menu -->
+                        <li class="dropdown notifications-menu">
+                            <!-- Menu toggle button -->
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-bell-o"></i>
+                                <span class="label label-warning">@Session["noti"]</span>
+                            </a>
+                            @if (Session["noti"] != null)
+                            {
+                                <ul class="dropdown-menu">
+
+                                    <li>
+                                        <!-- Inner Menu: contains the notifications -->
+                                        <ul class="menu">
+                                            <br />
+                                            <br />
+                                            <li>
+                                                <a href="~/Notifications">  <i class="fa fa-users text-aqua"></i> You have @Session["noti"] file </a>
+                                            </li>
+                                            <!-- end notification -->
+                                        </ul>
+                                    </li>
+                                </ul>
+                            }
+                        </li>
+                        <!-- Tasks Menu -->                   
+                        <!-- User Account Menu -->
+                        <li class="dropdown">
+                            <a href="" data-toggle="dropdown">
+                                @if (Session["name"] != null)
+                                {
+                                    @Session["name"].ToString().Trim()
+                                }
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a data-toggle="modal" data-target="#changepassword" >change password</a></li>
+                                <li><a href="~/logout">Sign out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <!-- Messages: style can be found in dropdown.less-->
+                        <!-- /.messages-menu -->
+                        <!-- Notifications Menu -->
+                        <li class="dropdown notifications-menu">
+                            <!-- Menu toggle button -->
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-newspaper-o"></i>
+                                <span class="label label-warning">@Session["public_notification"]</span>
+                            </a>
+                            @if (Session["public_notification"] != null)
+                          {
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <!-- Inner Menu: contains the notifications -->
+                                    <ul class="menu">
+                                        <br />
+                                        <br />
+                                        <li>
+                                            <a href="~/PublicNotice/@Session["public_notification"]" >  <i class="fa fa-users text-aqua"></i> You have @Session["public_notification"] Public Notice </a>
+                                        </li>
+                                        <!-- end notification -->
+                                    </ul>
+                                </li>
+                            </ul>
+                            }
+                        </li>
+
+                        <!-- Control Sidebar Toggle Button -->
+
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <!-- Sidebar Menu -->
+                <!-- Sidebar Menu -->
+                <ul class="sidebar-menu">
+
+                    <!-- Optionally, you can add icons to the links -->
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Dashboard" ? "active" : "")"><a href="~/Dashboard"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+                    @*<li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Customers" ? "active" : "")"><a href="~/Customers"><i class="fa fa-users"></i> <span>Customers</span></a></li>*@
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Files" ? "active" : "")"><a href="~/Files"><i class="fa fa-file"></i> <span>Files</span></a></li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Propertity_details" ? "active" : "")"><a href="~/Propertity_details"><i class="fa fa-list" aria-hidden="true"></i> <span>Black list Details</span></a></li>
+
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Agent" ? "active" : "")"><a href="~/Agent"><i class="fa fa-male"></i> <span>Agent</span></a></li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Employee" ? "active" : "")"><a href="~/Employee"><i class="fa fa-user"></i> <span>Employee</span></a></li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Communication" ? "active" : "")"><a href="~/Communication"><i class="fa fa-comment-o"></i> <span>Communication</span></a></li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Notifications" ? "active" : "")"><a href="~/Notifications"><i class="fa fa-commenting-o"></i> <span>Notifications</span></a></li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "PublicNotice" ? "active" : "")"><a href="~/PublicNotice"><i class="fa fa-newspaper-o"></i> <span>Public Notice</span></a></li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "query" ? "active" : "")"><a href="~/query"><i class="fa fa-question"></i> <span>Query</span></a></li>
+                    <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "searching" ? "active" : "")"><a href="~/searching"><i class="fa fa-user"></i> <span>Searching</span></a></li>
+
+                    <li class="treeview hide_me">
+                        <a href="#">
+                            <i class="fa fa-gear"></i> <span>Setting</span>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="@(ViewContext.RouteData.Values["Action"].ToString() == "Setting" ? "active" :"")treeview-menu">
+                            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Bank" ? "active" : "")"><a href="~/Bank"><i class="fa fa-bank"></i> <span>Bank Master</span></a></li>
+                            @*<li class="@(ViewContext.RouteData.Values["Action"].ToString() == "filestatus" ? "active" : "")"><a href="~/FileStatus"><i class="fa fa-file"></i> <span>File Status</span></a></li>*@
+                            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "ManageCity" ? "active" : "")"><a href="~/ManageCity"><i class="fa fa-building"></i> <span>Manage City</span></a></li>
+                            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "User" ? "active" : "")"><a href="~/employee_role"><i class="fa fa-user"></i> <span>Employee Role</span></a></li>
+                            @*<li class="@(ViewContext.RouteData.Values["Action"].ToString() == "template" ? "active" : "")"><a href="~/template"><i class="fa fa-file-o"></i> <span>template</span></a></li>*@
+                            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Ownerinformation" ? "active" : "")"><a href="~/Ownerinformation"><i class="fa fa-info"></i> <span>Owner Information</span></a></li>
+                            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "billdetailslist" ? "active" : "")"><a href="~/billdetailslist"><i class="fa fa-list-alt" aria-hidden="true"></i> <span>Bill details list</span></a></li>
+                            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "Configuration" ? "active" : "")"><a href="~/Configuration"><i class="fa fa-cogs"></i></i> <span>Configuration Setting</span></a></li>
+                            <li class="@(ViewContext.RouteData.Values["Action"].ToString() == "deletedrecord" ? "active" : "")"><a href="~/deletedrecord"><i class="fa fa-remove"></i> <span>deleted record</span></a></li>
+                        </ul>
+                    </li>                    
+                </ul>
+                <!-- /.sidebar-menu -->
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+        <section class="content-wrapper">
+            @RenderBody()
+        </section>
+        <!-- /.content-wrapper -->
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- To the right -->
+            <div class="text-right hidden-xs">
+                Developed By <a target="_blank" href="http://qwesys.com">Qwesys Digital Solutions</a>
+            </div>
+        </footer>
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Create the tabs -->
+            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <!-- Home tab content -->
+                <div class="tab-pane active" id="control-sidebar-home-tab">
+                    <h3 class="control-sidebar-heading">Recent Activity</h3>
+                    <ul class="control-sidebar-menu">
+                        <li>
+                            <a href="javascript:;">
+                                <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+                                <div class="menu-info">
+                                    <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+                                    <p>Will be 23 on April 24th</p>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.control-sidebar-menu -->
+                    <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                    <ul class="control-sidebar-menu">
+                        <li>
+                            <a href="javascript:;">
+                                <h4 class="control-sidebar-subheading">
+                                    Custom Template Design
+                                    <span class="pull-right-container">
+                                        <span class="label label-danger pull-right">70%</span>
+                                    </span>
+                                </h4>
+                                <div class="progress progress-xxs">
+                                    <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.control-sidebar-menu -->
+                </div>
+                <!-- /.tab-pane -->
+                <!-- Stats tab content -->
+                <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+                <!-- /.tab-pane -->
+                <!-- Settings tab content -->
+                <div class="tab-pane" id="control-sidebar-settings-tab">
+                    <form method="post">
+                        <h3 class="control-sidebar-heading">General Settings</h3>
+                        <div class="form-group">
+                            <label class="control-sidebar-subheading">
+                                Report panel usage
+                                <input type="checkbox" class="pull-right" checked>
+                            </label>
+                            <p>
+                                Some information about this general settings option
+                            </p>
+                        </div>
+                        <!-- /.form-group -->
+                    </form>
+                </div>
+                <!-- /.tab-pane -->
+            </div>
+        </aside>
+        <!-- /.control-sidebar -->
+        <!-- Add the sidebar's background. This div must be placed
+        immediately after the control sidebar -->
+        <!-- Bootstrap 3.3.7 -->
+        <script src="../../bootstrap/js/bootstrap.min.js"></script>
+        <!-- DataTables -->
+        <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="../../plugins/datatables/dataTables.bootstrap.min.js"></script>
+        <!-- bootstrap datepicker -->
+        <script src="../../plugins/datepicker/bootstrap-datepicker.js"></script>
+        <!-- Select2 -->
+        <script src="../../plugins/select2/select2.full.min.js"></script>
+        <script src="../../plugins/input-mask/jquery.inputmask.js"></script>
+        <script src="../../plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+        <script src="../../plugins/input-mask/jquery.inputmask.extensions.js"></script>
+        <!-- SlimScroll -->
+        <script src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+        <!-- FastClick -->
+        <script src="../../plugins/fastclick/fastclick.js"></script>
+        <script src="~/dist/js/lightbox.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="../../dist/js/demo.js"></script>
+        <script src="../../dist/js/app.min.js"></script>
+        <script src="../../plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+        @*<script src="~/Scripts/JavaScript.js"></script>*@
+        <script>
+            $(function () {
+
+                $('#datepicker').datepicker({
+                    format: 'dd/mm/yyyy'
+                });
+                $('#datepicker2').datepicker({
+                    format: 'dd/mm/yyyy'
+                });
+
+                $("[data-mask]").inputmask();
+
+                $('#datepickerFileTable').datepicker({
+                    format: 'dd/mm/yyyy'
+                });
+                $(".select2").select2();
+                $('#datepicker').datepicker({
+                    autoclose: true
+                }); $('#datepicker2').datepicker({
+                    autoclose: true
+                });
+                // DataTable
+                var table = $('#fileTable').DataTable({
+                    'bAutoWidth': false,
+                    //ajax: '~/Scripts/JavaScript.js'
+                });
+                // DataTable
+                var tables = $('.fileTable').DataTable({
+                    'bAutoWidth': false,
+                   
+                });
+                // Apply the search
+               // $(".my-colorpicker").colorpicker();
+            });
+        </script>
+        <div class="control-sidebar-bg"></div>
+    </div>
+    <!-- ./wrapper -->
+    <!-- jQuery 2.2.3 -->
+
+</body>
+
+</html>
+
+<script>
+    function notification(id) {
+        var notification =
+           {
+               ID: id
+           }
+        {
+            $.ajax({
+                url: '/tblnotification/',
+                data: JSON.stringify(notification),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+
+                }
+            });
+        }
+    }
+</script>
+
+<script>
+    function FillCity() {
+        var i = 0;
+        var stateId = $('#dist').val();
+        $.ajax({
+            url: '/loadcitydata/' + stateId,
+            type: "GET",
+            dataType: "JSON",
+            success: function (data) {
+                $("#sub_dist").empty();
+                $('#sub_dist').append('<option value="2">Select Sub-Dist</option>');
+                $.each(data, function (index, values) {
+                    $.each(values, function (index, value) {
+                        $('#sub_dist').append('<option value="' + value.ID + '">' + value.sub_dist + '</option>');
+                        i++;
+                    });
+                });
+            }
+        });
+    }
+    function Fillvillage() {
+        var i = 0;
+        var distId = $('#sub_dist').val();
+        $.ajax({
+            url: '/loadvillagedata/' + distId,
+            type: "GET",
+            dataType: "JSON",
+            success: function (data) {
+                $("#village").empty();
+                $('#village').append('<option value="3">Select village</option>');
+                $.each(data, function (index, values) {
+                    $.each(values, function (index, value) {
+                        $('#village').append('<option value="' + value.ID + '">' + value.village + '</option>');
+                        i++;
+                    });
+                });
+            }
+        });
+    }
+</script>
+<script>
+    function changepassword() {
+        if (confirm("Are you sure to change Password?")) {
+
+            var email = $('#EMAIL').val();
+            var password = $('#PASSWORD').val();
+
+            $.ajax({
+                url: '/changepassword/',
+                data: { 'email': email, 'password': password },
+                type: "post",
+                cache: false,
+                success: function (savingStatus) {
+                    //$('#myModalLabel').hide();
+
+                    alert("Your password has been successfully changed!");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    $('#lblCommentsNotification').text("Error encountered while changing your password.");
+                }
+            });
+        }
+        return false;
+    };
+
+</script>
+<script>
+    $(document).ready(function () {
+        var str = $("#Config_Form").serialize();
+        s = str;
+    });
+
+    $("input").change(function () {
+        var str = $("#Config_Form").serialize();
+        if (s == str) {
+            $("#submit_id").attr("disabled", true);
+        }
+        else {
+            $("#submit_id").attr("disabled", false);
+        }
+    });
+</script>
+

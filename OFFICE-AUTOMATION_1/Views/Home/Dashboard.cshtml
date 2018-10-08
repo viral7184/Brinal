@@ -1,0 +1,365 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+
+<!-- Content Header (Page header) -->
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Info boxes -->
+    <!-- /.row -->
+    <div class="content-ct">
+        <h1>
+            File Status
+        </h1>
+    </div>
+
+
+    <div class="row">       
+        <!-- ./col -->
+        <div class="col-lg-2 col-xs-6">
+            <!-- small box -->
+            <a href="~/Files/Search">
+                <div class="small-box bg-blue">
+                    @if (ViewBag.search != null)
+                    {
+                        <div class="inner">
+                            <h3>@ViewBag.search</h3>
+                            <p>Search</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="inner">
+                            <h3>0</h3>
+                            <p>Search</p>
+                        </div>
+                    }
+                    <div class="icon">
+                        <i style="font-size:47px" class="ion ion-search"></i>
+                    </div>
+                    <div class="small-box-footer">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-2 col-xs-6">
+            <a href="~/Files/Title">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    @if (ViewBag.Titles != null)
+                    {
+                        <div class="inner">
+                            <h3>@ViewBag.Titles</h3>
+                            <p>Title Files</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="inner">
+                            <h3>0</h3>
+                            <p>Title Files</p>
+                        </div>
+                    }
+                    <div class="icon">
+                        <i style="font-size:47px" class="fa fa-file"></i>
+                    </div>
+
+                    <div class="small-box-footer">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
+        <!-- ./col -->
+        <div class="col-lg-2 col-xs-6">
+            <!-- small box -->
+            <a href="~/Files/Query">
+                <div class="small-box bg-red">
+                    @if (ViewBag.Query != null)
+                    {
+                        <div class="inner">
+                            <h3>@ViewBag.Query</h3>
+                            <p>Query</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="inner">
+                            <h3>0</h3>
+                            <p>Query</p>
+                        </div>
+                    }
+                    <div class="icon">
+                        <i style="font-size:47px" class="ion ion-person-add"></i>
+                    </div>
+                    <div class="small-box-footer">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col-lg-2 col-xs-6">
+            <!-- small box -->
+            <a href="~/Files/OVOLD">
+                <div class="small-box bg-orange">
+                    @if (ViewBag.OVOLD != null)
+                    {
+                        <div class="inner">
+                            <h3>@ViewBag.OVOLD</h3>
+                            <p>O.V/L.O.D</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="inner">
+                            <h3>0</h3>
+                            <p>O.V/L.O.D</p>
+                        </div>
+                    }
+                    <div class="icon">
+                        <i style="font-size:47px" class="ion ion-pie-graph"></i>
+                    </div>
+                    <div class="small-box-footer">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- ./col -->
+        <div class="col-lg-2 col-xs-6">
+            <!-- small box -->
+            <a href="~/Files/PN">
+                <div class="small-box bg-yellow-gradient">
+                    @if (ViewBag.public_notice != null)
+                    {
+                        <div class="inner">
+                            <h3>@ViewBag.public_notice</h3>
+                            <p>Public Notice</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="inner">
+                            <h3>0</h3>
+                            <p>Public Notice</p>
+                        </div>
+                    }
+                    <div class="icon">
+                        <i style="font-size:47px;color:rgba(255, 255, 255, 0.4)" class="ion ion-alert-circled"></i>
+                    </div>
+                    <div class="small-box-footer">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-2 col-xs-6">
+            <!-- small box -->
+            <a href="~/Files/Delivered">
+                <div class="small-box bg-green">
+                    @if (ViewBag.delivered != null)
+                    {
+                        <div class="inner">
+                            <h3>@ViewBag.delivered</h3>
+                            <p>Delivered</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="inner">
+                            <h3>0</h3>
+                            <p>Delivered</p>
+                        </div>
+                    }
+                    <div class="icon">
+                        <i style="font-size:47px" class="ion ion-android-done-all"></i>
+                    </div>
+                    <div class="small-box-footer">
+                        More info <i class="fa fa-arrow-circle-right"></i>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- ./col -->
+        <!-- ./col -->
+    </div>   
+            <div class="content-ct">
+            <h1>
+                Total Information
+            </h1>
+        </div>
+        <div class="row">
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon"><i class="ion-document-text"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text" title="Total No Of Files">Total No Of Files</span>
+                        <span class="info-box-number">@ViewBag.Counts</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon"><i class="fa fa-bank"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text" title="Total No Of Bank">Total No Of Bank</span>
+                        <span class="info-box-number">@ViewBag.bank</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <!-- fix for small devices only -->
+            <div class="clearfix visible-sm-block"></div>
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon"><i class="ion ion-ios-people"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text" title="Total No Of Agent">Total No Of Agent</span>
+                        <span class="info-box-number">@ViewBag.agent</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon"><i class="fa fa-building"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text" title="Total No Of Village">Total No Of Village</span>
+                        <span class="info-box-number"> @ViewBag.villages </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        </div>
+    <div class="content-ct">
+        <h1>
+            File search receive or not?
+        </h1>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group inline col-md-6">
+                <form role="form" method="post" enctype="multipart/form-data" @*action="~/Receiver"*@>
+                    <!-- text input -->
+                    <div class="col-md-5 no-padding">
+                        <select name="R_NO" id=RNO class="form-control select2" dir="ltr" >
+                            <option value=0>Select File No</option>
+                            @foreach (var item in ViewBag.files)
+                            {
+                                <option value="@item.R_NO">@item.R_NO</option>
+                            }
+                        </select>
+                    </div>
+                        <div class="col-md-4">
+                            <input type="button" id="submit" onclick="receicer()" class="btn btn-success pull-left" value="Search" />
+                        </div>                   
+                </form>
+            </div>
+            <div class="col-md-12">
+                <label id="lbl1"></label>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    try {
+
+        var explode = function () {
+            $("#lbl1").text("");
+        };
+
+        function receicer() {
+
+            var RNO = $('#RNO').val();
+
+            $.ajax({
+                url: '/Receiver',
+                data: { "R_NO": RNO },
+                type: "GET",
+                success: function (data) {
+                   
+                    if (data.data.receivename != null) {
+                        $("#lbl1").text("This file search is received by " + data.data.receivename + ".");
+                        setTimeout(explode, 5000);
+                    }
+                    else {
+                        $("#lbl1").text("This file search is not received yet.");
+                        setTimeout(explode, 5000);
+                    }
+                },
+                error: function (e) {                    
+                   // console.log(e.message);
+                }
+            });
+
+            //$.ajax({
+            //    url: '/Receiver/',
+            //    data: { "R_NO": RNO },
+            //    type: "GET",
+            //    //dataType: 'json',
+            //    //cache: false,
+            //    success: function (data) {
+            //        console.log(data);
+            //        var receiver1 = data.data.NAME;
+            //        if (receiver1 != null) {
+            //            alert("This File Received Is " + receicer1)
+            //        }
+            //        else {
+            //            alert("Not Received This File")
+            //        }
+            //    },                
+            //});            
+        }
+    }
+    catch (e) {
+        throw e;
+    }
+</script>
+
+
+
+@*<script>
+    function receicer() {
+
+        var RNO = $('#RNO').val();
+            $.ajax({
+                url: '/Receiver/',
+                data: { "R_NO": RNO },  
+                type: "post",
+                cache: false,
+
+                success: function (data) {
+
+                    var receiver1 = data.data.NAME;
+                    if (receiver1 != null) {
+                        alert("This File Received Is " + receicer1)
+                    }
+                    else {
+                        alert("Not Received This File")
+                    }
+                }
+            });
+        }
+</script>*@
+
+<!-- /.content -->

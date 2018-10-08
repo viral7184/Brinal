@@ -1,0 +1,208 @@
+﻿
+@{
+    ViewBag.Title = "Notifications";
+}
+
+    <!-- Content Header (Page header) -->
+   
+    <!-- Main content -->
+    <section class="content">
+        <div class="alert alert-success alert-dismissible" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> Alert!</h4> Notification is added successfully
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Add Notification Details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- /.box-header -->
+                        <form role="form" method="post">
+
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>User Name<span class="error"> * </span></label>
+                               
+                                    <select name="EMP_ID" class="form-control select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                        @foreach (var item in ViewBag.emp)
+                                        {
+                                            <option value="@item.ID">@item.NAME</option>
+                                        }
+                                    </select>
+                            </div>
+
+                            <!-- text input -->
+                            <div class="form-group ">
+                                <label>Message</label>
+                                <textarea class="form-control" required name="MESSAGE" rows="3" placeholder="Enter ..."></textarea>
+                                <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                            </div>
+
+
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-success pull-right">Send Notifications</button>
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit Notification Details</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- /.box-header -->
+                        <form role="form" method="post">
+
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>User Name<span class="error"> * </span></label>
+                                <input type="text" class="hidden" name="ID" id="ID" />
+                                <select name="EMP_ID" id="EMP_ID" class="form-control select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                    @foreach (var item in ViewBag.emp)
+                                    {
+                                        <option value="@item.ID">@item.NAME</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Message</label>
+                                <textarea class="form-control" required id="MESSAGE" name="MESSAGE" rows="3" placeholder="Enter ..."></textarea>
+                                <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                            </div>
+
+
+                            <div class="box-footer">
+                                <input type="hidden" id="hdnid" name="ID" />
+                                <button type="submit" class="btn btn-success pull-right">Update Notifications</button>
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Info boxes -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Notifications List</h3>
+                @*<a href="" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary" style="float: right;">Add Notification</a>*@
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                
+                            <table id="fileTable" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="fileTable_info">
+                                <thead>
+                                    <tr>
+                                        <th>SR_No</th>
+                                        <th>File_No</th>
+                                        
+                                        <th>User</th>
+                                        <th>Date</th>
+                                        <th>Edit</th>
+                                      
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int i = 1;}
+                                    @foreach(var item in ViewBag.noti)
+                                    { 
+                                    <tr id="row_@item.ID" role="row" class="odd">
+                                        <td>
+                                            <span>@i</span>
+                                        </td>
+                                        <td>
+                                          @item.file.R_NO
+                                        </td>
+                                        
+                                        <td>                                          
+                                            @item.employee_master.NAME
+                                            <span class="hidden" id="EMP_ID_@item.ID">@item.EMP_ID</span> 
+                                        </td>
+                                        <td>
+                                            @item.ENT_DATE.ToString("dd/MM/yyyy")
+                                        </td>
+                                        <td>
+                                           @*<a onclick="OpenDialog(@item.ID)" href="" data-toggle="modal" data-target="#myModal1" type="button">&nbsp; <i class="fa fa-edit"></i></a>*@
+                                            <a style="display:inline" class="hide_me" onclick="Delete(@item.ID,'del')"> &nbsp; <i class="fa fa-trash"></i> </a>
+                                         </td>                                       
+                                    </tr>
+                                        i++;
+                                    }
+                                </tbody>                               
+                               
+                            </table>
+                        </div>
+              
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+
+
+
+
+
+@*<script>
+    function OpenDialog(id) {
+        var emp =
+                   {
+                       ID : id,
+                   }
+
+            $.ajax({
+                url: '/getnotification/' + id,
+                type: 'GET',
+               
+                success: function (data) {
+                    $('#ID').val(data.data.ID);
+                    $('#EMP_ID').val(data.data.EMP_ID);
+                    $('#MESSAGE').val(data.data.MESSAGE);
+                }
+            });
+        }
+</script>*@
+
+<script>
+
+    function Delete(id,del)
+    {
+        if (confirm("Are you sure Delete this Record?")) {
+            var deletes =
+               {
+                   ID : id,
+                   noti : del,
+               }
+            {        
+                $.ajax({
+                    url: '/delete/',
+                    data: JSON.stringify(deletes),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result) {                 
+                        $('#row_'+id).hide();
+                    }
+                });            
+            }
+        }
+        return false;
+    }
+
+</script>
+

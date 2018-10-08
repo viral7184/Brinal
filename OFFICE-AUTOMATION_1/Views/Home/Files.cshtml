@@ -1,0 +1,408 @@
+﻿@model OFFICE_AUTOMATION_1.Models.file
+
+@*@using PagedList
+@using PagedList.Mvc
+@model PagedList<OFFICE_AUTOMATION_1.Models.file>*@
+
+
+@{
+    ViewBag.Title = "Files";
+}
+
+<!-- Content Header (Page header) -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">File Loction path</h4>
+            </div>
+            <div class="modal-body">
+                <br />
+                <input type="button" onclick="copypath()" id="copypath1" value="Copy" />
+            </div>
+        </div>
+    </div>
+</div>  
+
+                <!-- Main content -->
+                <section class="content">                   
+                        @*<input type="text" class="form-control"  id="f_path" value="@Session["path"]" />*@                               
+                    <div class="alert alert-success alert-dismissible" style="display: none">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-check"></i> Alert!</h4> File is added successfully
+                    </div>
+                    <!-- Info boxes -->
+
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Files List</h3>
+                            @if (ViewBag.F_path != null)
+                              {
+                                <span>Last file added </span>@ViewBag.F_path;
+                              }
+                            <a href="~/Addfile" type="button" class="btn btn-primary" style="float: right;">Add New File</a>
+                        </div>
+                        <!-- /.box-header -->
+
+                        @*<form>
+                            <div class="box-header">
+                                <p style="float:right;">
+                                    Search : @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                                    <input type="submit" value="Search" />
+                                </p>
+                            </div>
+                        </form>*@
+                        <div class="box-body">
+                            <div class="table-responsive">
+                                <table id="fileTable" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>SR No</th>
+                                            <th>
+                                                @*@Html.ActionLink("File_No", "Files", new { sortOrder = ViewBag.FileSortParm })*@
+                                                File No
+                                            </th>
+                                            <th>
+                                                @*@Html.ActionLink("Bank", "Files", new { sortOrder = ViewBag.bankSortParm })*@
+                                                Bank
+                                            </th>
+                                            <th>
+                                                @*@Html.ActionLink("Agent", "Files", new { sortOrder = ViewBag.agentSortParm })*@
+                                                Agent
+                                            </th>
+                                            <th>
+                                                Property
+                                            </th>
+                                            <th title="A bolck no">Blk No</th>
+                                            <th title="A revenue survey no">Rev No</th>
+                                            <th>Customer</th>
+                                            <th>Inward</th>
+                                            <th>AssignTo</th>
+                                            <th>Is Paid</th>
+                                            <th>Action</th>
+                                            <th>Remark</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{int i = ViewBag.strindx;}
+                                        @foreach (var item in ViewBag.f)
+                                    {
+                                            <tr id="row_@item.ID">
+                                                <td>
+                                                    <span>@i</span>
+                                                </td>
+                                                <td class="file-hover">
+                                                    <a href="~/FileSingle/@item.R_NO">@item.R_NO</a>
+                                                    <div class="file-block hidden">
+                                                        <div class="file-block-inside ">
+                                                            <div class="block-hover bg-@item.S">
+                                                                <p>S</p>
+                                                            </div>
+                                                            <div class="block-hover bg-@item.T">
+                                                                <p>T</p>
+                                                            </div>
+                                                            <div class="block-hover bg-@item.Q">
+                                                                <p>Q</p>
+                                                            </div>
+                                                            <div class="block-hover bg-@item.OVLOD">
+                                                                <p>O.V/ L.O.D</p>
+                                                            </div>
+                                                            <div class="block-hover bg-@item.PN">
+                                                                <p>PN</p>
+                                                            </div>
+                                                            <div id="del_@item.ID" class="block-hover bg-@item.D">
+                                                                <p>D</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    @if (item.bank_master.NAME == null)
+                                                {
+                                                        <span>-</span>
+                                                }
+                                                else
+                                                {
+                                                        @item.bank_master.NAME
+                                                }
+                                                </td>
+                                                <td>
+                                                    @if (item.agent_master.NAME == null)
+                                                {
+                                                        <span>-</span>
+                                                }
+                                                else
+                                                {
+                                                        @item.agent_master.NAME
+                                                }
+                                                </td>
+                                                <td title="@item.PROPERTY_DETAILS">
+                                                    @item.PROPERTY_DETAILS
+                                                </td>
+                                                <td>@item.A_BLOCK_NO</td>
+                                                <td>@item.A_REVENUE_SURVEY_NUM</td>
+                                                <td title="@item.CUSTOMERNAME">
+                                                    @item.CUSTOMERNAME
+                                                </td>
+                                                <td id="INWARD_DATE_@item.ID">
+                                                    @item.ENT_DATE.ToString("dd/MM/yyyy")
+                                                </td>
+                                                <td>
+                                                    @if (item.employee_master.NAME == null)
+                                                {
+                                                        <span>-</span>
+                                                }
+                                                else
+                                                {
+                                                        @item.employee_master.NAME
+                                                }
+                                                </td>
+                                                <td id="IS_PAID_@item.ID">
+
+                                                    @if (item.IS_PAID == true)
+                                                {
+                                                        <span>Yes</span>
+                                                }
+                                                else
+                                                {
+                                                        <span>No</span>
+                                                }
+                                                </td>
+                                                <td>
+                                                    <a class="hide_me copy1" id="copy1_@item.ID" href="javascript:void(0)" data-toggle="modal" onclick="filepath(@item.ID)" style="display:inline">&nbsp; <i class="fa fa-files-o" aria-hidden="true"></i> </a>
+                                                    @*<a class="hide_me hidden copy2" id="copy2_@item.ID" href="javascript:void(0)" onclick="copypath(@item.ID)" style="display:inline">&nbsp; <i class="fa fa-clipboard" aria-hidden="true"></i> </a>*@
+                                                    <a class="hide_me" href="" style="display:inline" onclick="Delete(@item.ID,'del')">&nbsp; <i class="fa fa-trash"></i> </a>
+                                                    @if (item.D == "green")
+                                                { }
+                                                else
+                                                {
+                                                        <a id="icn_@item.ID" href="javascript:void(0)" class="hide_me" style="display:inline" onclick="DeliverFile(@item.ID)">&nbsp; <i class="ion ion-android-done-all"></i></a>
+                                                }
+
+                                                </td>
+                                                <td>
+                                                    @item.REMARKS
+                                                </td>
+                                            </tr>
+                                        i++;
+                                    }
+                                    </tbody>
+                                </table>
+                            </div>
+                            @*<div class="row">
+                                <div class="col-sm-6">
+                                    <div class="pagination">
+                                        Showing  @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount Pages
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="pagination pull-right" style="margin:0">
+                                        @Html.PagedListPager(Model, page => Url.Action("Files",
+                         new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+                                    </div>
+                                </div>
+                            </div>*@
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </section>
+
+                <!-- /.content -->
+                @*<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>*@
+                @*<script src="../../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="~/Views/Home/JavaScript.js"></script>*@
+
+<script>
+    var table = $('#fileTable1').DataTable({
+        'bAutoWidth': false,       
+    });
+</script>
+
+                <style type="text/css" media="screen">
+                    .file-hover {
+                        position: relative;
+                        min-width: 100px;
+                    }
+
+                    .file-block {
+                        position: absolute;
+                        display: block;
+                        left: 64px;
+                        top: 10px;
+                        z-index: 2000;
+                    }
+
+                    .file-block-inside {
+                        padding: 10px;
+                        background-color: #fff;
+                        border-radius: 2px;
+                        border: 1px solid #e7e7e7;
+                        display: flex;
+                    }
+
+                        .file-block-inside > .block-hover {
+                            height: 40px;
+                            width: 40px;
+                            margin-right: 4px;
+                            text-align: center;
+                            font-weight: 700;
+                        }
+
+                            .file-block-inside > .block-hover p {
+                                top: 10px;
+                                font-size: 10px;
+                                position: relative;
+                            }
+
+                    .file-block .ht-status {
+                        width: 160px;
+                    }
+                </style>
+                <script>
+    $(function () {
+        $('.file-hover').hover(
+            function () {
+                $(this).find('.file-block').removeClass('hidden');
+
+            }, function () {
+
+                $(this).find('.file-block').addClass('hidden');
+            })
+    });
+                </script>
+                <script>
+
+     $("#agent_id").change(function() {
+        $.ajax({
+            type: "get",
+            url: "/loadbank",
+            data: { ID: $('#agent_id').val() },
+            datatype: "Json",
+            success: function (data) {
+
+                $('#bID').val(data.data.ID);
+                $('#bank_id').val(data.data.NAME);
+                $('#no_of_year').val(data.data.NO_OF_YEAR);
+
+            }, error: function (xhr, textStatus, errorThrown) {
+                alert(xhr.responseText);
+            }
+        })
+        });
+                </script>
+                <script>
+    function DeliverFile(id) {       
+        {
+        $.ajax({
+            url: '/deliverfile/' +id,
+            //data: JSON.stringify(id),
+            type: 'post',
+            contentType: 'application/json; charset=utf-8',          
+            success: function (data) {
+                var s_id = data.data[0].id;
+                var status = data.data[0].d;
+                $('#del_'+s_id).toggleClass('bg-gray');
+                $('#del_'+s_id).toggleClass('bg-green');
+                $('#icn_'+s_id).addClass('hidden');
+                alert("Status has been changed successfully.");
+            }
+        });
+        }
+    }
+                </script>
+                <script>
+    function Delete(id,del)
+    {
+        if (confirm("Are you sure delete this data ?")) {
+            var deletes =
+               {
+                   ID : id,
+                   filedelete : del,
+               }
+            {
+                $.ajax({
+                    url: '/delete/',
+                    data: JSON.stringify(deletes),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        $('#row_' + id).hide();
+                    }
+                });
+            }
+        }
+        return false;
+    }
+                </script>
+<script>
+    function filepath(id)
+    {
+        //var text = $("#row_" +id).closest('tr').find('.copy1').addClass("hidden");
+        //var text1 = $("#row_" + id).closest('tr').find('.copy2').removeClass("hidden");   
+        var id =
+               {
+                   ID : id,                  
+               }
+            {
+                $.ajax({
+                    url: '/fileloction/',
+                    data: JSON.stringify(id),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        var path = data.data;                       
+                        $("#f_path").val(path); 
+                        $.ajax({
+                            url: "http://localhost:8080/phpprg/open.php",
+                            type: "post",
+                            data: { directory: path },
+                            beforeSend: function (jqXHR, settings) {
+                                if (jqXHR && jqXHR.overrideMimeType) {
+                                    jqXHR.overrideMimeType("application/j-son;charset=UTF-8");
+                                }
+                            },
+                            dataFilter: function (data) {
+                                var response = eval('(' + data + ')');
+                                return response;
+                            },
+                            success: function (response, status, xhr) {
+                                $("input[name=directory]").val('');
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+
+                            },
+                            complete: function (jqXHR, textStatus) { }
+                        });
+                    }                    
+                });               
+            }
+
+        }
+</script>
+@*<script>
+    function copypath(id) {
+        var text = $("#row_" + id).closest('tr').find('.copy2').addClass("hidden");
+        var text1 = $("#row_" + id).closest('tr').find('.copy1').removeClass("hidden");
+        var copyText =$("#f_path");       
+        var a =  $("#f_path").select();      
+        document.execCommand("copy");
+    }
+</script>
+
+<script type="text/javascript">
+    function copypath1() {
+          var txt = document.getElementById('f_path');
+          window.clipboardData.setData("Text", txt.innerText);
+          if(!txt){
+              alert("Nothing to Copy");
+              }
+          else {
+              alert("Copy to ClipBoard Successful!");
+              }
+      }
+</script>*@ 
+
+
+

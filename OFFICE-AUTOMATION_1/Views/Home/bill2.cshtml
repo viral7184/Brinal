@@ -1,0 +1,293 @@
+﻿
+@model OFFICE_AUTOMATION_1.Models.file
+
+@{
+    ViewBag.Title = "getbill";
+    Layout = null;
+}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>GetBill</title>
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <style>
+        .pad0{
+            padding:0px;
+        }
+        .invoice-box {
+            max-width: 1100px;
+            text-align: center;
+            margin: auto;
+            /*padding: 30px;*/
+            /*border: 1px solid #eee;*/
+            /*box-shadow: 0 0 10px rgba(0, 0, 0, .15);*/
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+            .invoice-box table {
+                width: 100%;
+                line-height: inherit;
+                text-align: left;
+            }
+
+                .invoice-box table td {
+                    /*padding: 5px;*/
+                    vertical-align: top;
+                }
+
+                .invoice-box table tr td:nth-child(2) {
+                    text-align: right;
+                }
+
+                .invoice-box table tr.top table td {
+                    padding-bottom: 20px;
+                }
+
+                    .invoice-box table tr.top table td.title {
+                        font-size: 45px;
+                        line-height: 45px;
+                        color: #333;
+                    }
+
+                .invoice-box table tr.information table td {
+                    padding-bottom: 40px;
+                }
+
+                .invoice-box table tr.heading td {
+                    background: #eee;
+                    /*border-bottom: 1px solid #ddd;*/
+                    font-weight: bold;
+                }
+
+                .invoice-box table tr.details td {
+                    padding-bottom: 20px;
+                }
+
+                .invoice-box table tr.item td {
+                    /*border-bottom: 1px solid #eee;*/
+                }
+
+                .invoice-box table tr.item.last td {
+                    border-bottom: none;
+                }
+
+                .invoice-box table tr.total td:nth-child(2) {
+                    border-top: 2px solid #eee;
+                    font-weight: bold;
+                }
+
+        media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td;
+
+        {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+
+        .invoice-box table tr.information table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+
+        }
+    </style>
+</head>
+<body onafterprint="noconvertwordfile()">
+    <div class="invoice-box" id="printableArea">
+        <div class="box">
+            <div class="box-body" style="height:auto; line-height:initial; border:solid black 2px">
+                <din style="text-align:center"><span class="inline" style="font-size:45px"> @Session["ownername"]</span><br /></din>
+                <div class="right" style="text-align:right">
+                    <span>@Session["study"]</span><br />
+                    <span>@Session["peofession"]</span><br />
+                    <span style="font-size:small">@Session["address"] Tel.@Session["telephoneno"], Mob:@Session["mobileno"]</span><br />
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="right" style="text-align:right">
+                Date : @DateTime.Now.Date.ToString("dd/MM/yyyy")<br>
+                Bill No: @Session["billno"]@DateTime.Now.Year<br>
+                PAN : <b>@Session["pancardno"]</b>
+            </div>
+            <div>
+                <center> <b>BILL of @Session["month"] - @Session["year"]</b></center>
+            </div>
+            <div style="text-align:left">
+                <b>To,</b><br />
+                <b>@Session["bankname"],</b><br />
+                @*<b>SURAT,</b>*@
+            </div>
+        </div>
+        <table id="fileTable1" class="table table-bordered" border="1">
+            <thead>
+                <tr>
+                    <th style="width:7%">Sr. No.</th>
+                    <th style="width:10%">App. No.</th>
+                    <th style="width:10%">File No.</th>
+                    <th style="width:15%">Particulers</th>
+                    <th style="width:23%">Property Address</th>
+                    <th style="width:15%">Search Fess(Rs.)</th>
+                    @*<th style="width:15%">Amount(Rs.)</th>*@
+                    <th style="width:15%">Amount(Rs.)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int i = 1;}
+                @foreach (var item in ViewBag.files)
+                {
+                    <tr>
+                        <td style="text-align:center">
+                            <span id="@i">@i</span>
+                        </td>
+                        <td style="text-align:left">                           
+                               @item.APPLICATION_NO                          
+                        </td>
+                        <td>
+                            @item.R_NO
+                        </td>
+                        <td style="text-align:left">@item.CUSTOMERNAME</td>
+                        <td>@item.PROPERTY_DETAILS</td>
+                        <td id="search_@i" style="text-align:right">
+                            @if (item.SEARCH_FEES != null)
+                            {
+                                @item.SEARCH_FEES
+                            }
+                        </td>
+                        <td style="text-align:right" id="amount_@i">
+                         @if (item.LEGAL_FEES != null)
+                         {
+                            @item.LEGAL_FEES
+                         }
+                         else
+                         {
+                            <span>0</span>
+                         }
+                        </td>
+                        @*<td id="sum_@i" style="text-align:right"></td>*@
+                    </tr>
+                    i++;
+                }
+                <script>
+                        var id= @i;
+                </script>
+                <tr>
+                    <th style="text-align:right" colspan="6">TOTAL</th>
+                    <th id="ttlsum" style="text-align:right">
+                    </th>
+                </tr>
+                <tr>
+                    <th style="text-align:right" colspan="7"><b id="ttlsumword"></b></th>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="information col-lg-12 col-md-12" style="text-align:right">
+                <div class="col-md-9 col-lg-9"></div>
+                <div class="right col-md-3 col-lg-3 pad0" style="text-align:right">                    
+                                <b>Brinal A. Bangdiwala</b><br>
+                                <b style="text-align:center">ADVOCATE</b>                            
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="invoice-box" style="text-align:right" id="dialogdiv">
+        <form method="post">
+            <input type="hidden" id="htmltxt" name="html" />
+            <input type="hidden" name="filename" id="filename" value="@Session["billno"]@DateTime.Now.Year" />
+            <input type="button" value="Save as document" id="wordfile" onclick="HtmlToWord()" />
+            <input type="button" value="Print" id="directPrint" onclick="printDiv('printableArea')" />
+
+        </form>
+    </div>
+    <div id="wnd_Addparam" style="height:65px" title="Please open this link in explorer">
+        <span id="ptag"></span>
+    </div>
+</body>
+</html>
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.23.min.js"></script>
+<script>
+   
+    window.onload = function () {
+        //showlink();
+        var ttlsum = 0;
+        for (var j = 1; j < id; j++) {
+
+            var amount = parseInt(document.getElementById('amount_' + j).innerHTML) || 0;
+            ttlsum = ttlsum + amount;
+        }
+        document.getElementById('ttlsum').innerHTML = ttlsum;
+        var word = inWords(ttlsum);
+        document.getElementById('ttlsumword').innerHTML = word;
+    }
+    function noconvertwordfile()
+    {
+       
+        $("#dialogdiv").toggleClass("hidden");
+    }
+    jQuery(document).bind("keyup keydown", function(e){        
+        if(e.ctrlKey && e.keyCode == 80){
+            noconvertwordfile();
+            return true;
+        }
+    });
+
+    function printDiv(divName) {
+        var printContents = document.getElementById(divName).innerHTML;
+        var originalContents = document.body.innerHTML;
+
+        document.body.innerHTML = printContents;
+
+        window.print();
+
+        document.body.innerHTML = originalContents;
+    }
+</script>
+<script type="text/javascript">
+    function showlink(data) {
+        var regex,v,l,c,b,i,contapara=3;
+        $("#wnd_Addparam").dialog({
+            autoOpen: false,
+            height: 200,
+            width: 400,
+            modal: true,
+            resizable:true,            
+            buttons: {                
+                "OK": function() {
+                    $( this ).dialog( "close" );
+                }
+            },
+            close: {}
+        });
+        $( "#wnd_Addparam" ).dialog( "open" );
+    };
+</script>
+<script>
+    function HtmlToWord()
+    {
+        var markup = document.documentElement.innerHTML;
+        $("#htmltxt").val(markup);
+        var filename=$("#filename").val().concat(".docx");
+       // alert(filename);
+        $.ajax({
+            type: "post",
+            url: "/CreateFileFromHTML",
+            data: { html: markup, fileName:filename },
+            success: function (data) {
+                $( "#ptag" ).text(data);
+                showlink(data);
+            }, error: function (xhr, textStatus, errorThrown) {
+                alert(xhr.responseText);
+            }
+        })
+    }
+</script>
+<script src="~/Scripts/wordconvert.js"></script>

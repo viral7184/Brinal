@@ -1,0 +1,231 @@
+﻿
+@model OFFICE_AUTOMATION_1.Models.file
+
+@{
+    ViewBag.Title = "getbill";
+    Layout = null;
+}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>GetBill</title>
+    <link rel="stylesheet" href="../../bootstrap/css/bootstrap.min.css">
+    <style>
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid #eee;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: #555;
+        }
+
+            .invoice-box table {
+                width: 100%;
+                line-height: inherit;
+                text-align: left;
+            }
+
+                .invoice-box table td {
+                    padding: 5px;
+                    vertical-align: top;
+                }
+
+                .invoice-box table tr td:nth-child(2) {
+                    text-align: right;
+                }
+
+                .invoice-box table tr.top table td {
+                    padding-bottom: 20px;
+                }
+
+                    .invoice-box table tr.top table td.title {
+                        font-size: 45px;
+                        line-height: 45px;
+                        color: #333;
+                    }
+
+                .invoice-box table tr.information table td {
+                    padding-bottom: 40px;
+                }
+
+                .invoice-box table tr.heading td {
+                    background: #eee;
+                    border-bottom: 1px solid #ddd;
+                    font-weight: bold;
+                }
+
+                .invoice-box table tr.details td {
+                    padding-bottom: 20px;
+                }
+
+                .invoice-box table tr.item td {
+                    border-bottom: 1px solid #eee;
+                }
+
+                .invoice-box table tr.item.last td {
+                    border-bottom: none;
+                }
+
+                .invoice-box table tr.total td:nth-child(2) {
+                    border-top: 2px solid #eee;
+                    font-weight: bold;
+                }
+
+        media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td;
+
+        {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+
+        .invoice-box table tr.information table td {
+            width: 100%;
+            display: block;
+            text-align: center;
+        }
+
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-box" style="border:0px">
+        <table cellpadding="0" cellspacing="0">
+            <div class="box">
+                <div class="box-body" style="width:auto; height:auto; line-height:initial; border:solid black 2px">
+                    <span class="inline" style="font-size:55px"> @Session["ownername"]</span><br />
+                    <div class="right" style="text-align:right">
+                        <span>@Session["study"]</span><br />
+                        <span>@Session["peofession"]</span><br />
+                        <span style="font-size:small">@Session["address"] Tel.@Session["telephoneno"], Mob:@Session["mobileno"]</span><br />
+                    </div>
+                </div>
+            </div>
+        </table>
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <div style="width:95%px;height:15%px; border:2%px">
+                                </div>
+                            </td>
+                            <td>
+                                Date : @DateTime.Now.Date.ToShortDateString()<br>
+                                Bill No:@Session["billno"]@DateTime.Now.Year<br>
+                                PAN : <b>@Session["pancardno"]</b>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="center">
+                <td colspan="1">
+                    <table>
+                        <tr>
+                            <td>
+                                <center> <b>BILL of @Session["month"] - @Session["year"]</b></center>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr class="">
+                <td colspan="1">
+                    <table>
+                        <tr>
+                            <td>
+                                <b>To,</b><br>
+                                <b>@*VASTU HOUSING FINANCE,*@ @Session["bankname"],</b><br>
+                                <b>SURAT,</b>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <table id="fileTable1" class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th style="width:8%">Sr. No.</th>
+                        <th style="width:40%">Name of the Applicant</th>
+                        <th style="width:15%">Prospect No.</th>
+                        <th style="width:15%">Type of Report</th>
+                        <th style="width:15%">Report Status</th>
+                        <th style="width:15%">Amount (Rs.)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int i = 1;}
+                    @foreach (var item in ViewBag.files)
+                    {
+                        <tr>
+                            <td style="text-align:center">
+                                <span id="@i">@i</span>
+                            </td>
+                            <td style="text-align:left">@item.CUSTOMERNAME</td>
+                            <td>@item.APPLICATION_NO</td>
+                            <td></td>
+                            <td></td>
+                            <td id="search_@i" style="text-align:right">
+                                @if (item.SEARCH_FEES != null)
+                                {
+                                    @item.SEARCH_FEES
+                                }
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                    <script>
+                        var id= @i;
+                    </script>
+                    <tr>
+                        <th style="text-align:right" colspan="5">TOTAL</th>
+                        <th id="ttlsum" style="text-align:right">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th style="text-align:right" colspan="6"><b id="ttlsumword"></b></th>
+                    </tr>
+                </tbody>               
+            </table>
+        </table>
+      
+        <table>
+            <tr class="information">
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td style="text-align:right">
+                                <b>[Brinal A. Bangdiwala]</b><br>
+                                <b>ADVOCATE</b>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+<script>
+    window.onload = function () {
+        var ttlsum=0;
+        for(var j=1;j<id;j++)
+        {           
+            var searchfee = parseInt(document.getElementById('search_' + j).innerHTML);
+            ttlsum = ttlsum + parseInt(document.getElementById('search_' + j).innerHTML);
+        }
+        document.getElementById('ttlsum').innerHTML=ttlsum;
+        var word = inWords(ttlsum);
+        document.getElementById('ttlsumword').innerHTML=word;
+    }
+</script>
+<script src="~/Scripts/wordconvert.js"></script>

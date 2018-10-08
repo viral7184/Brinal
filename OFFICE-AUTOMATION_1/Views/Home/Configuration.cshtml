@@ -1,0 +1,129 @@
+﻿@model OFFICE_AUTOMATION_1.Models.configuration
+
+@*@model IEnumerable<OFFICE_AUTOMATION_1.Models.configuration>*@
+
+@{
+    ViewBag.Title = "Configuration";
+}
+<head>
+    <style>
+        .field-icon {
+            padding-right: 25px;
+            float: right;
+            margin-left: -25px;
+            margin-top: -25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .container {
+            padding-top: 50px;
+            margin: auto;
+        }
+    </style>
+</head>
+<section class="content">
+    <div>
+        <div class="" role="document">
+            <div class="modal-content">
+                <div class="modal-header">                   
+                    <h4 class="modal-title" id="myModalLabel">Configuration Setting</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- /.box-header -->
+                    <form role="form" id="Config_Form" method="post">
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <label>Folder Path<span class="error"> * </span></label>
+                            <input type="text" name="FOLDER_PATH" value="@Model.FOLDER_PATH" required id="FOLDER_PATH" class="form-control" placeholder="Enter Folder Path">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="form-group ">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label>From Email<span class="error"> * </span></label>
+                                    <input type="text" id="FROM_EMAIL" value="@Model.FROM_EMAIL" required name="FROM_EMAIL" class="form-control" placeholder="Enter Profession">
+                                </div>
+                                <div class="col-xs-6">
+                                    <label>Email Password<span class="error"> * </span></label>
+                                    <input type="password" id="EM_PASS" required name="EM_PASS" value="@Model.EM_PASS" class="form-control"  placeholder="Enter Study">
+                                    <span toggle="#EM_PASS" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label>Host<span class="error"> * </span></label>
+                                    <input type="text" required id="HOST" name="HOST" value="@Model.HOST" class="form-control" placeholder="Enter Landline">
+                                </div>
+                                <div class="col-xs-6">
+                                    <label>Port<span class="error"> * </span></label>
+                                    <input type="text" required id="PORT" name="PORT" value="@Model.PORT" class="form-control" placeholder="Enter Mobile">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label>Sender<span class="error"> * </span></label>
+                            <input type="text" name="SENDER" required id="SENDER" value="@Model.SENDER" class="form-control" placeholder="Enter Address">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="form-group ">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label>Sms Auth Key<span class="error"> * </span></label>
+                                    <input type="text" id="SMS_AUTH_KEY" required name="SMS_AUTH_KEY" value="@Model.SMS_AUTH_KEY" class="form-control" placeholder="Enter PanCard Number">
+                                    <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                </div>
+                                <div class="col-xs-6">
+                                    <label>Send Sms Uri<span class="error"> * </span></label>
+                                    <input type="text" id="SEND_SMS_URI" required name="SEND_SMS_URI" value="@Model.SEND_SMS_URI" class="form-control" placeholder="Enter PanCard Number">
+                                    <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <input type="hidden" id="hdnid" value="@Model.Id" name="ID" />
+                            <input type="submit" id="submit_id" disabled class="btn btn-success pull-right" value="Update" />
+                        </div>
+                    </form>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    function OpenDialog(id) {
+        var emp =
+                   {
+                       ID : id,
+                   }
+            $.ajax({
+                url: '/getConfoguration/' + id,
+                type: 'GET',
+                success: function (data) {
+                    $('#hdnid').val(data.data.Id);
+                    $('#FOLDER_PATH').val(data.data.FOLDER_PATH);
+                    $('#FROM_EMAIL').val(data.data.FROM_EMAIL);
+                    $('#EM_PASS').val(data.data.EM_PASS);
+                    $('#HOST').val(data.data.HOST);
+                    $('#PORT').val(data.data.PORT);
+                    $('#SENDER').val(data.data.SENDER);
+                    $('#SMS_AUTH_KEY').val(data.data.SMS_AUTH_KEY);
+                    $('#SEND_SMS_URI').val(data.data.SEND_SMS_URI);
+                }
+            });
+    }
+    $(".toggle-password").click(function () {
+
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });  
+</script>

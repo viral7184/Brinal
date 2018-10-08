@@ -1,0 +1,241 @@
+﻿
+@{
+    ViewBag.Title = "Black list";
+}
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add Prorpertity Details</h4>
+            </div>
+            <div class="modal-body">
+                <!-- /.box-header -->
+                <form role="form" method="post">
+                    <!-- text input -->
+                    <div class="form-group ">
+                        <label>Propertity Details</label>
+                        <textarea class="form-control" style="resize:vertical" name="PROPERTITY_DETAIL" id="" rows="3" placeholder="Enter ..."></textarea>
+                        <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                    </div>
+                    <label>Area Search</label>
+                    <div class="row" style="margin-bottom: 20px">
+                        <div class="col-sm-8" id="text_id1">
+                            <label for="">A Block No</label>
+                            <input type="text" name="A_BLOCK_NO" class="form-control" placeholder="Enter Block No">
+                        </div>
+                        <div style="padding-top:27px" class="col-md-4">
+                            <div class="form-group">
+                                <input type="button" onclick="addblockno()" id="" value="+" />
+                                <input type="button" onclick="removeblockno()" value="-" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 20px">
+                        <div class="col-sm-8" id="text_id3">
+                            <label for="">A Revenue Servey No</label>
+                            <input type="text" name="A_REVENUE_SURVEY_NUM" class="form-control" placeholder="Enter Revenue Serway No">
+                        </div>
+                        <div style="padding-top:27px" class="col-md-4">
+                            <div class="form-group">
+                                <input type="button" onclick="addrevenueno()" id="" value="+" />
+                                <input type="button" onclick="removerevenueno()" value="-" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 20px">
+                        <div class="col-sm-8" id="text_id2">
+                            <label for="">A Flat No</label>
+                            <input type="text" name="A_PLOT_FLAT_NUM" class="form-control" placeholder="Enter Flat No">
+                        </div>
+                        <div style="padding-top:27px" class="col-md-4">
+                            <div class="form-group">
+                                <input type="button" onclick="addflatno()" id="" value="+" />
+                                <input type="button" onclick="removeflatno()" value="-" />
+                            </div>
+                        </div>
+                    </div>
+                            <div class="form-group ">
+                                <label>Reason</label>
+                                <input type="text" class="form-control" style="resize:vertical" name="REASON" id="" rows="3" placeholder="Enter reason.."></input>
+                                <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                            </div>
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-success pull-right">Add Propertity  Details</button>
+                            </div>
+                     </form>
+                <!-- /.box-body -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Edit Propertity Details</h4>
+            </div>
+            <div class="modal-body">
+                <!-- /.box-header -->
+                <form role="form" method="post">
+                    <!-- text input -->                   
+                    <div class="form-group ">
+                        <label> Propertity Details</label>
+                        <textarea class="form-control" style="resize:vertical" name="PROPERTITY_DETAIL" id="PROPERTITY_DETAIL" rows="3" placeholder="Enter ..."></textarea>
+                        <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                    </div>
+                    <label>Area Search</label>
+                    <div class="row" style="margin-bottom: 20px">
+                        <div class="col-sm-12">
+                            <label for="">A Block No</label>
+                            <input type="text" name="A_BLOCK_NO" id="A_BLOCK_NO" class="form-control" placeholder="Enter Block No">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 20px">
+                        <div class="col-sm-12">
+                            <label for="">A Revenue Servey No</label>
+                            <input type="text" name="A_REVENUE_SURVEY_NUM" id="A_REVENUE_SURVEY_NUM" class="form-control" placeholder="Enter Revenue Serway No">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 20px">
+                        <div class="col-sm-12">
+                            <label for="">A Flat No</label>
+                            <input type="text" name="A_PLOT_FLAT_NUM" id="A_PLOT_FLAT_NUM" class="form-control" placeholder="Enter Flat No">
+                        </div>
+                    </div>
+                            <div class="form-group ">
+                                <label>Reason</label>
+                                <input type="text" class="form-control" style="resize:vertical" name="REASON" id="REASON" rows="3" placeholder="Enter reason.."></input>
+                                <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                            </div>
+                            <div class="box-footer">
+                                <input type="hidden" name="ID" id="hdnid" />
+                                <button type="submit" class="btn btn-success pull-right">Update properties Details</button>
+                            </div>
+</form>
+                <!-- /.box-body -->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">Propertity Details</h3>
+        <a data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary" style="float: right;">Add New properties Details</a>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <table id="fileTable" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Sr No</th>
+                    <th>Propertity Details</th>
+                    <th>Block no</th>
+                    <th>Revenue survey no</th>
+                    <th>Plot no</th>
+                    <th>Reason</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{int i = 1;}
+                @foreach (var item in ViewBag.propertitydetails)
+                {
+
+                    <tr id="row_@item.ID">
+                        <td>
+                            @i
+                        </td>
+                        <td>@item.PROPERTITY_DETAIL</td>
+                        <td>@item.A_BLOCK_NO</td>
+                        <td>@item.A_REVENUE_SURVEY_NUM</td>
+                        <td>@item.A_PLOT_FLAT_NUM</td>
+                        <td>@item.REASON</td>
+                        <td>
+                            <a onclick="OpenDialog(@item.ID)" style="display:inline" data-toggle="modal" data-target="#myModal1" type="button"> <i class="fa fa-edit"></i></a>
+                            @*<a style="display:inline" class="hide_me" onclick="Delete(@item.ID,'del')"> &nbsp; <i class="fa fa-trash"></i> </a>*@
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+        </div>
+    </div>
+<script>
+    function OpenDialog(id) {
+        var emp =
+                   {
+                       ID : id,
+                   }
+            $.ajax({
+                url: '/getpropertitydetails/' + id,
+                type: 'GET',
+                success: function (data) {
+                    $('#hdnid').val(data.data.ID);
+                    $("#PROPERTITY_DETAIL").html(data.data.PROPERTITY_DETAIL);
+                    $("#A_BLOCK_NO").val(data.data.A_BLOCK_NO);
+                    $("#A_REVENUE_SURVEY_NUM").val(data.data.A_REVENUE_SURVEY_NUM);
+                    $("#A_PLOT_FLAT_NUM").val(data.data.A_PLOT_FLAT_NUM);
+                     $("#REASON").val(data.data.REASON);
+                }
+            });
+        }
+</script>
+
+<script>
+    var intTextBox = 15;
+    function addblockno() {
+        intTextBox++;
+        var objNewDiv = document.createElement('div');
+        objNewDiv.setAttribute('id', 'div_' + intTextBox);
+        objNewDiv.innerHTML = '<div style="padding:3px"> <input type="text" id="tb_' + intTextBox + '" name="A_BLOCK_NO" class="form-control" /></div>';
+        document.getElementById('text_id1').appendChild(objNewDiv);
+    }
+    function removeblockno() {
+        if (15 < intTextBox) {
+            document.getElementById('text_id1').removeChild(document.getElementById('div_' + intTextBox));
+            intTextBox--;
+        } else {
+            alert("No textbox to remove");
+        }
+    }
+</script>
+<script>
+    var intTextBox = 30;
+    function addflatno() {
+        intTextBox++;
+        var objNewDiv = document.createElement('div');
+        objNewDiv.setAttribute('id', 'div_' + intTextBox);
+        objNewDiv.innerHTML = '<div style="padding:3px"> <input type="text" id="tb_' + intTextBox + '" name="A_PLOT_FLAT_NUM" class="form-control" /></div>';
+        document.getElementById('text_id2').appendChild(objNewDiv);
+    }
+    function removeflatno() {
+        if (30 < intTextBox) {
+            document.getElementById('text_id2').removeChild(document.getElementById('div_' + intTextBox));
+            intTextBox--;
+        } else {
+            alert("No textbox to remove");
+        }
+    }
+</script>
+
+<script>
+    var intTextBox = 45;
+    function addrevenueno() {
+        intTextBox++;
+        var objNewDiv = document.createElement('div');
+        objNewDiv.setAttribute('id', 'div_' + intTextBox);
+        objNewDiv.innerHTML = '<div style="padding:3px"> <input type="text" id="tb_' + intTextBox + '" name="A_REVENUE_SURVEY_NUM" class="form-control" /></div>';
+        document.getElementById('text_id3').appendChild(objNewDiv);
+    }
+    function removerevenueno() {
+        if (30 < intTextBox) {
+            document.getElementById('text_id3').removeChild(document.getElementById('div_' + intTextBox));
+            intTextBox--;
+        } else {
+            alert("No textbox to remove");
+        }
+    }
+</script>

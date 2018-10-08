@@ -1,0 +1,365 @@
+﻿
+@{
+    ViewBag.Title = "Bank";
+}
+
+<!-- Content Header (Page header) -->
+<!-- Main content -->
+<section class="content">
+    <div class="alert alert-success alert-dismissible" id="alertbox" style="display: none">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-check"></i> Alert!</h4> Bank is added successfully
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Bank Details</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- /.box-header -->
+                    <form method="post">
+                        <div class="form-group ">
+                            <label>Bank name<span class="error"> * </span></label>
+                            <input type="text" name="NAME" class="form-control" placeholder="Enter Bank name" required>
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="form-group ">
+                            <label>Mobile</label>
+                            <input type="text" class="form-control" id="phone" onkeypress="phoneno()" maxlength="10" name="MOBILE" placeholder="Enter Mobile No">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="form-group ">
+                            <label>Bank email</label>
+                            <input type="text" name="BANK_EMAIL" class="form-control" placeholder="Enter Bank name">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="row">
+                            <div id="text_id" class="col-sm-6">
+                                <div class="form-group" style="display:inline">
+                                    <label for="exampleInputFile">CC</label>
+                                    <input type="text" id="toemail" class="form-control" name="cc" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <input type="button" id="add_btn" onclick="addElement()" value="+" />
+                                    <input type="button" onclick="removeElement();" value="-" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label>Address</label>
+                            <textarea name="ADDRESS" id="" class="form-control" placeholder="Enter Address"></textarea>
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group ">
+                                    <label>No of year</label>
+                                    <input type="text" class="form-control" name="NO_OF_YEAR" placeholder="Enter No of year">
+                                    <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group ">
+                                    <label>NEC</label>
+                                    <input type="text" class="form-control" name="NEC" placeholder="Enter NEC">
+                                    <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group ">
+                                    <label>Seach Fees</label>
+                                    <input type="number" class="form-control Mobile_no" name="FEES" placeholder="Enter Fees">
+                                    <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group ">
+                                    <label>Legal Fees</label>
+                                    <input type="number" class="form-control Mobile_no" name="LEGAL_FEES" placeholder="Enter a  Legal_Fees">
+                                    <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                </div>
+                            </div>
+                        </div>
+                                <div class="form-group ">
+                                    <label>Selct Bill Format</label>
+                                    <input type="number" class="form-control" id="" maxlength="10" name="BILL_FORMATE_ID" placeholder="Enter Bill Format Number">
+                                    <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                </div>
+                                <div class="box-footer">
+                                    <input type="submit" class="btn btn-success pull-right" value="Add Bank Details" />
+                                </div>
+                     </form>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Bank Details</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- /.box-header -->
+                    <form method="post" id="Config_Form">
+
+                        <div class="form-group ">
+                            <label>Bank name<span class="error"> * </span></label>
+                            <input type="text" name="NAME" id="NAME" required class="form-control" placeholder="Enter Bank name">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <label>Mobile</label>
+                            <input type="text" class="form-control" onkeypress="phoneno()" maxlength="10" id="MOBILE" name="MOBILE" placeholder="Enter Mobile No">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="form-group ">
+                            <label>Bank email</label>
+                            <input type="text" name="BANK_EMAIL" id="Bank_email" class="form-control" placeholder="Enter Bank name">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="form-group ">
+                            <label>CC</label>
+                            <textarea id="cc" name="CC" class="form-control" ></textarea>
+                            </div>
+                            <div class="form-group ">
+                                <label>Address</label>
+                                <textarea name="ADDRESS" id="ADDRESS" class="form-control" placeholder="Enter Address"></textarea>
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group ">
+                                        <label>No of year</label>
+                                        <input type="number" class="form-control" id="NO_OF_YEAR" name="NO_OF_YEAR" placeholder="Enter No of year">
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group ">
+                                        <label>NEC</label>
+                                        <input type="text" class="form-control" name="NEC" id="NEC" placeholder="Enter NEC">
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group ">
+                                        <label>SEARCH FEES</label>
+                                        <input type="number" class="form-control Mobile_no" id="FEES" name="FEES" placeholder="Enter Fees">
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group ">
+                                        <label>LEGAL FEES</label>
+                                        <input type="number" class="form-control Mobile_no" id="LEGAL_FEES" name="LEGAL_FEES" placeholder="Enter a  Legal_Fees">
+                                        <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label>Selct Bill Format</label>
+                                <input type="number" class="form-control" id="bill_formate_id" maxlength="10" name="BILL_FORMATE_ID" placeholder="Enter Bill Format Number">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <div class="box-footer">
+                                <input type="hidden" id="hdnid" name="ID" />
+                                <input type="submit" id="submit_id" class="btn btn-success pull-right" value="Edit Bank Details" />
+                            </div>
+</form>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Info boxes -->
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Banks List</h3>
+            <a href="" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary" style="float: right;">Add New Bank</a>
+        </div>
+        <div style="color:red">
+            @if (TempData["msg"] != null)
+            {
+                @TempData["msg"];
+            }
+        </div>
+
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="fileTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>SR_No</th>
+                        <th>Bank_Name</th>
+                        <th>Files</th>
+                        <th>Mobile</th>
+                        <th title="No of year">NOY</th>
+                        <th>NEC</th>
+                        <th>Search Fees</th>
+                        <th>Legal Fees</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int i = 1;}
+                    @foreach (var item in ViewBag.banks)
+                    {
+                        <tr id="row_@item.ID">
+                            <td>
+                                <span>@i</span>
+                            </td>
+                            <td id="name_@item.ID">
+                                <a href="~/Bankdetails/@item.ID">@item.NAME </a>
+                                @*@item.NAME*@
+                            </td>
+                            <td>
+                                @item.files.Count
+                            </td>
+                            <td id="mobile_@item.ID">
+                                @item.MOBILE
+                            </td>
+                            <td id="no_of_year_@item.ID">
+                                @item.NO_OF_YEAR
+                            </td>
+                            <td id="NEC_@item.ID">
+                                @item.NEC
+                            </td>
+                            <td id="fees_@item.ID">
+                                @item.FEES
+                            </td>
+                            <td id="Legal_fees_@item.ID">
+                                @item.LEGAL_FEES
+                            </td>
+                            <td>
+                                <a href="" onclick="OpenDialog(@item.ID)" data-toggle="modal" data-target="#myModal1" type="button"> <i class="fa fa-edit"></i></a>
+                                <a class="hide_me" style="display:inline" onclick="Delete(@item.ID,'del')"> &nbsp; <i class="fa fa-trash"></i> </a>
+                                @*<a style="display:inline" href="~/getbill/@item.NAME">&nbsp;<i class="fa fa-print" aria-hidden="true"></i> </a>*@
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+<script>
+    function OpenDialog(id) {
+        var emp =
+                   {
+                       ID : id,
+                   }
+            $.ajax({
+                url: '/getbank/' + id,
+                type: 'GET',
+                success: function (data) {
+                    $('#hdnid').val(data.data.ID);
+                    $('#NAME').val(data.data.NAME);
+                    $('#Bank_email').val(data.data.BANK_EMAIL);
+                    $('#ADDRESS').val(data.data.ADDRESS);                    
+                    $('#PARTICULAR').val(data.data.PARTICULAR);
+                    $('#ADDRESS').val(data.data.ADDRESS);
+                    $('#MOBILE').val(data.data.MOBILE);
+                    $('#NO_OF_YEAR').val(data.data.NO_OF_YEAR);
+                    $('#NEC').val(data.data.NEC);
+                    $('#FEES').val(data.data.FEES);
+                    $('#LEGAL_FEES').val(data.data.LEGAL_FEES);
+                    $('#bill_formate_id').val(data.data.BILL_FORMATE_ID);
+                    $('#cc').val(data.data.CC);
+
+                }
+            });
+        }
+</script>
+<script>
+    function Delete(id, del) {
+        if (confirm("Are you sure Delete this Record?")) {
+            var deletes =
+               {
+                   ID: id,
+                   bk_del: del,
+               }
+            {
+                $.ajax({
+                    url: '/delete/',
+                    data: JSON.stringify(deletes),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        var dt = data.data.IS_DELETED;
+                        if(dt == true)
+                        {
+                            $('#row_'+id).hide();
+                        }
+                        else
+                        {
+                            alert("There is file(s) of this bank available");
+                        }
+                    }
+                });
+            }
+        }
+        return false;
+    }
+</script>
+<script>
+           function phoneno(){
+               $('#phone,#MOBILE').keypress(function (e) {
+                var a = [];
+                var k = e.which;
+
+                for (i = 48; i < 58; i++)
+                    a.push(i);
+
+                if (!(a.indexOf(k)>=0))
+                    e.preventDefault();
+               });
+               $('.Mobile_no').keypress(function (e) {
+                   var a = [];
+                   var k = e.which;
+
+                   for (i = 48; i < 58; i++)
+                       a.push(i);
+
+                   if (!(a.indexOf(k)>=0))
+                       e.preventDefault();
+               });
+        }
+</script>
+
+<script>
+    var intTextBox = 0;
+function addElement() {
+    intTextBox++;
+    var objNewDiv = document.createElement('div');
+    objNewDiv.setAttribute('id', 'div_' + intTextBox);
+    objNewDiv.innerHTML = '<div style="padding:3px"> <input type="text" id="tb_' + intTextBox + '" name="cc" class="form-control" /></div>';
+    document.getElementById('text_id').appendChild(objNewDiv);
+}
+</script>
+<script>
+function removeElement() {
+    if(0 < intTextBox) {
+        document.getElementById('text_id').removeChild(document.getElementById('div_' + intTextBox));
+        intTextBox--;
+    } else {
+        alert("No textbox to remove");
+    }
+}
+</script>

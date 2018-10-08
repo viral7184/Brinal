@@ -1,0 +1,127 @@
+﻿@model OFFICE_AUTOMATION_1.Models.INFORMATION
+@{
+    ViewBag.Title = "OwnerInformation";
+}
+
+<!DOCTYPE html>
+
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Ownerinformation</title>
+    <style>
+        .field-icon {
+            padding-right: 25px;
+            float: right;
+            margin-left: -25px;
+            margin-top: -25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .container {
+            padding-top: 50px;
+            margin: auto;
+        }
+    </style>
+</head>
+<section class="content">
+    <div>
+        <div class="" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 class="modal-title" id="myModalLabel">Edit Details </h4>
+                </div>
+                <div class="modal-body">
+                    <!-- /.box-header -->
+                    <form role="form" id="Config_Form" method="post">
+                        <div class="form-group ">
+                            <label>Owner Name<span class="error"> * </span></label>
+                            <input type="text" name="OWNER_NAME" value="@Model.OWNER_NAME" required id="OWNER_NAME" class="form-control" placeholder="Enter Owner Name">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="form-group ">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label>Profession<span class="error"> * </span></label>
+                                    <input type="text" id="PROFESSION" value="@Model.PROFESSION" required name="PROFESSION" class="form-control" placeholder="Enter Profession">
+                                </div>
+                                <div class="col-xs-6">
+                                    <label>Study<span class="error"> * </span></label>
+                                    <input type="text" id="STUDY" required name="STUDY" value="@Model.STUDY" class="form-control" placeholder="Enter Study">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label>Address<span class="error"> * </span></label>
+                            <input type="text" name="ADDRESS" required id="ADDRESS" value="@Model.ADDRESS" class="form-control" placeholder="Enter Address">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <label>Mobile No<span class="error"> * </span></label>
+                                    <input type="text" required id="MOBILE_NO" name="MOBILE_NO" value="@Model.MOBILE_NO" class="form-control" placeholder="Enter Mobile">
+                                </div>
+                                <div class="col-xs-6">
+                                    <label>Landline No<span class="error"> * </span></label>
+                                    <input type="text" required id="TELEPHONE_NO" name="TELEPHONE_NO" value="@Model.TELEPHONE_NO" class="form-control" placeholder="Enter Landline">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label>Pancard No<span class="error"> * </span></label>
+                            <input type="text" id="PANCARD_NO" required name="PANCARD_NO" value="@Model.PANCARD_NO" class="form-control" placeholder="Enter PanCard Number">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="box-footer">
+                            <input type="hidden" id="hdnid" value="@Model.ID" name="ID" />
+                            <input type="submit" id="submit_id" disabled class="btn btn-success pull-right" value="Update" />
+                        </div>
+                    </form>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function OpenDialog(id) {
+
+        var emp =
+                   {
+                       ID : id,
+                   }
+
+            $.ajax({
+                url: '/getinformation/' + id,
+                type: 'GET',
+
+                success: function (data) {
+
+                    $('#hdnid').val(data.data.ID);
+                    $('#OWNER_NAME').val(data.data.OWNER_NAME);
+                    $('#PROFESSION').val(data.data.PROFESSION);
+                    $('#STUDY').val(data.data.STUDY);
+                    $('#ADDRESS').val(data.data.ADDRESS);
+                    $('#MOBILE_NO').val(data.data.MOBILE_NO);
+                    $('#TELEPHONE_NO').val(data.data.TELEPHONE_NO);
+                    $('#PANCARD_NO').val(data.data.PANCARD_NO);                   
+                }
+            });
+    }
+
+    $(".toggle-password").click(function () {
+
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+</script>

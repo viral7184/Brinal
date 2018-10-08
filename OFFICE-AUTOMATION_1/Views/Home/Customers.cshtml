@@ -1,0 +1,211 @@
+﻿
+@{
+    ViewBag.Title = "Customers";
+}
+
+
+    <!-- Content Header (Page header) -->
+   
+    <!-- Main content -->
+    <section class="content">
+    <div id="client" class="alert alert-success alert-dismissible" style="display: none">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-check"></i> Alert!</h4> Customer is added successfully
+    </div>
+
+    <!-- Info boxes -->
+        <div id="modalConfirmYesNo" class="modal fade">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button"
+                                class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 id="lblTitleConfirmYesNo" class="modal-title">Confirmation</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnYesConfirmYesNo"
+                                type="button" class="btn btn-primary">
+                            Yes
+                        </button>
+                        <button id="btnNoConfirmYesNo"
+                                type="button" class="btn btn-default">
+                            No
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>     
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Customer Details</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- /.box-header -->
+                    @*<form method="post">
+                            <input type="submit" value="submit" />
+
+                        </form>*@
+                    <form method="post">
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <label>Customer Name</label>
+                            <input type="text" required name="NAME" id="C_NAME" class="form-control" placeholder="Enter Customer Name">
+                            @*<span class="help-block error">* User Name Already Exist</span>*@
+                        </div>
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <label>Property Details</label>
+                            <textarea type="text" style="resize:vertical" name="PROPERTY_DETAILS" id="P_PROPERTY_DETAILS" class="form-control" placeholder="Enter Property Details"></textarea>
+                            <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="box-footer">
+                            <input id="id" type="submit" value="Add Customer" class="btn btn-success pull-right" />
+
+                        </div>
+                    </form>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Customer Details</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- /.box-header -->
+                  
+                    <form method="post">
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <label>Customer Name</label>
+                            <input type="text" class="hidden" name="ID" id="ID" />
+                            <input type="text" required name="NAME" id="NAME" class="form-control" placeholder="Enter Customer Name">
+                           
+                        </div>
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <label>Property Details</label>
+                            <textarea type="text" name="PROPERTY_DETAILS" id="PROPERTY_DETAILS" class="form-control" placeholder="Enter Property Details"></textarea>
+                            <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="box-footer">
+                            <input type="hidden" id="hdnid" name="ID" />
+                            <input type="submit" value="Update Customer" class="btn btn-success pull-right" />
+                        </div>
+                    </form>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Customers List</h3>
+            <a href="" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary" style="float: right;">Add New Customer</a>
+        </div>
+        <!-- /.box-header -->
+
+        <form method="post" action="~/ExportToExcel">
+            <div class="box-body">
+                <table id="fileTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>SR_No</th>
+                            <th>Customer_Name</th>
+                          
+                            <th>Property_Detail</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int i = 1;}
+                        @foreach (var item in ViewBag.customers)
+                        {
+                            <tr class="classtr" id="row_@item.ID">
+                                <td id="">   
+                                    <span>@i</span>                                                                  
+                                  <span class="hidden">@item.ID</span>  
+                                </td>
+                                <td id="name_@item.ID">
+                                   @item.NAME 
+                                </td>
+                              
+                                <td id="prop_@item.ID">
+                                    @item.PROPERTY_DETAILS
+                                </td>
+                                <td>
+                                    <a href="" onclick="OpenDialog(@item.ID)" data-toggle="modal" data-target="#myModal1" type="button"><i class="fa fa-edit"></i></a>
+                                    <a href="" style="display:inline" class="hide_me" onclick="Delete(@item.ID,'del')"> &nbsp; <i class="fa fa-trash"></i> </a>
+                                </td>
+                            </tr>
+                            i++;
+                        }                      
+                    </tbody>
+                </table>              
+                   
+            </div>
+
+        </form>
+        <!-- /.box-body -->
+    </div>  <!-- /.row -->      
+</section>
+<script>
+    function Delete(id,del)
+    {
+        if (confirm("Are you sure?")) {            
+         var deletes =
+           {
+               ID : id,
+               c_del : del,
+           }
+        {
+            $.ajax({
+                url: '/delete/',
+                data: JSON.stringify(deletes),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {                   
+                    $('#row_'+id).hide();
+                }
+            });
+        }
+        }
+    
+    return false;
+    }
+</script>
+
+
+<script>
+    function OpenDialog(id) {
+        var emp =
+                   {
+                       ID : id,
+                   }
+            $.ajax({
+                url: '/getcustomer/' + id,
+                type: 'GET',
+               
+                success: function (data) {
+                   
+                    $('#ID').val(data.data.ID);
+                    $('#NAME').val(data.data.NAME);              
+                    $('#PROPERTY_DETAILS').val(data.data.PROPERTY_DETAILS);                                  
+                }
+            });
+        }
+</script>

@@ -1,0 +1,994 @@
+﻿@*@model IEnumerable<OFFICE_AUTOMATION_1.Models.file>*@
+@model OFFICE_AUTOMATION_1.Models.file
+@{
+    ViewBag.Title = "FileSingle";
+
+}
+
+
+<!-- Content Header (Page header) -->
+<!-- Main content -->
+<section class="content">
+    <!-- Info boxes -->
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">File : @Model.R_NO , Customer : @Model.CUSTOMERNAME , Agent : @Model.agent_master.NAME</h3>
+        </div>
+        <!-- Edit P File status -->
+        <div class="modal fade" id="myModalChangeP" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Is title created ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- /.box-header -->
+                        <form role="form" id="mfrm1" method="post" enctype="multipart/form-data" action="../ChangeStatusNow">
+                            <!-- text input -->                            
+                                <div class="form-group ">
+                                    <label>Title Upload</label>
+                                    <input type="file" name="FILE_NAME" id="filess">
+                                     @*<span class="help-block error">* User Name Already Exist</span>*@ 
+                                </div>                           
+                            <input type="hidden" name="ID" value="@Model.ID" />
+                            <input type="hidden" name="R_NO" value="@Model.R_NO" />
+                            <div class="form-group">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="T" id="PG" value="gray" @((ViewBag.stsclr.T == "gray") ? "checked" : "")> Gray
+                                    </label>
+                                    <label style="margin-left: 10px">
+                                        <input type="radio" name="T" id="PGN" value="green" @((ViewBag.stsclr.T == "green") ? "checked" : "")> Green
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <input type="submit" class="btn btn-info pull-right" value="Save Status" />
+                                <input type="button" class="btn pull-right" style="margin-right:3px" data-dismiss="modal" value="cancel" />
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Edit S File status -->
+        <div class="modal fade" id="myModalChangeS" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit Search Status (S)</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- /.box-header -->
+                        <form role="form" id="mfrm" method="post" action="../ChangeStatusNow">
+                            <!-- text input -->
+                            <div class="form-group" id="abc">
+                                <label>Change Status S</label>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" onclick="Receicer1()" name="S" @((ViewBag.stsclr.S == "gray") ? "checked" : "") id="SG" value="gray" checked> Gray
+                                    </label>
+                                    <label style="margin-left: 10px">
+                                        <input type="radio" onclick="Receicer1()" name="S" @((ViewBag.stsclr.S == "blue") ? "checked" : "") id="SB" value="blue"> Blue
+                                    </label>
+                                    <label style="margin-left: 10px">
+                                        <input type="radio" onclick="Receicer()" name="S" @((ViewBag.stsclr.S == "green") ? "checked" : "") id="SGN" value="green"> Green
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group hidden" id="receiver">
+                                <label>Recieved To</label>
+                                <select name="RECEIVER" id="RECEIVER" class="form-control select2" style="width: 30%;">
+                                    <option selected value="1">NO RECEIVER</option>
+                                    @foreach (var item in ViewBag.emp)
+                                    {
+                                      <option value="@item.ID">@item.NAME</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="box-footer">
+                                <input type="hidden" name="ID" value="@Model.ID" />
+                                <input type="hidden" name="R_NO" value="@Model.R_NO" />
+                                <input type="submit" id="submit" class="btn btn-info pull-right" value="Save Status" />
+                                <input type="button" class="btn pull-right" style="margin-right:3px" data-dismiss="modal" value="Cancle" />
+                                @*<button type="submit" class="btn btn-info pull-right">Edit File Status</button>*@
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Edit Q File status -->
+        <div class="modal fade" id="myModalChangeQ" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit File Status (Q)</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- /.box-header -->
+                        <form role="form" id="mfrm3" method="post" action="../ChangeStatusNow">
+                            <!-- text input -->
+                            <!-- text input -->
+                            <div class="form-group ">
+                                <label>Query</label>
+                                @*<input type="text" name="QUERY_REMARK" value="@item.QUERY_REMARK" class="form-control" placeholder="Add Query Here">*@
+                                <select name="QUERY_REMARK" id="QUERY_REMARK" class="form-control select2" style="width: 100%">
+                                    <option value="Query Not Generate">Select Query</option>
+                                    <optgroup label="Sale Deed">
+                                        <option value="Party's Sale Deed">Party's Sale Deed</option>
+                                        <option value="Previous Party's Sale Deed">Previous Party's Sale Deed</option>
+                                        <option value="Original Sale Deed of party when necessary">Original Sale Deed of party when necessary</option>
+                                    </optgroup>
+                                    <optgroup label="LOD.">
+                                        <option value="Original LOD with new or latest date">Original LOD with new or latest date</option>
+                                        <option value="Xerox LOD with new or latest date">Xerox LOD with new or latest date</option>
+                                    </optgroup>
+                                    <optgroup label="Master file">
+                                        <option value="Master file">Master file</option>
+                                    </optgroup>
+                                    <optgroup label="N.A. Order">
+                                        <option value="N.A. Order">N.A. Order </option>
+                                    </optgroup>
+                                    <optgroup label="Construction Permission">
+                                        <option value="Construction Permission">Construction Permission</option>
+                                    </optgroup>
+                                    <optgroup label="Agreement to sale">
+                                        <option value="Original agreement to sale">Original agreement to sale</option>
+                                        <option value="Copy of a agreement to sale">Copy of a agreement to sale</option>
+                                    </optgroup>
+                                </select>
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <div class="form-group ">
+                                <label>sms msg content</label>
+                                <input type="text" name="SMS_CONTENT" id="smscontent" class="form-control" placeholder="Add sms_msg">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <div class="form-group ">
+                                <label>mail msg content </label>
+                                <input type="text" name="EMAIL_CONTENT" id="Emailcontent" class="form-control" placeholder="Add message">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <!-- text input -->
+                            <div class="form-group">
+                                <input type="checkbox" name="OV" id="ov" value="Yes" />
+                                <label for="exampleInputFile">OV</label>
+                                <input type="checkbox" name="LOD" id="lod" value="Yes" />
+                                <label for="exampleInputFile">LOD</label>
+                            </div>
+
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            <!-- text input -->
+
+                            <div class="form-group">
+                                <label>Change Status Q</label>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="Q" @((ViewBag.stsclr.Q == "gray") ? "checked" : "") id="QG" value="gray" checked> Gray
+                                    </label>
+                                    <label style="margin-left: 10px">
+                                        <input type="radio" name="Q" @((ViewBag.stsclr.Q == "blue") ? "checked" : "") id="QB" value="blue"> Blue
+                                    </label>
+                                    <label style="margin-left: 10px">
+                                        <input type="radio" name="Q" @((ViewBag.stsclr.Q == "green") ? "checked" : "") id="QGN" value="green"> Green
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                @*<button type="button"  class="btn btn-info pull-right">Edit File Status</button>*@
+                                <input type="hidden" name="SENT_TO" value="@Model.A_ID" />
+                                <input type="hidden" name="ID" value="@Model.ID" />
+                                <input type="hidden" name="R_NO" value="@Model.R_NO" />
+                                <input type="hidden" name="A_ID" value="@Model.A_ID" />
+                                <button type="submit" class="btn btn-info pull-right">Save Status</button>
+                                <input type="button" class="btn  pull-right" style="margin-right:3px" data-dismiss="modal" value="Cancle" />
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit PN File status -->
+        <div class="modal fade" id="myModalChangePN" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit File Status (PN)</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- /.box-header -->
+                        <form role="form" id="mfrm4" method="post" enctype="multipart/form-data" action="../ChangeStatusNow">
+
+                            <!-- text input -->
+                            <div class="form-group ">
+                                <label>Remark</label>
+                                <input type="text" name="REMARK" id="REMARK" class="form-control" placeholder="Add Remarks Here">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <!-- text input -->
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Change Status Q</label>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="PN" @((ViewBag.stsclr.PN == "gray") ? "checked" : "") id="PNG" value="gray" checked> Gray
+                                    </label>
+                                    <label style="margin-left: 10px">
+                                        <input type="radio" name="PN" @((ViewBag.stsclr.PN == "blue") ? "checked" : "") id="PNB" value="blue"> Blue
+                                    </label>
+                                    <label style="margin-left: 10px">
+                                        <input type="radio" name="PN" @((ViewBag.stsclr.PN == "green") ? "checked" : "") id="PNGN" value="green"> Green
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputFile">Upload Public Notice</label>
+                                <input type="file" name="IMAGE_PATH" id="IMAGE_PATH">
+                            </div>
+                            <div class="form-group ">
+                                <label>Issue Date</label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" name="ISSUED_DATE" class="form-control pull-right" id="datepicker">
+                                </div>
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <div class="form-group ">
+                                <label>Reminder after days</label>
+                                <input type="number" name="DAYS" id="DAYS" class="form-control" placeholder="Enter days">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <div class="box-footer">
+                                @*<button type="button" class="btn btn-info pull-right" >Edit File Status</button>*@
+                                <input type="hidden" name="ID" value="@Model.ID" />
+                                <input type="hidden" name="R_NO" value="@Model.R_NO" />
+                                <input type="submit" class="btn btn-info pull-right" value="Save Status" />
+                                <input type="button" class="btn  pull-right" style="margin-right:3px" data-dismiss="modal" value="cancel" />
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Edit D File status -->
+        <div class="modal fade" id="myModalChangeD" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit File Status (D)</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- /.box-header -->
+                        <form role="form" id="mfrm5" method="post" action="../ChangeStatusNow">
+                            <!-- text input -->
+                            <!-- text input -->
+
+                            <div class="form-group">
+                                <label>Change Status D</label>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="D" @((ViewBag.stsclr.D == "gray") ? "checked" : "") id="DG" value="gray" checked> Gray
+                                    </label>
+
+                                    <label style="margin-left: 10px">
+                                        <input type="radio" name="D" @((ViewBag.stsclr.D == "green") ? "checked" : "") id="DGN" value="green"> Green
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="box-footer">
+                                <input type="hidden" name="ID" value="@Model.ID" />
+                                <input type="hidden" name="R_NO" value="@Model.R_NO" />
+                                <input type="submit" class="btn btn-info pull-right" value="Save Status" />
+                                <input type="button" class="btn pull-right" style="margin-right:3px" data-dismiss="modal" value="cancel" />
+                                @*<button type="submit" class="btn btn-info pull-right">Edit File Status</button>*@
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Edit OV/LOD File status -->
+        <div class="modal fade" id="myModalChangeOV" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit File Status (OV)</h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- /.box-header -->
+                        <form role="form" id="mfrm6" method="post" action="../ChangeStatusNow">
+                            <!-- text input -->
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Change Status OV/LOD</label>
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="OVLOD" @((ViewBag.stsclr.OVLOD == "gray") ? "checked" : "") id="OVG" value="gray" checked> Gray
+                                    </label>
+                                    <label style="margin-left: 10px">
+                                        <input type="radio" name="OVLOD" @((ViewBag.stsclr.OVLOD == "blue") ? "checked" : "") id="OVB" value="blue"> Blue
+                                    </label>
+                                    <label style="margin-left: 10px">
+                                        <input type="radio" name="OVLOD" @((ViewBag.stsclr.OVLOD == "green") ? "checked" : "") id="OVGN" value="green"> Green
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <input type="hidden" name="ID" value="@Model.ID" />
+                                <input type="hidden" name="R_NO" value="@Model.R_NO" />
+                                <input type="submit" class="btn btn-info pull-right" value="Save Status" />
+                                <input type="button" class="btn pull-right" style="margin-right:3px" data-dismiss="modal" value="cancel" />
+                                @*<button type="submit" class="btn btn-info pull-right">Edit File Status</button>*@
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- /.box-header -->
+        <div class="box-body">
+            <div class="row">
+                <div class="col-lg-2 col-xs-6" id="Search">
+                    <!-- small box -->
+                    <div class="small-box bg-@ViewBag.stsclr.S ht-status">
+                        <div class="inner">
+                            <h3>S</h3>
+                            <label>
+                                @if (ViewBag.stsclr.S_DATE != null)
+                                {
+                                    @ViewBag.stsclr.S_DATE.ToString("dd/MM/yyyy")
+                                }
+                                else
+                                {
+                                    @ViewBag.stsclr.S_DATE
+                                }
+
+                            </label>
+                        </div>
+
+                        @*@ViewBag.searchdate.T_DATE*@
+
+                        <a href="#" data-toggle="modal" data-target="#myModalChangeS" class="small-box-footer">
+                            Edit File Status <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-@ViewBag.stsclr.T ht-status" id="title">
+                        <div class="inner">
+
+                         @if (Session["green"].ToString() == "green")
+                         {
+                             var dt = DateTime.Now.Year;
+                            @*<a href="~/Documents/@Model.R_NO'-'@dt"><h3>Title</h3></a>*@
+                            @*<a href="@Url.Action("Files", "Home")" target="_blank"><h3>Title</h3></a>*@
+                            <a href="javascript:void(0)" onclick="openfolder(@Model.ID)"><h3>Title</h3></a>
+                            @*<a href="file://C">Link 2</a>*@
+                         }
+                         else
+                         {
+                                <h3>Title</h3>
+                            }
+                            <label>
+                                @if (ViewBag.stsclr.T_DATE != null)
+                                {
+                                    @ViewBag.stsclr.T_DATE.ToString("dd/MM/yyyy")
+                                }
+                                else
+                                {
+                                    @ViewBag.stsclr.T_DATE
+                                }
+                            </label>
+                        </div>
+                        <a href="#" data-toggle="modal" data-target="#myModalChangeP" class="small-box-footer">
+                            Edit File Status <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <!-- ./col -->
+                <div class="col-lg-2 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-@ViewBag.stsclr.Q ht-status" id="Q">
+                        <div class="inner">
+                            <h3>Q</h3>
+                            <label>
+                                @if (ViewBag.stsclr.Q_DATE != null)
+                                {
+                                    @ViewBag.stsclr.Q_DATE.ToString("dd/MM/yyyy")
+                                }
+                                else
+                                {
+                                    @ViewBag.stsclr.Q_DATE
+                                }
+                            </label>
+                        </div>
+                        <a href="~/query/@Model.ID" data-toggle="modal" @*onclick="OpenDialog(@Model.ID)"*@ @*data-target="#myModalChangeQ"*@ class="small-box-footer">
+                            Edit File Status <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-2 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-@ViewBag.stsclr.OVLOD ht-status" id="OV">
+                        <div class="inner">
+                            @if (Session["ov"] != null)
+                            {
+                                <h3>@Session["ov"]</h3>
+                            }
+                            else if (Session["lod"] != null)
+                            {
+                                <h3>@Session["lod"]</h3>
+                            }
+                            else
+                            {
+                                <h3>OV/LOD</h3>
+                            }
+
+                            <label>
+                                @if (ViewBag.stsclr.OV_DATE != null)
+                                {
+                                    @ViewBag.stsclr.OV_DATE.ToString("dd/MM/yyyy")
+                                }
+                                else
+                                {
+                                    @ViewBag.stsclr.OV_DATE
+                                }
+
+                            </label>
+                        </div>
+                        <a href="#" data-toggle="modal" data-target="#myModalChangeOV" class="small-box-footer">
+                            Edit File Status <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-2 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-@ViewBag.stsclr.PN ht-status" id="PN">
+                        <div class="inner">
+                            <h3>PN</h3>
+                            <label>
+                                @if (ViewBag.stsclr.PN_DATE != null)
+                                {
+                                    @ViewBag.stsclr.PN_DATE.ToString("dd/MM/yyyy")
+                                }
+                                else
+                                {
+                                    @ViewBag.stsclr.PN_DATE
+                                }
+                            </label>
+                        </div>
+                        <a href="#" @*onclick="OpenDialogBox(@Model.ID)"*@ data-toggle="modal" data-target="#myModalChangePN" class="small-box-footer">
+                            Edit File Status <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-2 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-@ViewBag.stsclr.D ht-status" id="D">
+                        <div class="inner">
+                            <h3>D</h3>
+                            <label>
+                                @if (ViewBag.deli_date != null)
+                                {
+                                    @ViewBag.deli_date.ToString("dd/MM/yyyy")
+                                }
+                                else
+                                {
+                                    @ViewBag.deli_date
+                                }
+
+                            </label>
+
+                        </div>
+                        <a href="#" data-toggle="modal" data-target="#myModalChangeD" class="small-box-footer">
+                            Edit Delivery Status <i class="fa fa-arrow-circle-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.row -->
+    <div class="alert alert-success alert-dismissible" style="display: none">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-check"></i> Alert!</h4> File is added successfully
+    </div>
+    <!-- Modal -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <a href="~/editfile/@Model.ID" @*onclick="OpenDialog(@Model.ID)"*@ type="button" class="btn btn-primary" style="float: right;">Edit File</a>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body box-detail">
+                    <p class="file-title"><strong>File Details</strong></p>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6" style="padding-left: 40px">
+                            <dl class="dl-horizontal">
+
+                                <dt>Customer Name</dt>
+                                <dl>
+                                    @Model.CUSTOMERNAME
+                                </dl>
+                                <dt>No Of Year</dt>
+                                <dl id="NO_OF_YEAR_@Model.ID">
+                                    @if (Model.NO_OF_YEAR != null)
+                                    {
+                                        @Model.NO_OF_YEAR
+                                    }
+                                    else
+                                    {
+                                        <span>-</span>
+                                    }
+                                </dl>
+                                <dt>Inward Date</dt>
+                                <dl id="INWARD_DATE_@Model.ID">
+                                    @if (Model.INWARD_DATE != null)
+                                    {
+                                        @Model.INWARD_DATE.Value.ToString("dd/MM/yyyy")
+                                    }
+                                    else
+                                    {
+                                        <span>-</span>
+                                    }
+
+                                </dl>
+                                <dt>Search Fees</dt>
+                                <dl id="SEARCH_FEES_@Model.ID">
+                                    @if (Model.SEARCH_FEES != null)
+                                    {
+                                        @Model.SEARCH_FEES
+                                    }
+                                    else
+                                    {
+                                        <span>-</span>
+                                    }
+                                </dl>
+                                <dt>Legal Fees</dt>
+                                <dl id="LEGAL_FEES_@Model.ID">
+                                    @if (Model.LEGAL_FEES != null)
+                                    {
+                                        @Model.LEGAL_FEES
+                                    }
+                                    else
+                                    {
+                                        <span>-</span>
+                                    }
+                                </dl>
+                                <dt>NEC</dt>
+                                <dl>
+                                    @if (Model.NEC != null)
+                                    {
+                                        @Model.NEC
+                                    }
+                                    else
+                                    {
+                                        <span>-</span>
+                                    }
+                                </dl>
+                                <dt>Delivered Date</dt>
+                                <dl id="DELIVERY_DATE_@Model.ID">
+                                    @if (Model.DELIVERY_DATE != null)
+                                    {
+                                        var dt = Convert.ToDateTime(Model.DELIVERY_DATE).ToString("dd/MM/yyyy");
+                                        @dt
+                                    }
+                                    else
+                                    {
+                                        <span>-</span>
+                                    }
+                                </dl>
+                                <dt>Is Paid</dt>
+                                <dl id="IS_PAID_@Model.ID">
+
+                                    @if (Model.IS_PAID == true)
+                                    {
+                                        <span>Yes</span>
+                                    }
+                                    else
+                                    {
+                                        <span>No</span>
+                                    }
+                                </dl>
+                                <dt>Remark</dt>
+                                <dl id="REMARKS_@Model.ID">
+                                    @Model.REMARKS
+                                    @if (Model.REMARKS == null)
+                                    {
+                                        <span>-</span>
+                                    }
+                                </dl>
+                            </dl>
+                        </div>
+                        <div class="col-xs-12 col-sm-6" style="padding-left: 40px">
+                            <dl class="dl-horizontal">
+                                <dt>Property Details</dt>
+                                <dl>
+                                    @Model.PROPERTY_DETAILS
+                                @if (Model.PROPERTY_DETAILS == null)
+                                {
+                                    <span>-</span>
+                                }
+                            </dl>
+                            <dt>Agent Name</dt>
+                            <dl>
+                                @Model.agent_master.NAME
+                                @if (Model.agent_master.NAME == null)
+                                {
+                                    <span>-</span>
+                                }
+                                <span class="hidden" id="A_ID_@Model.ID">@Model.A_ID</span>
+                            </dl>
+                            <dt>Assign To</dt>
+                            <dl>
+                                @Model.employee_master.NAME
+                                @if (Model.employee_master.NAME == null)
+                                {
+                                    <span>-</span>
+                                }
+                                <span class="hidden" id="ASSIGN_TO_@Model.ID">@Model.ASSIGN_TO</span>
+                            </dl>
+                            <dt>Bank Name</dt>
+                            <dl>
+                                @Model.bank_master.NAME
+                                @if (Model.bank_master.NAME == null)
+                                {
+                                    <span>-</span>
+                                }
+                                <span class="hidden" id="BID_@Model.ID">@Model.B_ID</span>
+                            </dl>
+                                <dt>Prospect/Application no</dt>
+                                <dl>                                   
+                                    @if (Model.APPLICATION_NO != null)
+                                    {
+                                        @Model.APPLICATION_NO
+                                    }
+                                    else
+                                    {
+                                        <span>-</span>
+                                    }
+                                </dl>                          
+                                <dt>Certified Copy</dt>
+                                <dl>
+                                    @if (Model.CERTIFIED_COPY != null)
+                                    {
+                                        @Model.CERTIFIED_COPY
+                                    }
+                                    else
+                                    {
+                                        <span>-</span>
+                                    }
+                                </dl>
+                                <dt>Dist/Sub-Dist</dt>
+                                <dl>
+                                    @if (Model.city_master1.VILLAGE == null && Model.DISTRICT == null)
+                                    {
+                                        <span>-</span>
+                                    }
+                                    else
+                                    {
+                                       @Model.city_master2.VILLAGE <span>/</span> @Model.city_master1.VILLAGE
+                                    }
+                                </dl>
+                                
+                            <dt>Village</dt>
+                            <dl>
+                                @Model.city_master.VILLAGE
+                                @if (Model.city_master.VILLAGE == null)
+                                {
+                                    <span>-</span>
+                                }
+                            </dl>
+                           
+                        </dl>
+                    </div>
+                </div>
+                @if (Model.A_BLOCK_NO != null)
+                {
+                    <hr>
+                    <p class="file-title"><strong>Area Search</strong></p>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4" style="padding-left: 40px">
+                                <dl>
+                                    <dt> Block No</dt>
+                                    <dl id="A_BLOCK_NO_@Model.ID">@Model.A_BLOCK_NO</dl>
+                                </dl>
+                            </div>
+                            <div class="col-xs-12 col-sm-4" style="padding-left: 40px">
+                                <dl>
+                                    <dt> Revenue Survey No.</dt>
+                                    <dl id="A_REVENUE_SURVEY_NUM_@Model.ID">@Model.A_REVENUE_SURVEY_NUM</dl>
+                                </dl>
+                            </div>
+                            <div class="col-xs-12 col-sm-4" style="padding-left: 40px">
+                                <dl>
+                                    <dt> Flat No.</dt>
+                                    <dl id="A_PLOT_FLAT_NUM_@Model.ID">@Model.A_PLOT_FLAT_NUM</dl>
+                                </dl>
+                            </div>
+                        </div>
+                }
+                @if (Model.S_BLOCK_NO != null)
+                {
+                    <hr>
+                    <p class="file-title"><strong>7/12</strong></p>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4" style="padding-left: 40px">
+                                <dl>
+                                    <dt> Block No</dt>
+                                    <dl id="S_BLOCK_NO_@Model.ID">@Model.S_BLOCK_NO</dl>
+                                </dl>
+                            </div>
+                            <div class="col-xs-12 col-sm-4" style="padding-left: 40px">
+                                <dl>
+                                    <dt> Revenue Survey No.</dt>
+                                    <dl id="S_REVENUE_SURVEY_NUM_@Model.ID">@Model.S_REVENUE_SURVEY_NUM</dl>
+                                </dl>
+                            </div>
+                            <div class="col-xs-12 col-sm-4" style="padding-left: 40px">
+                                <dl>
+                                    <dt> Flat No.</dt>
+                                    <dl id="S_PLOT_FLAT_NUM_@Model.ID">@Model.S_PLOT_FLAT_NUM</dl>
+                                </dl>
+                            </div>
+                        </div>
+                }
+            </div>
+            <!-- /.box-body -->
+        </div>
+    </div>
+</div>
+
+</section>
+<!-- /.content -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+    function changeclr(id,title,search,quary,pn,ov,delivered)
+    {
+        var status =
+           {
+               ID : id,
+               title : title,
+               search: search,
+               quary: quary,
+               pn: pn,
+               ov: ov,
+               delivered: delivered
+           };
+        var values = {};
+        {
+            $.ajax({
+                url: '/ChangeStatus/',
+                data: JSON.stringify(status),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (result) {
+
+                }
+            });
+        }
+    }
+    $("#agent_id").change(function () {
+            // alert($('#agent_id').val());
+            $.ajax({
+                type: "get",
+                url: "/loadbank",
+                data: { ID: $('#agent_id').val() },
+                datatype: "Json",
+                success: function (data) {
+
+                    $('#bID').val(data.data.ID);
+                    $('#bank_id').val(data.data.NAME);
+                    $('#no_of_year').val(data.data.NO_OF_YEAR);
+                    var dt = data.data.ID;
+                    $('#bank_id option[value=' + dt + ']').attr("selected", "selected");
+                }, error: function (xhr, textStatus, errorThrown) {
+                    alert(xhr.responseText);
+                }
+            })
+        });
+</script>
+<script>
+        function updatePN(id)
+        {
+            var status =
+               {
+                   ID : id,
+               };
+            var values = {};
+            {
+                $.ajax({
+                    url: '/updatepn/',
+                    data: JSON.stringify(status),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                    }
+                });
+            }
+        }
+</script>
+<script>
+        function quary(id)
+        {
+            var status =
+               {
+                   ID : id,
+               };
+            var values = {};
+            {
+                $.ajax({
+                    url: '/quary/',
+                    data: JSON.stringify(status),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+
+                    }
+                });
+            }
+        }
+</script>
+<script>
+    function OpenDialog(id) {
+        var emp =
+                   {
+                       ID : id,
+                   }
+            $.ajax({
+                url: '/query/' + id,
+                type: 'POST',
+                success: function (data) {
+                    $('#hdnid').val(data.data.ID);
+                    $('#FILE_ID2').val(data.data.FILE_ID);
+                    var query = data.data.QUERY_REMARK.split('-');
+                    $('#QUERY_REMARK option[value="' + query[0] + '"]').prop("selected","selected").change();
+                  //$('#QUERY_REMARK').val(data.data.QUERY_REMARK);
+                    $('#Emailcontent').val(data.data.EMAIL_CONTENT);
+                    $('#smscontent').val(data.data.SMS_CONTENT);
+                    $('#SENT_TO2').val(data.data.SENT_TO);
+                  var ov =  data.data.OV;
+                  var lod =  data.data.LOD;
+                    if (ov == "Yes")
+                    {
+                        $("#ov").prop('checked', true);
+                    }
+                     if(lod == "Yes") {
+                         $("#lod").prop('checked', true);
+                     }
+                }
+            });
+        }
+</script>
+
+<script>
+    function OpenDialogBox(id) {
+        var emp =
+                   {
+                       ID : id,
+                   }
+            $.ajax({
+                url: '/getpublicnoticefile/' + id,
+                type: 'GET',
+
+                success: function (data) {
+                    $('#ID').val(data.data.ID);
+                    $('#REMARK').val(data.data.REMARK);
+                    $('#FILE_ID').val(data.data.FILE_ID);
+                    $('#datepicker').val(data.data.ISSUED_DATE);
+                    $('#REMINDER_DATE').val(data.data.REMINDER_DATE);
+                }
+            });
+        }
+</script>
+
+
+<script>
+    function Receicer()
+    {
+        $('#receiver').removeClass("hidden");       
+    }
+</script>
+
+<script>
+    function Receicer1()
+    {
+        $('#receiver').addClass("hidden");
+    }
+</script>
+
+@*<script>
+        function openfolder(id)
+        {
+            var values =
+               {
+                   ID : id,
+               };
+            {
+                $.ajax({
+                    url: '/fileloction/',
+                    data: JSON.stringify(values),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    beforeSend: function (jqXHR, settings){
+						if (jqXHR && jqXHR.overrideMimeType) {
+							jqXHR.overrideMimeType("application/j-son;charset=UTF-8");
+							}
+					}, 
+                    success: function (data) {
+                        var f = data.data;
+                        alert(f);
+                    }
+                });
+            }
+        }
+</script>*@
+<script>
+    function openfolder(id)
+    {
+        var id =
+               {
+                   ID : id,
+               }
+            {
+                $.ajax({
+                    url: '/fileloction/',
+                    data: JSON.stringify(id),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        var path = data.data;                                             
+                        var path = path;
+                        console.log(path);
+                        $.ajax({
+                            url: "http://localhost:8080/phpprg/open.php",
+                            type: "post",
+                            data: { directory: path },
+                            beforeSend: function (jqXHR, settings) {
+                                if (jqXHR && jqXHR.overrideMimeType) {
+                                    jqXHR.overrideMimeType("application/j-son;charset=UTF-8");
+                                }
+                            },
+                            dataFilter: function (data) {
+                                var response = eval('(' + data + ')');
+                                return response;
+                            },
+                            success: function (response, status, xhr) {
+                                $("input[name=directory]").val('');
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+
+                            },
+                            complete: function (jqXHR, textStatus) { }
+                        });
+                    }
+                });
+            }
+
+        }
+</script>

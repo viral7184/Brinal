@@ -1,0 +1,248 @@
+﻿
+@{
+    ViewBag.Title = "Agent";
+}
+
+    <!-- Content Header (Page header) -->
+  
+    <!-- Main content -->
+    <section class="content">
+        <div class="alert alert-success alert-dismissible" style="display: none;">
+            <button type="button" class="close" data-dismiss="alert"  aria-hidden="true">×</button>
+            <h4><i class="icon fa fa-check"></i> Alert!</h4> Agent is added successfully
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Add Agent Details </h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- /.box-header -->
+                        <form role="form" method="post">
+
+                            <div class="form-group ">
+                                <label>Agent Name<span class="error"> * </span></label>
+                                <input type="text" name="NAME" required class="form-control" placeholder="Enter Agent Name">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <div class="form-group ">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label>Mobile No</label>
+                                        <input type="text" name="MOBILE1" id="phone1" maxlength="12" onkeypress="phoneno()" class="form-control" placeholder="Enter Agent Mobile">
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label>Landline No</label>
+                                        <input type="text" name="MOBILE2" id="phone2" maxlength="14" onkeypress="phoneno()"class="form-control" placeholder="Enter Agent Landline">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- text input -->
+                            <div class="form-group ">
+                                <label>Address</label>
+                                <input type="text"  name="ADDRESS" class="form-control" placeholder="Enter Agent Address">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <!-- text input -->
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" name="EMAIL" class="form-control" placeholder="Enter Agent Email">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <div class="box-footer">
+                                <input type="submit" class="btn btn-success pull-right" value="Add Agent Details" />
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit Agent Details </h4>
+                    </div>
+                    <div class="modal-body">
+                        <!-- /.box-header -->
+                        <form role="form" id="Config_Form" method="post">                      
+                            <div class="form-group ">
+                                <label>Agent Name<span class="error"> * </span></label>
+                                <input type="text" name="NAME" required id="NAME" class="form-control" placeholder="Enter Agent Name">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>                           
+                            <!-- text input -->
+                            <div class="form-group ">
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <label>Mobile No</label>
+                                        <input type="text" id="MOBILE1" name="MOBILE1" maxlength="12" onkeypress="phoneno()" class="form-control" placeholder="Enter Agent Mobile">
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <label>Landline No</label>
+                                        <input type="text" id="MOBILE2" name="MOBILE2" maxlength="14" onkeypress="phoneno()" class="form-control" placeholder="Enter Agent Landline">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label>Address</label>
+                                <input type="text" id="ADDRESS" name="ADDRESS" class="form-control" placeholder="Enter Agent Address">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" id="EMAIL1" name="EMAIL" class="form-control" placeholder="Enter Agent Email">
+                                <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                            </div>
+                            <div class="box-footer">
+                                <input type="hidden" id="hdnid" name="ID" />
+                                <input type="submit" id="submit_id" disabled class="btn btn-success pull-right" value="Update Agent Details" />
+                            </div>
+                        </form>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Info boxes -->
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Agents List</h3>
+                <a data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary" style="float: right;">Add New Agent</a>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <table id="fileTable" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="fileTable_info">
+                    <thead>
+                        <tr>
+                            <th>SR_No</th>
+                            <th>Agent</th>
+                            <th>Files</th>
+                            <th>Mobile</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{int i = 1;}
+                        @foreach (var item in ViewBag.agents)
+                        {
+                            <tr id="row_@item.ID">
+                                <td><span>@i</span></td>
+                                <td id="name_@item.ID">
+                                    @item.NAME
+                                    <span class="hidden" id="mob2_@item.ID">@item.MOBILE2</span>
+                                    <span class="hidden" id="add_@item.ID">@item.ADDRESS</span>
+                                    <span class="hidden" id="email_@item.ID">@item.EMAIL</span>
+                                </td>
+                                <td>@item.files.Count</td>
+                                <td id="mob1_@item.ID">
+                                    @item.MOBILE1
+                                </td>
+                                <td>
+                                    <a onclick="OpenDialog(@item.ID)" data-toggle="modal" data-target="#myModal1" type="button"> <i class="fa fa-edit"></i></a>
+                                    <a style="display:inline" class="hide_me" onclick="Delete(@item.ID,'del')"> &nbsp; <i class="fa fa-trash"></i> </a>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+             
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+
+<script>
+    function OpenDialog(id) {
+
+        var emp =
+                   {
+                       ID : id,
+                   }
+
+            $.ajax({
+                url: '/getagent/' + id,
+                type: 'GET',
+             
+                success: function (data) {
+
+                    $('#hdnid').val(data.data.ID);
+                    $('#NAME').val(data.data.NAME);                    
+                    $('#ADDRESS').val(data.data.ADDRESS);
+                    $('#MOBILE1').val(data.data.MOBILE1);
+                    $('#MOBILE2').val(data.data.MOBILE2);
+                    $('#EMAIL1').val(data.data.EMAIL);                   
+                }
+            });
+        }
+</script>
+
+<script>
+    function Delete(id,del)
+    {
+        if (confirm("Are you sure Delete this Record?")) {  
+            var deletes =
+               {
+                   ID : id,
+                   a_del : del,
+               }
+            {        
+                $.ajax({
+                    url: '/delete/',
+                    data: JSON.stringify(deletes),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (data) {
+                        var dt = data.data.IS_DELETED;
+                        if (dt == true) {
+                            $('#row_' + id).hide();
+                        }
+                        else {
+                            alert("There is file(s) of this Agent available");
+                        }
+                    }
+                });            
+            }
+        }
+        return false;
+    }
+
+</script>
+
+
+<script>
+           function phoneno(){
+               $('#phone1,#phone2,#MOBILE1,#MOBILE2').keypress(function (e) {
+                var a = [];
+                var k = e.which;
+
+                for (i = 48; i < 58; i++)
+                    a.push(i);
+
+                if (!(a.indexOf(k)>=0))
+                    e.preventDefault();
+            });
+           }
+</script>
+@*<script>
+    $(document).ready(function () {
+        $('#fileTable1').DataTable({
+            dom: 'Bfrtip',
+            //searching: false,
+            //paging:   false,
+            bSort: true,
+            columnDefs: [
+                { orderable: false, targets: [0] }
+            ]
+        }
+        );
+    });
+</script>*@

@@ -1,0 +1,249 @@
+﻿
+@{
+    ViewBag.Title = "Communication";
+}
+
+    <!-- Content Header (Page header) -->
+    
+    <!-- Main content -->
+    <section class="content">
+    <div class="alert alert-success alert-dismissible" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-check"></i> Alert!</h4> Communication is added successfully
+    </div>
+    <div class="modal fade" id="msg_model" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Communication Details</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- /.box-header -->
+                    <form role="form" method="post">
+
+                        <div class="form-group ">
+                            <label>msg Content</label>
+                            <textarea name="" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                            <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                        </div>
+                    </form>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Communication Details</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- /.box-header -->
+                    <form role="form" method="post">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label><span class="error"> * </span>Agent Name</label>
+                            <select name="A_ID" required class="form-control select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                @foreach (var item in ViewBag.agents)
+                                {
+                                    <option value="@item.ID">@item.NAME</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group ">
+                            <label>SMS Content</label>
+                            <textarea name="SMS_CONTENT" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                            <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="form-group ">
+                            <label>Email Content</label>
+                            <textarea name="EMAIL_CONTENT" required class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                            <!-- <span class="help-block warning">* User Name Already Exist</span> -->
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-success pull-right">Add Communication Details</button>
+                        </div>
+                    </form>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Communication Details List</h4>
+                </div>
+                <div class="modal-body">
+                   <table class="table">
+                       <tr>
+                           <td>Name:</td>
+                           <td><span id="NAME"></span></td>
+                       </tr>
+                       <tr>
+                           <td>File no:</td>
+                           <td><span id="RNO"></span></td>
+                       </tr>
+                       <tr>
+                           <td>Mobile:</td>
+                           <td><span id="MOBILE"></span></td>
+                       </tr>
+                       <tr>
+                           <td>Sms content:</td>
+                           <td><span id="SMSCONTENT"></span></td>
+                       </tr>
+                       <tr>
+                           <td>TO:</td>
+                           <td><span id="TO"></span></td>
+                       </tr>
+                       <tr>
+                           <td>CC:</td>
+                           <td><span id="CC"></span></td>
+                       </tr>
+                       <tr>
+                           <td>BCC:</td>
+                           <td><span id="BCC"></span></td>
+                       </tr>
+                       <tr>
+                           <td>Subject:</td>
+                           <td><span id="SUBJECT"></span></td>
+                       </tr>
+                       <tr>
+                           <td>Body:</td>
+                           <td><span id="BODY"></span></td>
+                       </tr>
+                       <tr>
+                           <td>Emial Content:</td>
+                           <td><span id="EMAILCONTENT"></span></td>
+                       </tr>
+                       <tr>
+                           <td>Sent date:</td>
+                           <td><span id="DATE"></span></td>
+                       </tr>
+                   </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Communications List</h3>
+            <span style="padding:830px" >
+                
+               
+            </span>
+        </div> 
+        <!-- /.box-header -->
+        <div class="box-body" style="overflow-x: scroll;">
+            <table id="fileTable" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="fileTable_info">
+                <thead>
+                    <tr>
+                        <th>SR_No</th>
+                        <th>Agent</th>
+                        <th>File_No</th>
+                        <th>Mobile no</th>
+                        <th>SMS Content</th>
+                        @*<th>Email</th>    
+                        <th>Subject</th>
+                        <th>Body</th>*@                   
+                        <th>Email Content</th>                                               
+                        <th>Sent_Date</th>                
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int i = 1;}
+                    @foreach (var item in ViewBag.communications)
+                    {
+                        <tr>
+                            <td>
+                                <span>@i</span>
+                                @*<span class="hidden" id="AID_@item.ID">@item.A_ID</span>*@                                
+                            </td>
+                            <td id="name_@item.ID">
+                                <a href="" onclick="OpenDialog(@item.ID)" data-toggle="modal" data-target="#myModal1">  @item.agent_master.NAME</a>
+                                
+                            </td>
+                            <td id="Rno_@item.ID">
+                                @item.file.R_NO
+                            </td>
+                            <td id="mobile_@item.ID">@item.MOBILE_NO</td>
+                            <td id="SMSCONTENT_@item.ID">@Html.Raw(item.SMS_CONTENT)</td>
+                            @*<td>
+                                @if(item.TO != null) { 
+                                <span id="to_@item.ID">TO : @item.TO </span><br />}
+                                @if(item.CC != null) { 
+                                <span id="cc_@item.ID">CC : @item.CC </span><br />}
+                                @if(item.BCC != null) { 
+                                <span id="bcc_@item.ID">BCC : @item.BCC</span>}
+                            </td>*@
+                            @*<td id="subject_@item.ID">@item.SUBJECT</td>
+                            <td id="body_@item.ID">@Html.Raw(@item.BODY)</td>*@
+                            <td>
+                                <span  id="EMAILCONTENT_@item.ID"> @Html.Raw(item.EMAIL_CONTENT)</span>
+                                <span class="hidden" id="to_@item.ID">
+                                    @if (item.TO != null && item.TO != "")
+                                    {
+                                        <span id="to_@item.ID">@item.TO </span><br />
+                                    }
+                                </span>
+                                <span class="hidden" id="cc_@item.ID">
+                                    @if (item.CC != null && item.CC != "")
+                                    {
+                                        <span id="cc_@item.ID"> @item.CC </span><br />
+                                    }
+                                </span><br />
+                                <span class="hidden" id="bcc_@item.ID">
+                                    @if (item.BCC != null && item.BCC != "")
+                                    {
+                                        <span id="bcc_@item.ID">@item.BCC</span>
+                                    }
+                                </span>
+                                <span class="hidden" id="subject_@item.ID">@item.SUBJECT</span>
+                                <span class="hidden" id="body_@item.ID">@item.BODY</span>
+                            </td>
+                            <td id="entdate_@item.ID">
+                               @item.ENT_DATE.ToString("dd/MM/yyyy")
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                   
+                </tbody>   
+            </table>
+        </div>
+    </div>    
+</section>
+<script>
+    function OpenDialog(id) {
+        var name = $('#name_' + id).text();
+        var Rno = $('#Rno_' + id).text();
+        var mobile = $('#mobile_' + id).text();
+        var smscontent = $('#SMSCONTENT_' + id).text();
+        var to = $('#to_' + id).text();
+        var cc = $('#cc_' + id).text();
+        var bcc = $('#bcc_' + id).text();
+        var subject = $('#subject_' + id).text();
+        var body = $('#body_' + id).text();
+        var emailcontent = $('#EMAILCONTENT_' + id).text();
+        var enddate = $('#entdate_' + id).text();
+
+        $('#NAME').text(name);
+        $('#RNO').text(Rno);
+        $('#MOBILE').text(mobile);
+        $('#SMSCONTENT').text(smscontent);
+        $('#TO').text(to);
+        $('#CC').text(cc);
+        $('#BCC').text(bcc);
+        $('#SUBJECT').text(subject);
+        $('#BODY').html(body);
+        $('#EMAILCONTENT').text(emailcontent);
+        $('#DATE').text(enddate);
+    }
+</script>

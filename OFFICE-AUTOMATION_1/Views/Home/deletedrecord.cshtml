@@ -1,0 +1,586 @@
+﻿
+@{
+    ViewBag.Title = "deletedrecord";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="content">
+
+    <!--Agent table start-->
+    <div class="box">
+        <div class="box-header">
+            <span class="fa fa-caret-down" data-toggle="collapse" data-target="#demo1"></span><h3 class="box-title">Agents List</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body collapse in" id="demo1" style="overflow-x: scroll;">
+            <table id="fileTable1" class="table table-bordered table-striped dataTable fileTable" role="grid" aria-describedby="fileTable_info">
+                <thead>
+                    <tr>
+                        <th>SR_No</th>
+                        <th>Agent Name</th>                        
+                        <th>Address</th>
+                        <th>Mobile No</th>
+                        <th>Landline No</th>
+                        <th>Email</th>
+                        <th>Is Active</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int a = 1;}
+                    @foreach (var item in ViewBag.agent)
+                    {
+                        <tr id="row1_@item.ID">
+
+                            <td>
+                                <span>@a</span>
+                            </td>
+                            <td id="NAME_@item.ID">
+                                @item.NAME
+                            </td>                         
+
+                            <td id="ADDRESS_@item.ID">
+                                @item.ADDRESS
+                            </td>
+                            <td id="MOBILE1_@item.ID">
+                                @item.MOBILE1
+                            </td>
+                            <td id="MOBILE2_@item.ID">
+                                @item.MOBILE2
+                            </td>
+                            <td id="EMAIL_@item.ID">
+                                @item.EMAIL
+                            </td>
+                            <td id="IS_ACTIVE_@item.ID">
+                                @if (item.IS_ACTIVE == true)
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </td>
+
+                            <td>
+                                <a class="hide_me" onclick="Delete(@item.ID,'d_agent')"> Recover </a>
+                                <a class="hide_me" onclick="Delete1(@item.ID,'d_agent')"> Delete </a>
+                            </td>
+                        </tr>
+                        a++;
+                    }
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+    <!--Agent table end-->
+    <!--Employee table start-->
+    <div class="box">
+        <div class="box-header">
+            <span class="fa fa-caret-down" data-toggle="collapse" data-target="#demo3"></span> <h3 class="box-title">Employee List</h3>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body collapse" id="demo3" style="overflow-x: scroll;">
+
+            <table id="fileTable2" class="table table-bordered table-striped dataTable fileTable" role="grid" aria-describedby="fileTable_info">
+                <thead>
+                    <tr>
+                        
+                        <th>SR_No</th>
+                        <th>Employee Name</th>
+                        <th>Files</th>
+                        
+                        <th> Mobile No</th>
+                       
+                        <th> Email</th>
+                        
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int b = 1;}
+                    @foreach (var item in ViewBag.employee)
+                    {
+                        <tr id="row2_@item.ID">
+                        
+                            <td>
+                                <span>@b</span>
+                                <span class="hidden" id="PROOF_@item.ID">@item.ID_PROOF</span>
+                            </td>
+                            <td id="NAME_@item.ID">
+                                @item.NAME
+                            </td>
+                            <td>@item.files.Count</td>                         
+                         
+                            <td id="MOBILE1_@item.ID">
+                                @item.MOBILE1
+                            </td>                           
+                            <td id="EMAIL_@item.ID">
+                                @item.EMAIL
+                            </td>                         
+                            <td>
+                                <a class="hide_me"  onclick="Delete(@item.ID,'d_employee')"> Recover </a>
+                                <a class="hide_me" onclick="Delete1(@item.ID,'d_employee')"> Delete </a>
+                            </td>
+                        </tr>
+                        b++;
+                    }
+                </tbody>
+              
+            </table>
+        </div>
+    </div>
+    <!--Employee table end-->
+    <!--Notification table start-->
+    <div class="box">
+        <div class="box-header">
+            <span class="fa fa-caret-down" data-toggle="collapse" data-target="#demo4"></span><h3 class="box-title">Notification List</h3>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body collapse" id="demo4" style="overflow-x: scroll;">
+
+            <table id="fileTable3" class="table table-bordered table-striped dataTable fileTable" role="grid" aria-describedby="fileTable_info">
+                <thead>
+                    <tr>
+                        <th>SR_No</th>
+                        <th>File_No</th>
+                        <th>Message</th>
+                        <th>User_Name</th>
+                        <th>Date</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int c = 1;}
+                    @foreach (var item in ViewBag.notification)
+                    {
+                        <tr id="row3_@item.ID">
+                            <td>
+                                <span>@c</span>
+                            </td>
+                            <td>
+                                @item.file.R_NO
+                            </td>
+                            <td id="MESSAGE_@item.ID">
+                                @item.MESSAGE
+                            </td>
+                            <td>
+                                @item.employee_master.NAME
+                                <span class="hidden" id="NID_@item.ID">@item.EMP_ID</span>
+                            </td>
+                            <td>
+                                @item.ENT_DATE.ToString("dd/MM/yyyy")
+                            </td>
+
+                            <td>
+                                <a class="hide_me" onclick="Delete(@item.ID,'d_noti')"> Recover </a>
+                                <a class="hide_me" onclick="Delete1(@item.ID,'d_noti')"> Delete </a>
+                            </td>
+                        </tr>
+                        c++;
+                    }
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+    <!--Notification table end-->
+    <!--Publicnotice table start-->
+
+    <div class="box">
+        <div class="box-header">
+            <span class="fa fa-caret-down" data-toggle="collapse" data-target="#demo5"></span>  <h3 class="box-title">Public Notice List</h3>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body collapse" id="demo5" style="overflow-x: scroll;">
+
+            <table id="fileTable4" class="table table-bordered table-striped dataTable fileTable" role="grid" aria-describedby="fileTable_info">
+                <thead>
+                    <tr>
+                        <th>SR_No</th>
+                        <th>File Number</th>
+                        <th>Issue Date</th>
+                        <th>Remider Date</th>
+                        <th>Image</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int d = 1;}
+                    @foreach (var item in ViewBag.publicnotice)
+                    {
+                        <tr id="row4_@item.ID">
+                            <td>
+                                <span>@d</span>
+                            </td>
+                            <td>
+                                @item.file.R_NO
+                                <span class="hidden" id="F_ID_@item.ID">@item.FILE_ID</span>
+                            </td>
+                            <td id="ISSUED_DATE_@item.ID">
+
+                                @if (item.ISSUED_DATE != null)
+                                {
+                                    @item.ISSUED_DATE.ToString("dd/MM/yyyy")
+                                }
+                                else
+                                {
+                                    @item.ISSUED_DATE
+                                }
+
+                            </td>
+                            <td id="REMINDER_DATE_@item.ID">
+                                @if (item.REMINDER_DATE != null)
+                                {
+                                    @item.REMINDER_DATE.ToString("dd/MM/yyyy")
+                                }
+                                else
+                                {
+                                    @item.REMINDER_DATE
+                                }
+                            </td>
+                            <td id="IMAGE_PATH_@item.ID">
+                                <a href="~/Images/@item.IMAGE_PATH" data-lightbox="image-1" data-title="Image Title">@item.IMAGE_PATH</a>
+                            </td>
+                            <td>
+                                <a class="hide_me" onclick="Delete(@item.ID,'d_p_notice')"> Recover </a>
+                                <a class="hide_me" onclick="Delete1(@item.ID,'d_p_notice')"> Delete </a>
+                            </td>
+                        </tr>
+                        d++;
+                    }
+                </tbody>
+               
+            </table>
+        </div>
+    </div>
+
+    <!--Publicnotice table end-->
+
+    <div class="box">
+        <div class="box-header">
+            <span class="fa fa-caret-down" data-toggle="collapse" data-target="#demo6"></span> <h3 class="box-title">Query List</h3>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body collapse" id="demo6" style="overflow-x: scroll;">
+
+            <table id="fileTable5" class="table table-bordered table-striped dataTable fileTable" role="grid" aria-describedby="fileTable_info">
+                <thead>
+                    <tr>
+                        <th>SR_No</th>
+                        <th>File_No</th>
+                        <th>Agent</th>
+                        <th>Query</th>
+                        <th>OV</th>
+                        <th>LOD</th>
+                        <th>Is_resolve</th>
+                        
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int e = 1;}
+                    @foreach (var item in ViewBag.queryes)
+                    {
+                        <tr id="row5_@item.ID">
+                            <td>
+                              <span>@e</span>
+                            </td>
+                            <td>
+                                @item.file.R_NO
+                                <span class="hidden" id="FILE_ID_@item.ID">@item.FILE_ID</span>
+                            </td>
+                            <td>
+                                @item.agent_master.NAME
+                                <span class="hidden" id="SENT_@item.ID">@item.SENT_TO</span>
+                            </td>
+                            <td id="QUERY_REMARK_@item.ID">
+                                @item.QUERY_REMARK
+                            </td>
+                            <td id="OV_@item.ID">
+                                @item.OV
+                            </td>
+
+                            <td id="LOD_@item.ID">
+                                @item.LOD
+
+                            </td>
+
+                            <td id="IS_RESOLVE_@item.ID">
+
+                                @if (item.IS_RESOLVE == true)
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </td>
+                            
+                            <td>
+                                <a class="hide_me" onclick="Delete(@item.ID,'d_query')"> Recover </a>
+                                <a class="hide_me" onclick="Delete1(@item.ID,'d_query')"> Delete </a>
+                            </td>
+                        </tr>
+                        e++;
+                    }
+                </tbody>
+                
+            </table>
+        </div>
+    </div>
+
+  
+
+
+    <div class="box">
+        <div class="box-header">
+            <span class="fa fa-caret-down" data-toggle="collapse" data-target="#demo8"></span>  <h3 class="box-title">Bank List</h3>
+
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body collapse" id="demo8" style="overflow-x: scroll;">
+
+            <table id="fileTable7" class="table table-bordered table-striped dataTable fileTable" role="grid" aria-describedby="fileTable_info">
+                <thead>
+                    <tr>
+                       
+                        <th>SR_No</th>
+                        <th>Bank Name</th>
+                        <th>Particular</th>
+                        <th>Bank Address</th>
+                        <th>Mobile no</th>
+                        <th>No Of Year</th>
+                        <th>Fees</th>
+                        <th>Is Active</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int g = 1;}
+                    @foreach (var item in ViewBag.bank)
+                    {
+                        <tr id="row7_@item.ID">
+                           
+                            <td>
+                                <span>@g</span>
+                            </td>
+                            <td id="NAME_@item.ID">
+                                @item.NAME
+                            </td>
+                            <td id="PARTICULAR_@item.ID">
+                                @item.PARTICULAR
+                            </td>
+                            <td id="ADDRESS_@item.ID">
+                                @item.ADDRESS
+                            </td>
+                            <td id="MOBILE_@item.ID">
+                                @item.MOBILE
+                            </td>
+
+                            <td id="NO_OF_YEAR_@item.ID">
+                                @item.NO_OF_YEAR
+                            </td>
+
+                            <td id="FEES_@item.ID">
+                                @item.FEES
+                            </td>
+                            <td id="IS_ACTIVE_@item.ID">
+                                @if (item.IS_ACTIVE == true)
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </td>
+                            <td>
+                                <a class="hide_me" onclick="Delete(@item.ID,'d_bank')"> Recover </a>
+                                <a class="hide_me" onclick="Delete1(@item.ID,'d_bank')"> Delete </a>
+                            </td>
+                        </tr>
+                        g++;
+                    }
+                </tbody>
+               
+
+            </table>
+        </div>
+    </div>
+
+    <div class="box">
+        <div class="box-header">
+            <span class="fa fa-caret-down" data-toggle="collapse" data-target="#demo9"></span> <h3 class="box-title">Files List</h3>
+            @*<a  data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary" style="float: right;">Add New File</a>*@
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body collapse" id="demo9" style="overflow-x: scroll;">
+
+            <table id="fileTable1" class="table table-bordered table-striped fileTable">
+
+                <thead>
+                    <tr>
+                        <th>SR_No</th>
+                        <th>
+                           File_No
+                        </th>
+                        <th>
+                            BankName
+                        </th>
+                        <th>
+                            AgentName
+                        </th>        
+                        <th>
+                            Property
+                        </th>                
+                        <th>Inward_Date</th>
+
+                        <th>Assign_To</th>
+
+                        <th>Is_Paid</th>
+
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int h = 1;}
+                    @foreach (var item in ViewBag.files)
+                    {
+                        <tr id="row_@item.ID">
+                            <td>
+                                <span>@h</span>
+                            </td>
+                            <td>
+                                @item.R_NO                                
+                            </td>
+                            <td>
+                                @item.bank_master.NAME
+                                <span class="hidden" id="B_ID_@item.ID">@item.B_ID</span>
+                            </td>
+                            <td>
+                                @if (item.agent_master.NAME == null)
+                                {
+                                    <span>-</span>
+                                }
+                                else
+                                {
+                                    @item.agent_master.NAME
+                                }
+                            </td>
+                            <td>
+                                @item.PROPERTY_DETAILS
+                            </td>
+                            <td id="INWARD_DATE_@item.ID">
+                                @item.INWARD_DATE.ToString("dd/MM/yyyy")
+                            </td>
+
+                            <td>
+                                @item.employee_master.NAME
+                                <span class="hidden" id="ASSIGN_TO_@item.ID">@item.ASSIGN_TO</span>
+                            </td>
+
+                            <td id="IS_PAID_@item.ID">
+
+                                @if (item.IS_PAID == true)
+                                {
+                                    <span>Yes</span>
+                                }
+                                else
+                                {
+                                    <span>No</span>
+                                }
+                            </td>
+
+                            <td>
+                                <a class="hide_me" onclick="Delete(@item.ID,'d_file')"> Recover </a>
+                                <a class="hide_me" onclick="Delete1(@item.ID,'d_file')"> Delete </a>
+                            </td>
+
+                        </tr>
+                        h++;
+                    }
+                </tbody>
+            </table>           
+        </div>
+    </div>
+</section>
+
+
+<script>
+    function Delete(id,del)
+    {
+        if (confirm("Are you sure Recover this data ?")) {  
+            var deletes =
+               {
+                   ID : id,
+                   values : del,
+               }
+            {
+                $.ajax({
+                    url: '/Recoverd/',
+                    data: JSON.stringify(deletes),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        $('#row_'+id).hide();
+                        $('#row1_'+id).hide();
+                        $('#row2_'+id).hide();
+                        $('#row3_'+id).hide();
+                        $('#row4_'+id).hide();
+                        $('#row5_'+id).hide();
+                        $('#row6_'+id).hide();
+                        $('#row7_'+id).hide();
+                        $('#row8_'+id).hide();                    
+                    }
+                });
+            }
+        }
+        return false;
+    }
+</script>
+
+
+
+<script>
+    function Delete1(id,del)
+    {
+        if (confirm("Are you sure ?")) {  
+            var deletes =
+               {
+                   ID : id,
+                   values : del,
+               }
+            {
+                $.ajax({
+                    url: '/isdelete/',
+                    data: JSON.stringify(deletes),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result) {
+                        $('#row_'+id).hide();
+                        $('#row1_'+id).hide();
+                        $('#row2_'+id).hide();
+                        $('#row3_'+id).hide();
+                        $('#row4_'+id).hide();
+                        $('#row5_'+id).hide();
+                        $('#row6_'+id).hide();
+                        $('#row7_'+id).hide();
+                        $('#row8_'+id).hide();
+                    }
+                });
+            }
+        }
+        return false;
+    }
+</script>
+
+    

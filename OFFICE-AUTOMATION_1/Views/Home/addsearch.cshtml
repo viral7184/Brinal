@@ -1,0 +1,206 @@
+﻿
+@{
+    ViewBag.Title = "Addsearch";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Add Search</h3>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+
+           
+                            <!-- /.box-header -->
+            <form role="form" method="post">
+                <div class="row">
+                    <div class="col-sm-6">
+
+                        <div class="form-group">
+                            <label>Date:</label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" name="ENT_DATE" class="form-control pull-right" id="datepicker2">
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label><span class="error"> *</span> File</label>
+                            <select name="FILE_ID" id="FILE_ID" class="form-control select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                @foreach (var item in ViewBag.files)
+                                {
+                                   <option value="@item.ID">@item.ID</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>District<span class="error"> * </span></label>
+
+                            <select name="VILLAGE1" id="dist" onchange="FillCity()" class="form-control select2" style="width: 100%">
+                                <option selected value="0">Select District</option>
+                                @foreach (var item in ViewBag.District)
+                                {
+                                    <option value="@item.ID">@item.VILLAGE</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Sub-District<span class="error"> * </span></label>
+
+                            <select name="SUBDIST" id="sub_dist" onchange="Fillvillage()" class="form-control select2" style="width: 100%">
+                                <option selected value="0">Select Sub dist</option>
+                                @*@foreach (var item in ViewBag.citys)
+                                {
+                                    <option value="@item.ID">@item.VILLAGE</option>
+                                }*@
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Village<span class="error"> * </span></label>
+
+                            <select name="VILLAGE" id="village" class="form-control select2" style="width: 100%">
+                                <option selected value="0">Select villages</option>
+                                @*@foreach (var item in ViewBag.villages)
+                                {
+                                    <option value="@item.ID">@item.VILLAGE</option>
+                                }*@
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <label>Area Search</label>
+                <div class="row" style="margin-bottom: 20px">
+                    <div class="col-sm-4">
+                        <label for="">A Block No</label>
+                        <input type="text" name="A_BLOCK_NO" value="@Model.A_BLOCK_NO" class="form-control" placeholder="Enter Block No">
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="">A Revenue Servey No</label>
+                        <input type="text" name="A_REVENUE_SURVEY_NUM" value="@Model.A_REVENUE_SURVEY_NUM" class="form-control" placeholder="Enter Revenue Serway No">
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="">A Flat No</label>
+                        <input type="text" name="A_PLOT_FLAT_NUM" value="@Model.A_PLOT_FLAT_NUM" class="form-control" placeholder="Enter Flat No">
+                    </div>
+                </div>
+
+
+                <label>7/12</label>
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col-sm-4">
+                        <label for="">Block No</label>
+                        <input type="text" name="S_BLOCK_NO" value="@Model.S_BLOCK_NO" class="form-control" placeholder="Enter Block No">
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="">Revenue Serway No</label>
+                        <input type="text" name="S_REVENUE_SURVEY_NUM" value="@Model.S_REVENUE_SURVEY_NUM" class="form-control" placeholder="Enter Revenue Serway No">
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="">Flat No</label>
+                        <input type="text" name="S_PLOT_FLAT_NUM" value="@Model.S_PLOT_FLAT_NUM" class="form-control" placeholder="Enter Flat No">
+                    </div>
+                </div>                
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <label>NEC</label>
+                            <input type="text" name="NEC" class="form-control" placeholder="Enter NEC">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <!-- text input -->
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>Rs.</label>
+                            <input type="number" name="SEARCH_FEES" class="form-control" placeholder="Enter Rs.">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group ">
+                            <label>No of year</label>
+                            <input type="number" name="NO_OF_YEAR" class="form-control" placeholder="Enter no of year.">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <label>Receiver Name</label>
+                            <select name="RECEIVER" id="RECEIVER" class="form-control select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                              <option>Select Receiver</option>
+                            </select>
+                        </div>
+                        <!-- text input -->
+                    </div>
+                </div>                      
+                        
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-success pull-right">Add File Details</button>
+                        </div>
+                     </form>
+
+                           
+                        </div>
+    </div>
+    </section>
+
+@*<script>
+    $("#VILLAGE").change(function () {
+        //alert($('#agent_id').val());
+        $.ajax({
+            type: "get",
+            url: "/loadvillage",
+            data: { ID: $('#VILLAGE').val() },
+            datatype: "Json",
+            success: function (data) {
+
+                $('#DID').val(data.data.ID);
+                $('#dist_id').val(data.data.GEONAME);
+
+            }, error: function (xhr, textStatus, errorThrown) {
+                alert(xhr.responseText);
+            }
+        })
+    });
+</script>
+<script>
+    $("#VILLAGE2").change(function () {
+        $.ajax({
+            type: "get",
+            url: "/loadvillage",
+            data: { ID: $('#VILLAGE2').val() },
+            datatype: "Json",
+            success: function (data) {
+                $('#DID2').val(data.data.ID);
+                //alert(data.data.GEONAME);
+                var dt = data.data.ID;
+                $('#dist_id2 option[value=' + dt + ']').attr("selected", "selected");
+            }, error: function (xhr, textStatus, errorThrown) {
+                alert(xhr.responseText);
+            }
+        })
+    });
+</script>*@
+
+

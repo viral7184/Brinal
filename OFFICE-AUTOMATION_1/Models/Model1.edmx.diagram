@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="27ccec3a37a94095b006c6ceda4360c1" Name="Diagram1">
+        <EntityTypeShape EntityType="brinaladv_dbsModel.agent_master" Width="1.5" PointX="3.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="brinaladv_dbsModel.bank_master" Width="1.5" PointX="3.75" PointY="15.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="brinaladv_dbsModel.BILL" Width="1.5" PointX="8.25" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="brinaladv_dbsModel.city_master" Width="1.5" PointX="3.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="brinaladv_dbsModel.communication" Width="1.5" PointX="11.25" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="brinaladv_dbsModel.configuration" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="brinaladv_dbsModel.emp_roll_master" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="brinaladv_dbsModel.employee_master" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="brinaladv_dbsModel.file" Width="1.5" PointX="6" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="brinaladv_dbsModel.INFORMATION" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="brinaladv_dbsModel.notification" Width="1.5" PointX="8.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="brinaladv_dbsModel.propertity_details" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="brinaladv_dbsModel.public_notice" Width="1.5" PointX="8.25" PointY="24.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="brinaladv_dbsModel.query" Width="1.5" PointX="8.25" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="brinaladv_dbsModel.TEMPLATE" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_communication_agent_master" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_files_agent_master" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_query_agent_master" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_BILL_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_files_bank_master" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_BILL_ToTable_1" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_files_geo_master" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_files_ToTable_1" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_files_ToTable_2" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_communication_files" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_emp_roll_master_employee_master" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_files_employee_master" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_files_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_notification_emp_roll_master" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_notification_files" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_public_notice_files" ManuallyRouted="false" />
+        <AssociationConnector Association="brinaladv_dbsModel.FK_query_files" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

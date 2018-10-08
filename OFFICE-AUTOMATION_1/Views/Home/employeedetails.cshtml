@@ -1,0 +1,123 @@
+﻿@model OFFICE_AUTOMATION_1.Models.employee_master
+
+@{
+    ViewBag.Title = "employeedetails";
+}
+
+    <section class="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="box">
+
+
+                    <div class="box-body box-detail">
+                        <p class="file-title"><strong>Employee Details </strong></p>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6" style="padling-left: 40px">
+                                <dl class="dl-horizontal">
+                                    
+                                    <dt>
+                                       
+                                    </dt>
+
+                                    <dl>
+
+                                        <img class="img-responsive" style="max-height: 150px" src="~/Images/@Model.FILE_NAME"/>
+                                    </dl>
+                                    
+                                    <dt>
+                                        NAME
+                                    </dt>
+
+                                    <dl>
+                                        @if (Model.NAME == null)
+                                    {
+                                        <span>-</span>
+                                    }    @Html.DisplayFor(model => model.NAME)
+                                </dl>
+
+                                    <dt>
+                                        AdlRESS1
+                                    </dt>
+
+                                    <dl>
+                                        @if (Model.ADDRESS1 == null)
+                                        {
+                                            <span>-</span>
+                                        } 
+                                        @Html.DisplayFor(model => model.ADDRESS1)
+                                    </dl>
+
+                                    <dt>
+                                        AdlRESS2
+                                    </dt>
+
+                                    <dl>
+                                        @if (Model.ADDRESS2 == null)
+                                        {
+                                            <span>-</span>
+                                        } 
+                                        @Html.DisplayFor(model => model.ADDRESS2)
+                                    </dl>
+
+                                    <dt>
+                                        MOBILE1
+                                    </dt>
+
+                                    <dl>
+                                        @if (Model.MOBILE1 == null)
+                                        {
+                                            <span>-</span>
+                                        } 
+                                        @Html.DisplayFor(model => model.MOBILE1)
+                                    </dl>
+
+                                    <dt>
+                                        MOBILE2
+                                    </dt>
+
+                                    <dl>
+                                        @if (Model.MOBILE2 == null)
+                                        {
+                                            <span>-</span>
+                                        } 
+                                        @Html.DisplayFor(model => model.MOBILE2)
+                                    </dl>
+
+                                    <dt>
+                                        EMAIL
+                                    </dt>
+
+                                    <dl>
+                                        @if (Model.EMAIL == null)
+                                    {
+                                        <span>-</span>
+                                    }
+                                    
+                                        @Html.DisplayFor(model => model.EMAIL)
+                                    </dl>
+                                  
+                                    <dt>
+                                        ID_PROOF
+                                    </dt>
+
+                                    <dl>
+                                        @if (Model.ID_PROOF == null)
+                                    {
+                                        <span>-</span>
+                                    }
+                                    
+                                        @Html.DisplayFor(model => model.ID_PROOF)
+                                    </dl>
+
+                                   
+
+                                </dl>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>       
+</section>

@@ -1,0 +1,243 @@
+﻿
+@{
+    ViewBag.Title = "PublicNotice";
+}
+
+    <!-- Content Header (Page header) -->
+
+    <!-- Main content -->
+    <section class="content">
+    <div class="alert alert-success alert-dismissible" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="icon fa fa-check"></i> Alert!</h4> Public Notice is added successfully
+    </div>
+    <div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Public notice</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- /.box-header -->
+                    <form role="form" method="post" enctype="multipart/form-data">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label>File Name<span class="error"> * </span></label>
+                            <select name="FILE_ID" class="form-control select2" dir="ltr" style="width: 100%;" tabindex="-1" aria-hidden="true">
+                                @foreach (var item in ViewBag.files)
+                                {
+                                    <option value="@item.ID">@item.R_NO</option>
+                                }
+                            </select>
+                        </div>
+                        <!-- text input -->
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <label>Issue Date</label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" name="ISSUED_DATE"  autocomplete="off" class="form-control pull-right" id="datepicker2">
+                            </div>
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <!-- text input -->
+                        <!-- text input -->
+
+                        <div class="form-group ">
+                            <label>Reminder after days</label>
+                            <input type="number" name="DAYS" class="form-control" placeholder="Enter days">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label for="exampleInputFile">Image upload</label>
+                            <input type="file" name="IMAGE_PATH">
+
+                        </div>
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-success pull-right">Add public Notice</button>
+                        </div>
+                    </form>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Public notice</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- /.box-header -->
+                    <form method="post" enctype="multipart/form-data">
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label>File Name<span class="error"> * </span></label>
+                            <select name="FILE_ID" id="FILE_ID" disabled class="form-control select2-container select2-container--default" dir="ltr" style="width: 100%;">
+                                @foreach (var item in ViewBag.files)
+                                {
+                                    <option value="@item.ID">@item.ID</option>
+                                }
+                            </select>
+                        </div>
+                        <!-- text input -->
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <label>Issue Date</label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" name="ISSUED_DATE" class="form-control pull-right" id="datepicker">
+                            </div>
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <label>Reminder after days</label>
+                            <input type="number" name="DAYS" class="form-control" placeholder="Enter days">
+                            <!-- <span class="help-block error">* User Name Already Exist</span> -->
+                        </div>
+                        <!-- text input -->
+                        <div class="form-group">
+                            <label for="exampleInputFile">Image upload</label>
+                            <input type="file" name="IMAGE_PATH" id="files">
+                        </div>
+                        <div class="box-footer">
+                            <input type="hidden" id="hdnid" name="ID" />
+                            <input type="submit" class="btn btn-success pull-right" value="Update public Notice" />
+                        </div>
+                    </form>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Info boxes -->
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Public Notices List</h3>
+            <a href="" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary" style="float: right;">Add Public Notice</a>
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body">
+            <table id="fileTable" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="fileTable_info">
+                <thead>
+                    <tr>
+                        <th>SR_No</th>
+                        <th>File_No</th>
+                        <th>Issue_Date</th>
+                        <th>Remider_Date</th>
+                        <th>Word Document</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int i = 1;}
+                    @foreach (var item in ViewBag.public_notice)
+                    {
+                        <tr id="row_@item.ID">
+                            <td>
+                                <span>@i</span>
+                            </td>
+                            <td>
+                                @item.file.R_NO
+                                <span class="hidden" id="FILE_ID_@item.ID">@item.FILE_ID</span>
+                            </td>
+                            <td id="ISSUED_DATE_@item.ID">
+                                @if (item.ISSUED_DATE != null)
+                                {
+                                    @item.ISSUED_DATE.ToString("dd/MM/yyyy")
+                                }
+                            </td>
+                            <td id="REMINDER_DATE_@item.ID">
+                                @if (item.REMINDER_DATE != null)
+                                {
+                                    @item.REMINDER_DATE.ToString("dd/MM/yyyy")
+                                }
+                            </td>
+                            <td id="IMAGE_PATH_@item.ID">
+                                @*<a href="~/Images/@item.IMAGE_PATH" data-lightbox="image-1">
+                                    @item.IMAGE_PATH
+                                </a>*@
+                                @item.IMAGE_PATH
+                            </td>
+                            <td>
+                                @*<a href="" onclick="OpenDialog(@item.ID)" data-toggle="modal" data-target="#myModal1" type="button">&nbsp; <i class="fa fa-edit"></i></a>*@
+                                <a style="display:inline" class="hide_me" onclick="Delete(@item.ID,'del')"> &nbsp; <i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+<script>
+    function OpenDialog(id) {
+            var file = $('#FILE_ID_' +id).text().trim();
+            var issued = $('#ISSUED_DATE_' + id).text().trim();
+            var reminder = $('#REMINDER_DATE_' + id).text().trim();
+
+            $('#FILE_ID').val(file);
+            $('#datepicker').val(issued);
+            $('#REMINDER_DATE').val(reminder);   
+            $('#hdnid').val(id);
+        }
+</script>
+<script>
+    function OpenDialog(id) {
+        var emp =
+                   {
+                       ID : id,
+                   }
+            $.ajax({
+                url: '/getpublicnotice/' + id,
+                type: 'GET',
+                success: function (data) {
+                    $('#hdnid').val(data.data.ID);
+                    $('#FILE_ID').val(data.data.FILE_ID);
+                    var dt = data.data.ISSUED_DATE;
+                    var d = dt.replace('/Date(', '');
+                    var t = d.replace(')/', data.data.ISSUED_DATE);
+                    alert(t);
+                    var myDate1 = Date(parseInt(dt));                   
+                    $('#datepicker').val(myDate1);
+                    alert(myDate1);
+                    $('#REMINDER_DATE').val(data.data.REMINDER_DATE);
+                }
+            });
+        }
+</script>
+<script>
+    function Delete(id,del)
+    {
+        if (confirm("Are you sure?")) {  
+            var deletes =
+               {
+                   ID : id,
+                   pn_del : del,
+               }
+            {        
+                $.ajax({
+                    url: '/delete/',
+                    data: JSON.stringify(deletes),
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (result) {                 
+                        $('#row_'+id).hide();
+                    }                    
+                });            
+            }
+        }
+        return false;
+    }
+</script>
+

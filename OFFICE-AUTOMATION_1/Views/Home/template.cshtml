@@ -1,0 +1,160 @@
+﻿
+@{
+    ViewBag.Title = "template";
+}
+<!--Model 1 start-->
+<section class="content">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Template Detail</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- /.box-header -->
+                    <form method="post" enctype="multipart/form-data">
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <label>Matter</label>
+                            <input type="text" name="MATTER" class="form-control" placeholder="Enter Matter">
+                        </div>
+                        <div class="form-group ">
+                            <label>Description</label>
+                            <input type="text" name="DESCRIPTION" class="form-control" placeholder="Enter Description">
+                        </div>
+                        <div class="form-group ">
+                            <label>Html</label>
+                            <input type="text" name="HTML" class="form-control" placeholder="Enter html">
+                        </div>
+                        <div class="form-group">
+                            <label>Is Active</label>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="IS_ACTIVE" id="R1" value="true" checked>
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="IS_ACTIVE" id="R2" value="false">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                        <div class="box-footer">
+                            <input type="submit" value="Add Template Details" class="btn btn-success pull-right" />
+                        </div>
+                    </form>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Model 1 End-->
+    <!--Model 2 start-->
+    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Edit Template Detail</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- /.box-header -->
+                    <form method="post">
+                        <!-- text input -->
+                        <div class="form-group ">
+                            <label>Matter</label>
+                            <input type="text" name="MATTER" id="MATTER" class="form-control" placeholder="Enter Matter">
+                        </div>
+                        <div class="form-group ">
+                            <label>Description</label>
+                            <input type="text" name="DESCRIPTION" id="DESCRIPTION" class="form-control" placeholder="Enter Description">
+                        </div>
+                        <div class="form-group ">
+                            <label>Html</label>
+                            <input type="text" name="HTML" id="HTML" class="form-control" placeholder="Enter html">
+                        </div>
+                     
+                        <div class="box-footer">
+                            <input type="hidden" id="ID" name="ID" />
+                            <input type="submit" value="Update Template Details" class="btn btn-success pull-right" />
+                        </div>
+                    </form>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Model 2 End-->
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Templates</h3>
+            @*<a href="" data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary" style="float: right;">Add Template</a>*@
+        </div>
+        <!-- /.box-header -->
+        <div class="box-body" style="overflow-x: scroll;">
+
+            <table id="fileTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>SR_No</th>
+                        <th>Format ID</th>
+                        <th>Bill format</th>
+                        @*<th>Html</th>                        
+                        <th>Action</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int i = 1;}
+                    @foreach (var item in ViewBag.template)
+                    {
+                        <tr>
+                            <td>
+                                <span>@i</span>      
+                            </td>
+                            <td id="MATTER_@item.ID">
+                                @item.MATTER
+                            </td>
+                            <td id="DESCRIPTION_@item.ID">
+                                <a href="~/Images/@item.DESCRIPTION" data-lightbox="image-1" data-title="formatID:@item.MATTER">
+                                    @item.DESCRIPTION
+                                </a>
+                            </td>
+                            @*<td id="HTML_@item.ID">
+                                @item.HTML
+                            </td>
+                            <td>
+                                <a href="" onclick="OpenDialog(@item.ID)" data-toggle="modal" data-target="#myModal1" type="button">&nbsp; <i class="fa fa-edit"></i></a>*@
+                                @*<span class="hide_me">|<a href="">&nbsp; <i class="fa fa-trash"></i></a></span>*@
+                            @*</td>*@
+                        </tr>
+                        i++;
+                    }
+                </tbody>              
+            </table>
+        </div>
+    </div>
+
+</section>
+
+<script>
+    function OpenDialog(id) {
+        var emp =
+                   {
+                       ID : id,
+                   }
+            $.ajax({
+                url: '/gettemplate/' + id,
+                type: 'GET',
+                
+                success: function (data) {
+                    $('#ID').val(data.data.ID);
+                    $('#MATTER').val(data.data.MATTER);
+                    $('#DESCRIPTION').val(data.data.DESCRIPTION);
+                    $('#HTML').val(data.data.HTML);                  
+                }
+            });
+        }
+</script>
